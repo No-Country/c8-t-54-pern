@@ -12,7 +12,6 @@ const db = new Sequelize ({
     database: 'c8-54-pern',
     username: 'postgres',
     password: 'topaarna'
-})
+});
 
-
-module.exports = {db}
+export default db

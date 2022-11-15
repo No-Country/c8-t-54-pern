@@ -2,7 +2,7 @@ const {db} = require('../utils/database.util')
 import { DataTypes } from 'sequelize' 
 
 
-const Cart = db.define('Cart', {
+const columns = {
     status: {
         type: DataTypes.STRING,
         allowNull: false
@@ -19,6 +19,9 @@ const Cart = db.define('Cart', {
     date: {
         type: DataTypes.DATE
     }
-});
+};
+const config = {}
+
+const Cart = db.define('Cart', columns, config);
 
 module.exports = {Cart}

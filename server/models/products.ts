@@ -1,13 +1,14 @@
-const {db} = require('../utils/database.util')
-import { DataTypes } from 'sequelize' 
+import db from '../utils/database.util';
+import { DataTypes } from 'sequelize';
 
- const Product = db.define({
+const columns = {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
-    name: {
+    productName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -23,6 +24,10 @@ import { DataTypes } from 'sequelize'
         type: DataTypes.DECIMAL,
         allowNull: false,
     }
-});
+};
+
+const config = {};
+
+const Product = db.define('Product', columns, config);
 
 module.exports = {Product}

@@ -1,18 +1,18 @@
-import {Sequelize} from 'sequelize'
-import dotenv from 'dotenv'
-import {Database} from '../interfaces/database.interface'
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+import { stringify } from "querystring";
 
-dotenv.config({path: '.config/env'})
+dotenv.config({ path: "./config.env" });
 
-const db = new Sequelize ({
-    host: 'localhost',
-    port: 4321,
-    dialect: 'postgres',
+const db = new Sequelize(
+  "alkemy_nayit_no_country",
+  "alkemy_nayit_db",
+  "nayitNoCountry",
+  {
+    host: process.env.DB_HOST,
+    dialect: "postgres",
     logging: false,
-    database: 'c8-54-pern',
-    username: 'postgres',
-    password: 'topaarna'
-})
+  }
+);
 
-
-module.exports = {db}
+module.exports = { db };

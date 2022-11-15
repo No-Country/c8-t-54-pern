@@ -5,7 +5,7 @@ const startServer = async () => {
   try {
     await db.authenticate();
     await db.sync();
-
+    console.log("Db connected");
     const PORT = 3000;
 
     app.listen(PORT, () => {
@@ -16,4 +16,4 @@ const startServer = async () => {
   }
 };
 
-startServer()
+startServer();

@@ -3,9 +3,8 @@ import { UserInfo } from '../../models/userInfo';
 
 
 export const EmptyUserState: UserInfo = {
-  id: 0,
-  name: '',
-  email: ''
+  username: '',
+  password: ''
 };
 
 

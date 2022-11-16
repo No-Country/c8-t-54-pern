@@ -1,7 +1,8 @@
 import { Response, Request } from "express";
-import * as bcrypt from 'bcrypt'; 
 import { getErrorMessage, reportError } from "../helpers/errorReport";
 //import db from "../models"
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import {User} from "../models/users"
 
 const hashPassword = async (password:string, saltRound:number) => {
@@ -87,5 +88,40 @@ export const deleteUSer = (req: Request, res: Response) => {
     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
     }
+
+
+const login = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const { email, password }: any = req.body;
+
+    const user: { password: string; id: String, dataValues: {} } = await User.findOne({
+      where: { email },
+    });
+
+    if (!User || !(await bcrypt.compare(password, user.password))) {
+      return res.status(404).json({
+        message: "User or password is not correct",
+      });
+    }
+
+    user.password = "undefined"
+
+    // console.log(user.dataValues)
+
+    const token = jwt.sign({ user: user.dataValues }, "secret", { expiresIn: "2h" });
+
+    return res.status(201).json({
+      message: "User access successfully",
+      data: {
+        user,
+        token,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { login };
 
 }

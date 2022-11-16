@@ -13,11 +13,11 @@ const columns = {
         },
         firstName: {
             type: DataTypes.STRING,
-            allowNull: false
+            
         },
         lastName: {
             type: DataTypes.STRING,
-            allowNull: false
+            
         },
         userName: {
             type: DataTypes.STRING,
@@ -25,7 +25,7 @@ const columns = {
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
+            
         },
         phoneNumber: {
             type: DataTypes.INTEGER,
@@ -39,7 +39,6 @@ const columns = {
         },
         userRole: {
              type: DataTypes.STRING,
-             allowNull: false
         }
     };
 

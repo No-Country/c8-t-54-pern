@@ -1,4 +1,4 @@
-import db from '../utils/database.util';
+const {db} = require('../utils/database.util')
 import { DataTypes } from 'sequelize';
 
 const columns = {
@@ -30,4 +30,5 @@ const config = {};
 
 const Product = db.define('Product', columns, config);
 
-module.exports = {Product}
+//module.exports = {Product}
+module.exports =  Product;

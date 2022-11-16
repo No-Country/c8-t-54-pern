@@ -30,4 +30,5 @@ const Order = db.define('Order', columns, config);
 
 Order.associate();
 
-module.exports = {Order};
+//module.exports = {Order};
+module.exports =  Order;

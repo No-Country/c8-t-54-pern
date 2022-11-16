@@ -3,7 +3,10 @@ declare namespace Express {
       user: {
         name: string,
         surname: string,
-        age: number
+        age: number,
+        password: String,
+        id: String,
+        dataValues: {}
       }
      }
   }

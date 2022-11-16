@@ -1,7 +1,6 @@
-import { Response, Request } from "express";
-import { getErrorMessage, reportError } from "../helpers/errorReport";
-//import db from "../models"
-import bcrypt from "bcrypt";
+const { User } = require("../models/users");
+const bcrypt = require  ("bcrypt");
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import {User} from "../models/users"
 
@@ -95,7 +94,8 @@ const login = async (req: Request, res: Response): Promise<any> => {
   try {
     const { email, password }: any = req.body;
 
-    const user: { password: string; id: String, dataValues: {} } = await User.findOne({
+
+    const user = await User.findOne({
       where: { email },
     });
 

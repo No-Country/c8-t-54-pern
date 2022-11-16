@@ -1,7 +1,5 @@
 import { db } from '../utils/database.util';
 import { DataTypes } from 'sequelize' 
-import { User } from './Users';
-import { Product } from './products';
 
 const columns = {
     orderId: {

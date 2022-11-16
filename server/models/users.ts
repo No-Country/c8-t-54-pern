@@ -5,7 +5,7 @@ import { Order } from './Orders';
 
 
 const columns = {
-        userId: {
+        id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false,
@@ -28,7 +28,7 @@ const columns = {
             allowNull: false
         },
         phoneNumber: {
-        type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
         },
         profilePic: {
             type: DataTypes.STRING,

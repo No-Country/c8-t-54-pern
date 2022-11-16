@@ -1,6 +1,5 @@
 import { db } from '../utils/database.util';
 import { DataTypes } from 'sequelize' 
-import { Cart } from './Carts';
 
 const columns = {
     cartId: {

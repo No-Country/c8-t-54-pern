@@ -1,11 +1,11 @@
 import {db} from '../utils/database.util';
 import { DataTypes } from 'sequelize';
 import { User } from './Users';
-import { Product } from './products';
+import { Product } from './Products';
 import { ProductsInOrder } from './ProductsInOrder';
 
 const columns = {
-        orderId: {
+        id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false

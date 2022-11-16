@@ -1,22 +1,22 @@
 import { db } from '../utils/database.util';
 import { DataTypes } from 'sequelize' 
 import { User } from './Users';
-import { Product } from './products';
+import { Product } from './Products';
 import { ProductsInCart } from './ProductsInCart';
 
 
 const columns = {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false
+    },
     status: {
         type: DataTypes.STRING,
         allowNull: false
     },
     totalPrice: {
         type: DataTypes.DECIMAL,
-        allowNull: false
-    },
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
         allowNull: false
     },
     date: {
@@ -28,6 +28,6 @@ const config = {};
 const Cart = db.define('Cart', columns, config);
 
 Cart.belongsTo(User);
-Cart.belongsToMany/* ACA va hasMany? */(Product, { through: ProductsInCart })
+Cart.belongsToMany(Product, { through: ProductsInCart })
 
 export {Cart}

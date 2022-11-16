@@ -8,7 +8,7 @@ import { Order } from './Orders';
 import { ProductsInOrder } from './ProductsInOrder';
 
 const columns = {
-    productId: {
+    id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,

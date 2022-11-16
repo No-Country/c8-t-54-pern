@@ -6,7 +6,8 @@ const columns = {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
     imgUrl: {
         type: DataTypes.STRING,
@@ -24,7 +25,7 @@ const config = {}
 
 const ProductImgs = db.define('ProducstImgs', columns, config);
 
-ProductImgs.belongsTo(Product);
+//ProductImgs.belongsTo(Product);
 
 
 export {ProductImgs};

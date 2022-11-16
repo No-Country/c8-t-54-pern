@@ -53,12 +53,12 @@ const User = db.define('User', columns, config);
 
 // creamos la ralación con la tabla 
 
-User.hasOne(Cart, {
-    foreignKey: 'userId'
-});
+// User.hasOne(Cart, {
+//     foreignKey: 'userId'
+// });
 
-User.hasMany(Order, {
-    foreignKey: "userId"
-});
+// User.hasMany(Order, {
+//     foreignKey: "userId"
+// });
 
 export { User };

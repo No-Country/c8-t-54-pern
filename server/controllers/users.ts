@@ -2,7 +2,7 @@ const { User } = require("../models/users");
 const bcrypt = require  ("bcrypt");
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import {User} from "../models/Users"
+import { getErrorMessage } from "../helpers/errorReport";
 
 const hashPassword = async (password:string, saltRound:number) => {
     const salt = await bcrypt.genSalt(saltRound);

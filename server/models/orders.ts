@@ -1,8 +1,11 @@
-const {db} = require('../utils/database.util');
+import {db} from '../utils/database.util';
 import { DataTypes } from 'sequelize';
+import { User } from './Users';
+import { Product } from './products';
+import { ProductsInOrder } from './ProductsInOrder';
 
 const columns = {
-        id: {
+        orderId: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false
@@ -28,6 +31,8 @@ const config = {
 
 const Order = db.define('Order', columns, config);
 
-Order.associate();
+Order.belongsTo(User);
 
-module.exports = {Order};
+Order.belongsToMany(Product, { through: ProductsInOrder })
+
+export {Order};

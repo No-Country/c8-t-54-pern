@@ -1,5 +1,8 @@
-const {db} = require('../utils/database.util')
+import { db } from '../utils/database.util';
 import { DataTypes } from 'sequelize' 
+import { User } from './Users';
+import { Product } from './products';
+import { ProductsInCart } from './ProductsInCart';
 
 
 const columns = {
@@ -20,8 +23,11 @@ const columns = {
         type: DataTypes.DATE
     }
 };
-const config = {}
+const config = {};
 
 const Cart = db.define('Cart', columns, config);
 
-module.exports = {Cart}
+Cart.belongsTo(User);
+Cart.belongsToMany/* ACA va hasMany? */(Product, { through: ProductsInCart })
+
+export {Cart}

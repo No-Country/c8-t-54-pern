@@ -1,8 +1,14 @@
-import db from '../utils/database.util';
+import {db} from '../utils/database.util';
 import { DataTypes } from 'sequelize';
+import { Categorie } from './Categories';
+import { Cart } from './Carts';
+import { ProductsInCart } from './ProductsInCart';
+import { ProductImgs } from './ProductImgs';
+import { Order } from './Orders';
+import { ProductsInOrder } from './ProductsInOrder';
 
 const columns = {
-    id: {
+    productId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -30,4 +36,14 @@ const config = {};
 
 const Product = db.define('Product', columns, config);
 
-module.exports = {Product}
+Product.belongsTo(Categorie);
+
+Product.hasMany(ProductImgs, {
+    foreignKey: "ProductId",
+});
+
+Product.belongsToMany(Cart, { through: ProductsInCart });
+
+Product.belongsToMany(Order, { through: ProductsInOrder })
+ 
+export {Product};

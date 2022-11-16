@@ -1,4 +1,5 @@
-export type UserInfo = {
-    username:string,
+export interface UserInfo  {
+    email:string,
     password:string
 }
+

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:server/models/cart.ts
+const {db} = require ('../utils/database.util')
+=======
 const { db } =require( '../utils/database.util');
+>>>>>>> dev:server/models/Carts.ts
 import { DataTypes } from 'sequelize' 
 import { User } from './Users';
 import { Product } from './Products';

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+const {db} = require('../utils/database.util')
+=======
 const {db} = require('../utils/database.util');
+>>>>>>> dev
 import { DataTypes } from 'sequelize';
 import { Categorie } from './Categories';
 import { Cart } from './Carts';

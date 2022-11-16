@@ -1,4 +1,4 @@
-import {db} from'../utils/database.util';
+const { db } = require('../utils/database.util');
 import { DataTypes } from 'sequelize';
 import { Cart } from './Carts';
 import { Order } from './Orders';

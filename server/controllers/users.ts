@@ -48,6 +48,7 @@ export const createUser = async (req: Request, res: Response) => {
         if (!created) {
             throw new Error(`E-mail ${req.body.email} already exists in database`)
         }
+        await delete user.dataValues.password;
         res.status(200).json({ success: `User added with e-mail ${req.body.email}`, user: user.dataValues })
     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))

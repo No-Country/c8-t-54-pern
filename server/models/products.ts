@@ -4,7 +4,7 @@ import { Categorie } from './Categories';
 import { Cart } from './Carts';
 import { ProductsInCart } from './ProductsInCart';
 import { ProductImgs } from './ProductImgs';
-import { Order } from './Orders';
+//import { Order } from './Orders';
 import { ProductsInOrder } from './ProductsInOrder';
 
 const columns = {

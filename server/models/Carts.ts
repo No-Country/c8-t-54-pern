@@ -1,8 +1,9 @@
 const { db } =require( '../utils/database.util');
 import { DataTypes } from 'sequelize' 
 import { User } from './Users';
-import { Product } from './Products';
+
 import { ProductsInCart } from './ProductsInCart';
+import { Product } from './Products';
 
 
 const columns = {

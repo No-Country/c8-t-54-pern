@@ -1,15 +1,14 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
-import { stringify } from "querystring";
 
 dotenv.config({ path: "./config.env" });
 
 const db = new Sequelize(
-  "alkemy_nayit_no_country",
-  "alkemy_nayit_db",
-  "nayitNoCountry",
   {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
     dialect: "postgres",
     logging: false,
   }

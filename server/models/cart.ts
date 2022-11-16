@@ -1,4 +1,4 @@
-const {db} = require('../utils/database.util')
+const {db} = require ('../utils/database.util')
 import { DataTypes } from 'sequelize' 
 
 

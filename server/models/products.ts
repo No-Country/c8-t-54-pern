@@ -1,8 +1,4 @@
-<<<<<<< HEAD:server/models/products.ptm
-const {db} = require('../utils/database.util')
-=======
 const {db} = require('../utils/database.util');
->>>>>>> dev:server/models/products.ts
 import { DataTypes } from 'sequelize';
 import { Categorie } from './Categories';
 import { Cart } from './Carts';
@@ -35,24 +31,19 @@ const columns = {
         allowNull: false,
     }
 };
-
+ 
 const config = {};
 
 const Product = db.define('Product', columns, config);
 
-<<<<<<< HEAD:server/models/products.ptm
-//module.exports = {Product}
-module.exports =  Product;
-=======
 Product.belongsTo(Categorie);
 
 Product.hasMany(ProductImgs, {
     foreignKey: "ProductId",
 });
 
-Product.belongsToMany(Cart, { through: ProductsInCart });
+//Product.belongsToMany(Cart, { through: ProductsInCart });
 
-Product.belongsToMany(Order, { through: ProductsInOrder })
+//Product.belongsToMany(Order, { through: ProductsInOrder })
  
 export {Product};
->>>>>>> dev:server/models/products.ts

@@ -7,7 +7,8 @@ const columns = {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
     categoryName: {
         type: DataTypes.STRING,
@@ -21,6 +22,6 @@ const config = {
 }
 const Categorie = db.define('Categorie', columns, config);
 
-Categorie.hasMany(Product);
+//Categorie.hasMany(Product);
 
 export {Categorie};

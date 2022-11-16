@@ -1,7 +1,8 @@
 import { Response, Request } from "express";
 import * as bcrypt from 'bcrypt'; 
 import { getErrorMessage, reportError } from "../helpers/errorReport";
-import db from "../models"
+//import db from "../models"
+import {User} from "../models/users"
 
 const hashPassword = async (password:string, saltRound:number) => {
     const salt = await bcrypt.genSalt(saltRound);
@@ -11,7 +12,7 @@ const hashPassword = async (password:string, saltRound:number) => {
 export const getUser = async (req: Request, res: Response) => {
     try {
         const { firstName, lastName, email, password, roleId } = req.body;
-        const user = await db.User.findOne({
+        const user = await User.findOne({
             where: { email: email },
             attributes: { exclude: ["password"] },
         });
@@ -29,7 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
         }
         const { userName, firstName, lastName, email, password, phoneNumber, userRole, profilePic } = req.body;
         const hashedPassword = await hashPassword(password, 10)
-        const [user, created] = await db.User.findOrCreate({
+        const [user, created] = await User.findOrCreate({
             where: { email: email },
             defaults: {
                 firstName: firstName,

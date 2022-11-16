@@ -53,17 +53,12 @@ const User = db.define('User', columns, config);
 
 // creamos la ralación con la tabla 
 
-<<<<<<< HEAD:server/models/users.ptm
-module.exports =  User;
-//module.exports = Model
-=======
-User.hasOne(Cart, {
-    foreignKey: 'userId'
-});
+// User.hasOne(Cart, {
+//     foreignKey: 'userId'
+// });
 
-User.hasMany(Order, {
-    foreignKey: "userId"
-});
+// User.hasMany(Order, {
+//     foreignKey: "userId"
+// });
 
 export { User };
->>>>>>> dev:server/models/users.ts

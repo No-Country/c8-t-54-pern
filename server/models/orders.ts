@@ -8,7 +8,8 @@ const columns = {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
         status: {
             type: DataTypes.STRING,
@@ -31,9 +32,10 @@ const config = {
 
 const Order = db.define('Order', columns, config);
 
-Order.belongsTo(User);
+// Order.belongsTo(User);
 
-Order.belongsToMany(Product, { through: ProductsInOrder })
+// Order.belongsToMany(Product, { through: ProductsInOrder })
 
 //module.exports = {Order};
-module.exports =  Order;
+//module.exports =  Order;
+export {Order}

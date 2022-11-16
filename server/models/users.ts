@@ -1,8 +1,11 @@
-const {db} = require('../utils/database.util')
+const { db } = require('../utils/database.util');
 import { DataTypes } from 'sequelize';
+import { Cart } from './Carts';
+import { Order } from './Orders';
+
 
 const columns = {
-        userId: {
+        id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false,
@@ -25,7 +28,7 @@ const columns = {
             allowNull: false
         },
         phoneNumber: {
-        type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
         },
         profilePic: {
             type: DataTypes.STRING,
@@ -49,11 +52,13 @@ const config = {
 const User = db.define('User', columns, config);
 
 // creamos la ralación con la tabla 
-User.associate = (models)=>{
-    User.hasMany(models.Order, {
-        as: "Orders",
-        foreignKey: "userId"
-    })
-};
 
-module.exports = { User };
+User.hasOne(Cart, {
+    foreignKey: 'userId'
+});
+
+User.hasMany(Order, {
+    foreignKey: "userId"
+});
+
+export { User };

@@ -1,5 +1,5 @@
 const { User } = require("../models/users");
-import bcrypt from "bcrypt";
+const bcrypt = require  ("bcrypt");
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
@@ -7,7 +7,7 @@ const login = async (req: Request, res: Response): Promise<any> => {
   try {
     const { email, password }: any = req.body;
 
-    const user: { password: String; id: String, dataValues: {} } = await User.findOne({
+    const user = await User.findOne({
       where: { email },
     });
 

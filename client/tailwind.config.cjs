@@ -5,9 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'poppins':['Poppins', 'sans-serif'],
+      },
       backgroundImage:{
         'hero-login': "url('./src/assets/dmitrii-vaccinium-ByUAo3RpA6c-unsplash 1.png')"
-
       }
     },
   },

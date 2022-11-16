@@ -1,10 +1,10 @@
 const { User } = require("../models/users");
-const bcrypt = require  ("bcrypt");
+const bcrypt = require("bcrypt");
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { getErrorMessage } from "../helpers/errorReport";
 
-const hashPassword = async (password:string, saltRound:number) => {
+const hashPassword = async (password: string, saltRound: number) => {
     const salt = await bcrypt.genSalt(saltRound);
     return await bcrypt.hash(password, salt);
 };
@@ -55,74 +55,33 @@ export const createUser = async (req: Request, res: Response) => {
 
 }
 
-export const loginUser = (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response): Promise<any> => {
     try {
-        if (!req.body.email || !req.body.password) {
-            throw new Error('Send me your data :D')
+        const { email, password }: any = req.body;
+
+
+        const user = await User.findOne({
+            where: { email },
+        });
+
+        if (!User || !(await bcrypt.compare(password, user.password))) {
+            return res.status(404).json({
+                message: "User or password is not correct",
+            });
         }
-        res.status(200).json({ success: `User added with e-mail ${req.body.email}` })
+
+        await delete user.dataValues.password;
+
+        const token = jwt.sign({ user: user.dataValues }, "secret", { expiresIn: "2h" });
+
+        return res.status(201).json({
+            message: "User access successfully",
+            data: {
+                user,
+                token,
+            },
+        });
     } catch (error) {
-        res.status(400).json(reportError({ message: getErrorMessage(error) }))
+        console.log(error);
     }
-
-}
-
-export const updateUSer = (req: Request, res: Response) => {
-    try {
-        if (!req.body.email || !req.body.password) {
-            throw new Error('Send me your data :D')
-        }
-        res.status(200).json({ success: `User updated with e-mail ${req.body.email}` })
-    } catch (error) {
-        res.status(400).json(reportError({ message: getErrorMessage(error) }))
-    }
-
-}
-
-export const deleteUSer = (req: Request, res: Response) => {
-    try {
-        if (!req.body.email || !req.body.password) {
-            throw new Error('Send me your data :D')
-        }
-        res.status(200).json({ success: `User deleted with e-mail ${req.body.email}` })
-    } catch (error) {
-        res.status(400).json(reportError({ message: getErrorMessage(error) }))
-    }
-
-
-const login = async (req: Request, res: Response): Promise<any> => {
-  try {
-    const { email, password }: any = req.body;
-
-
-    const user = await User.findOne({
-      where: { email },
-    });
-
-    if (!User || !(await bcrypt.compare(password, user.password))) {
-      return res.status(404).json({
-        message: "User or password is not correct",
-      });
-    }
-
-    user.password = "undefined"
-
-    // console.log(user.dataValues)
-
-    const token = jwt.sign({ user: user.dataValues }, "secret", { expiresIn: "2h" });
-
-    return res.status(201).json({
-      message: "User access successfully",
-      data: {
-        user,
-        token,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
 };
-
-module.exports = { login };
-
-}

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const {db} = require('../utils/database.util')
-=======
-const {db} = require('../utils/database.util');
->>>>>>> dev
 import { DataTypes } from 'sequelize';
 import { Categorie } from './Categories';
 import { Cart } from './Carts';
@@ -35,7 +31,7 @@ const columns = {
     allowNull: false,
   },
 };
-
+ 
 const config = {};
 
 const Product = db.define("Product", columns, config);
@@ -46,8 +42,8 @@ Product.hasMany(ProductImgs, {
     foreignKey: "ProductId",
 });
 
-Product.belongsToMany(Cart, { through: ProductsInCart });
+//Product.belongsToMany(Cart, { through: ProductsInCart });
 
-Product.belongsToMany(Order, { through: ProductsInOrder })
+//Product.belongsToMany(Order, { through: ProductsInOrder })
  
 export {Product};

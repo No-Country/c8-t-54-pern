@@ -1,32 +1,46 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { FcGoogle } from "react-icons/fc"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { createUser } from "../../services/httpRequest"
 
 type data = {
+    userName: string
     email: string
     password: string
-    confirmPassword: string
+    firstName: string
+    lastName: string
+    phoneNumber: number
+    userRole: string
+    profilePic: string
+    // confirmPassword: string
 }
 
 const Register = () => {
 
+    const navigate = useNavigate()
     const [state, setState] = useState<data>({
+        userName: '',
+        password:"",
+        firstName: "Pepito",
+        lastName: "Example",
         email: "",
-        password: "",
-        confirmPassword: "",
+        phoneNumber: 0,
+        userRole: "admin",
+        profilePic: ""
     })
+    
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         let value: typeof state[keyof typeof state] = event.target.value
         setState({ ...state, [event.target.name]: value })
     }
+    
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(state)
-        const resp = createUser(state, '/api/register/')
-        console.log(resp)
+        let resp = await createUser(state, '/users/')
+        resp.success && navigate('/login')
     }
 
   return (
@@ -39,9 +53,10 @@ const Register = () => {
                 </div>
                 <form className="w-full flex flex-col items-center justify-center gap-20" onSubmit={handleSubmit}>
                     <div className="w-full flex flex-col items-center gap-3">
+                        <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="text" name="userName" placeholder="Ingresa tu nombre de usuario"/>
                         <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="email" name="email" placeholder="Ingresa tu E-mail"/>
                         <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="password" name="password" placeholder="Ingresa tu contraseña"/>
-                        <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="password" name="confirmPassword" placeholder="Confirma tu contraseña"/>
+                        {/* <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="password" name="confirmPassword" placeholder="Confirma tu contraseña"/> */}
                     </div>
                     <div className="w-full flex flex-col items-center gap-3">
                         <button className="w-full p-2 bg-[#3A3A3A] rounded-md text-white" type="submit">Crear cuenta</button>

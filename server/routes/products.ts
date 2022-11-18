@@ -1,19 +1,17 @@
 import { Router } from "express"
-import { index, createProduct, updateProduct, deleteProduct, editProduct, storeProduct, productDetail } from "../controllers/products";
+import { list, updateProduct, deleteProduct, saveProduct, productDetail } from "../controllers/products";
 
 const productRouter = Router()
 
-productRouter.get('/', index) // list of every product in db 
+// no me deja solo con "/" 
+productRouter.get('/', list) // list of every product in db    
 
-productRouter.get('/create', createProduct ); // return the createProduct Form
-productRouter.post('/create', storeProduct ); // save the product in the db
+productRouter.post('/save', saveProduct ); // save the product in the db
 
+productRouter.get('/:id', productDetail); // return an specific product, based in his id/UUID
 
-productRouter.get('/edit/:id', editProduct ); // return the form to editProduct
-productRouter.put('/:id', updateProduct); // save and update the changes
+productRouter.put('/update/:id', updateProduct); // save and update the changes 
 
-productRouter.get('/:id', productDetail); // return an specific product, based in his ID
+productRouter.delete('/delete/:id', deleteProduct); // delete the product (>_<)
 
-productRouter.delete('/:id', deleteProduct); // delete the product (>_<)
-
-export default productRouter; 
+export default productRouter;

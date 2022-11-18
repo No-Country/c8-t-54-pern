@@ -5,7 +5,7 @@ import userRouter from "./users";
 const router = Router()
 
 router.use("/users", userRouter);
-router.get('/products', productRouter);
+router.use('/products', productRouter);
 router.get("/", (_req: Request, res: Response) => res.send("OK"));
 
 export default router;

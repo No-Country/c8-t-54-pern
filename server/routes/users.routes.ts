@@ -1,12 +1,12 @@
 import { Router } from "express"
-import { getUser, createUser, login } from "../controllers/users"
+import { getUser, createUser, login, updateUser } from "../controllers/users.controller"
 const userRouter = Router()
 
 userRouter.get('/', getUser)
 
 userRouter.post('/', createUser)
 
-userRouter.put('/:id')
+userRouter.put('/:id', updateUser)
 
 userRouter.delete('/:id')
 

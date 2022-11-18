@@ -1,5 +1,5 @@
 const { db } = require('../utils/database.util');
-import { DataTypes } from 'sequelize' 
+import { DataTypes } from 'sequelize'
 import { Product } from './Products';
 
 
@@ -22,6 +22,9 @@ const config = {
 }
 const Categorie = db.define('Categorie', columns, config);
 
-//Categorie.hasMany(Product);
 
-export {Categorie};
+Categorie.associate = (models: any) => {
+    Categorie.hasMany(models.Product, {foreignKey: 'productId'});
+}
+
+export { Categorie };

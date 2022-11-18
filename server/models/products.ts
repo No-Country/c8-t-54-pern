@@ -1,11 +1,12 @@
-const {db} = require('../utils/database.util')
+const { db } = require('../utils/database.util')
 import { DataTypes } from 'sequelize';
 import { Categorie } from './Categories';
 import { Cart } from './Carts';
 import { ProductsInCart } from './ProductsInCart';
 import { ProductImgs } from './ProductImgs';
-//import { Order } from './Orders';
+import { Order } from './Orders';
 import { ProductsInOrder } from './ProductsInOrder';
+import { User } from './Users';
 
 const columns = {
   id: {
@@ -31,19 +32,25 @@ const columns = {
     allowNull: false,
   },
 };
- 
+
 const config = {};
 
 const Product = db.define("Product", columns, config);
 
 Product.belongsTo(Categorie);
 
-Product.hasMany(ProductImgs, {
-    foreignKey: "ProductId",
-});
+Product.associate = (models: any) => {
+  Product.hasMany(models.ProductImgs, { foreignKey: "ProductId", });
 
-//Product.belongsToMany(Cart, { through: ProductsInCart });
+  Product.belongsToMany(models.User, { through: 'Favorites', foreignKey: 'ProductId', otherKey: 'userId' });
 
-//Product.belongsToMany(Order, { through: ProductsInOrder })
- 
-export {Product};
+  Product.belongsToMany(models.Cart, { through: 'ProductsInCart', foreignKey: 'productId', otheKey: 'cartId'});
+
+  Product.belongsToMany(models.Order, { through: 'ProductsInOrder', foreignKey: 'productId', otherKey: 'orderId' });
+}
+
+
+
+
+
+export { Product };

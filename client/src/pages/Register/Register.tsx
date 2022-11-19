@@ -1,7 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { FcGoogle } from "react-icons/fc"
 import { Link, useNavigate } from "react-router-dom"
-import { createUser } from "../../services/httpRequest"
+import { useCreateUser } from "../../hooks/useUser"
+import { postRequest } from "../../services/httpRequest"
 
 type data = {
     userName: string
@@ -19,7 +20,7 @@ const Register = () => {
 
     const navigate = useNavigate()
     const [state, setState] = useState<data>({
-        userName: '',
+        userName: "",
         password:"",
         firstName: "Pepito",
         lastName: "Example",
@@ -28,19 +29,24 @@ const Register = () => {
         userRole: "admin",
         profilePic: ""
     })
+
+    const data2 = {
+        "email": "eve.holt@reqres.in",
+        "password": "pistol"
+    }
     
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         let value: typeof state[keyof typeof state] = event.target.value
         setState({ ...state, [event.target.name]: value })
     }
+
+    const {mutate: postRequest} = useCreateUser()
     
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(state)
-        let resp = await createUser(state, '/users/')
-        resp.success && navigate('/login')
+        postRequest(data2)
     }
 
   return (
@@ -51,16 +57,17 @@ const Register = () => {
                     <h2 className="font-semibold text-3xl">Crea tu cuenta</h2>
                     <p className="font-medium text-sm">¡Unite a la comunidad de MOVEment!</p>
                 </div>
+                {/* <form className="w-full flex flex-col items-center justify-center gap-20" onSubmit={handleSubmit}> */}
                 <form className="w-full flex flex-col items-center justify-center gap-20" onSubmit={handleSubmit}>
                     <div className="w-full flex flex-col items-center gap-3">
-                        <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="text" name="userName" placeholder="Ingresa tu nombre de usuario"/>
-                        <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="email" name="email" placeholder="Ingresa tu E-mail"/>
-                        <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="password" name="password" placeholder="Ingresa tu contraseña"/>
+                        <input className="form-inputs" onChange={handleChange} type="text" name="userName" placeholder="Ingresa tu nombre de usuario"/>
+                        <input className="form-inputs" onChange={handleChange} type="email" name="email" placeholder="Ingresa tu E-mail"/>
+                        <input className="form-inputs" onChange={handleChange} type="password" name="password" placeholder="Ingresa tu contraseña"/>
                         {/* <input className="w-full p-2 border-[0.1px] rounded-md drop-shadow placeholder:font-medium placeholder:rgba(170,170,170,1)" onChange={handleChange} type="password" name="confirmPassword" placeholder="Confirma tu contraseña"/> */}
                     </div>
                     <div className="w-full flex flex-col items-center gap-3">
-                        <button className="w-full p-2 bg-[#3A3A3A] rounded-md text-white" type="submit">Crear cuenta</button>
-                        <button className="w-full flex items-center justify-center gap-2  p-2 bg-transparent border-[3px] border-[#3A3A3A] rounded-md text-[#383838] font-semibold" type="button"><FcGoogle className="text-xl"/>Registrarse con Google</button>
+                        <button className="form-buttons bg-[#3A3A3A]  text-white" type="submit">Crear cuenta</button>
+                        <button className="form-buttons flex items-center justify-center gap-2 bg-transparent border-[3px] border-[#3A3A3A] rounded-md text-[#383838] font-semibold" type="button"><FcGoogle className="text-xl"/>Registrarse con Google</button>
                     </div>
                 </form>
                 <Link to="/login">
@@ -68,7 +75,7 @@ const Register = () => {
                 </Link>
             </div>
             <div className="hidden md:block w-[60%] h-full">
-                <div className="rounded-r-md bg-[url('https://images.unsplash.com/photo-1507034589631-9433cc6bc453?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80')] bg-center bg-cover bg-no-repeat h-full"></div>
+                <div className="rounded-r-md bg-hero-register bg-center bg-cover bg-no-repeat h-full"></div>
             </div>
         </div>
     </div>

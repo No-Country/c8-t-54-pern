@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../app/state/authSlice";
 import { UserInfo } from "../models/userInfo";
 import { FcGoogle } from "react-icons/fc"
+import { Link } from "react-router-dom";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 type FormEvent = React.ChangeEvent<HTMLFormElement>;
@@ -28,16 +29,16 @@ const FormLogin: React.FC<IProps> = ({input,setInput}:IProps) => {
     }
 
   return (
-    <form className="flex flex-col gap-5 relative  w-4/5 sm:w-full lg:items-center" onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Ingresa tu E-mail" className="p-3 placeholder:rgba(170,170,170,1) drop-shadow sm:w-full lg:w-4/5" onChange={handleChange} value={input.email}/>
-        <input type="password" name="password" placeholder="ingresa tu contraseña" className="p-3 placeholder:rgba(170,170,170,1) drop-shadow sm:w-full lg:w-4/5" onChange={handleChange} value={input.password}/>
-        <p className='text-gray-400'>¿Olvidaste tu contraseña?</p>
-        <button className="bg-zinc-700 text-white p-3 rounded-sm text-lg hover:bg-white hover:text-black hover: border-4 border-zinc-700 lg:w-4/5 sm:w-full">Iniciar sesion</button>
-        <button className="rounded-sm border-4 border-zinc-700 p-3 hover:bg-zinc-700 hover:text-white cursor-pointer flex items-center justify-center gap-2 sm:w-full lg:w-4/5 ">
-          <FcGoogle className="text-xl"/>
-          Iniciar sesión con Google
-        </button>
-  </form>
+    <form className="w-full flex flex-col items-center justify-center gap-20" onSubmit={handleSubmit}>
+                    <div className="w-full flex flex-col items-center gap-3">
+                        <input className="form-inputs" onChange={handleChange} type="email" name="email" placeholder="Ingresa tu E-mail"/>
+                        <input className="form-inputs" onChange={handleChange} type="password" name="password" placeholder="Ingresa tu contraseña"/>
+                    </div>
+                    <div className="w-full flex flex-col items-center gap-3">
+                        <button className="form-buttons bg-[#3A3A3A]  text-white" type="submit">Iniciar Sesión</button>
+                        <button className="form-buttons flex items-center justify-center gap-2 bg-transparent border-[3px] border-[#3A3A3A] rounded-md text-[#383838] font-semibold" type="button"><FcGoogle className="text-xl"/>Iniciar Sesión con Google</button>
+                    </div>
+                </form>
   )
 }
 

@@ -8,7 +8,7 @@ type PropsView = {
 function FirstView({ title ,description, textButton, clickButton }: PropsView) {
   return (
     <div className="flex h-[42rem] mt-1 md:py-8 md:px-8">
-      <div className="flex flex-col h-full w-full sm:flex-row">
+      <div className="flex flex-col h-full w-full md:flex-row">
         <div className="h-full w-full">
           <div className="bg-footballResponsive bg-cover bg-no-repeat h-full"></div>
         </div>

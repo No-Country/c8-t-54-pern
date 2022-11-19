@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const URL: string = import.meta.env.VITE_API_URL
 
-export const createUser = async (userData: {}, endpoint: string) => {
+export const postRequest = async (userData: {}, endpoint: string) => {
   try {
 
     const { data } = await axios.post(
@@ -23,7 +23,7 @@ export const createUser = async (userData: {}, endpoint: string) => {
     if (axios.isAxiosError(error)) {
       console.log('error message: ', error.message);
 
-      return error.message;
+      throw new Error(error.message);
     } else {
       console.log('unexpected error: ', error);
       return 'An unexpected error occurred';

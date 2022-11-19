@@ -10,7 +10,8 @@ module.exports = {
       },
       backgroundImage:{
         'hero-login': "url('./src/assets/img/dmitrii-vaccinium-ByUAo3RpA6c-unsplash 1.png')",
-        'football': "url('./src/assets/img/football.png')"
+        'football': "url('./src/assets/img/football.png')",
+        'hero-register': "url('./src/assets/img/register-image.avif')"
       }
     },
   },

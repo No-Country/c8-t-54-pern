@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-buttons {
+    padding: 0.5em;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.form-inputs {
+    padding: 0.5em;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    border-radius: 6px;
+    border-width: 0.1px;
+    --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.form-inputs::placeholder {
+    color: rgba(170,170,170,1);
+    font-weight: 500;
+}

@@ -1,25 +1,28 @@
 import React from "react";
-
-function FirstView() {
+type PropsView = {
+  title: String;
+  description: String;
+  textButton: String;
+  clickButton: Function;
+};
+function FirstView({ title ,description, textButton, clickButton }: PropsView) {
   return (
-    <div className="flex my-8 w-full justify-center">
-      <div className="flex h-[623px] bg-black lg:w-[90%] md:w-[100%]">
-        <div className="hidden md:block w-[65%]">
-          <div className="bg-football bg-center bg-cover bg-no-repeat h-full"></div>
+    <div className="flex h-[42rem] mt-1 md:py-8 md:px-8">
+      <div className="flex flex-col h-full w-full sm:flex-row">
+        <div className="h-full w-full">
+          <div className="bg-footballResponsive bg-cover bg-no-repeat h-full"></div>
         </div>
-        <div className="flex flex-col justify-center font-poppins text-white w-[35%] text-center md:items-center">
-          <div className="text-4xl font-black">
-            NUEVOS ARRIBOS <br /> EN CALZADO
+        <div className="flex flex-col bg-[#2E2E2E] h-[35%] font-poppins text-white text-center items-center md:w-[45%] md:h-full md:justify-center">
+          <div className="hidden w-[80%] text-4xl font-black md:flex md:mt-20">
+            {title}
           </div>
-          <div className="my-8">
-            Nueva linea de calzado <br /> deportivo profesional
-          </div>
-          <div className="flex flex-col items-center">
-            <button className="my-2 h-10 w-44 border-solid rounded border-2 border-green-400 hover:text-black hover:bg-green-500 hover:font-bold">
-              EXPLORAR TIENDA
-            </button>
-            <button className="my-2 h-10 w-44 border-solid rounded border-2 border-green-400 hover:text-black hover:bg-green-500 hover:font-bold">
-              EXPLORAR CALZADO
+          <div className="flex my-4 w-[60%] justify-center">{description}</div>
+          <div className="flex justify-center">
+            <button
+              onClick={(e) => clickButton(e)}
+              className="my-2 h-[3.25rem] w-60 text-xl border-solid rounded border-2 border-[#13C296] hover:text-black hover:hover:bg-[#19F5BE] hover:font-bold"
+            >
+              {textButton}
             </button>
           </div>
         </div>

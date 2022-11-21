@@ -6,6 +6,8 @@ export interface AppStore {
     auth: UserInfo;
 }
 
+export type AppDispatch = typeof store.dispatch
+
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer

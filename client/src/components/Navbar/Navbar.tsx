@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   const [isLogin, setIsLogin] = useState<Boolean>(false);
   return (
-    <div className="w-full flex px-4 bg-black h-16 items-center font-poppins font-semibold text-2xl text-white justify-between">
+    <div className="w-full flex px-8 bg-black h-16 items-center font-poppins font-semibold text-2xl text-white justify-between">
       <Link to="/">MOVEment</Link>
       <div className="flex w-80 text-base font-normal justify-between">
         <div className="flex items-center cursor-pointer hover:text-lime-400">
@@ -26,9 +26,9 @@ function Navbar() {
             </div>
           </>
         ) : (
-          <div className="flex items-center cursor-pointer hover:text-lime-400">
+          <div className="flex items-center cursor-pointer hover:text-lime-400 justify-end">
             <BiLogIn className="mr-1" />
-            <div className="mr-8">
+            <div>
               <Link to="/login">Login</Link>
             </div>
           </div>

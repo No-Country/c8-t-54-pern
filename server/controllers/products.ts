@@ -1,4 +1,4 @@
-import { Product } from "../models/Products";
+import { Product } from "../models/products";
 import { Request, Response } from "express";
 import { getErrorMessage, reportError } from "../helpers/errorReport";
 

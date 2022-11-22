@@ -2,7 +2,7 @@ const { User } = require("../models/users");
 const bcrypt = require("bcrypt");
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { getErrorMessage } from "../helpers/errorReport";
+import { getErrorMessage, reportError } from "../helpers/errorReport";
 
 const hashPassword = async (password: string, saltRound: number) => {
     const salt = await bcrypt.genSalt(saltRound);
@@ -85,3 +85,39 @@ export const login = async (req: Request, res: Response): Promise<any> => {
         console.log(error);
     }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+    try {
+        const { firstName, lastName, email, phoneNumber, userRole, profilePic } = req.body;
+        console.log(req.params.id);
+        
+        const dataToUpdate = {
+            firstName,
+            lastName,
+            phoneNumber,
+            userRole,
+            profilePic
+        }
+
+        const userExists = await User.findOne({
+            where: { email },
+        });
+
+        if (userExists === null) {
+            throw new Error(`E-mail ${req.body.email} not found in database`)
+        }
+
+        const userUpdated = await User.update(dataToUpdate, {
+            where: { email },
+        });
+
+        if (!userUpdated) {
+            throw new Error(`E-mail ${req.body.email} not found in database`)
+        }
+
+        res.status(200).json({ success: `User ${req.body.email} updated succesfull `, params: dataToUpdate })
+
+    } catch (error) {
+        res.status(400).json(reportError({ message: getErrorMessage(error) }))
+    }
+}

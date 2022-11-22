@@ -1,7 +1,7 @@
 const {db} = require('../utils/database.util');
 import { DataTypes } from 'sequelize';
-import { User } from './Users';
-import { Product } from './Products';
+import { User } from './users';
+import { Product } from './products';
 import { ProductsInOrder } from './ProductsInOrder';
 
 const columns = {
@@ -32,10 +32,12 @@ const config = {
 
 const Order = db.define('Order', columns, config);
 
-// Order.belongsTo(User);
+Order.associate = (models: any) => {
+    Order.belongsTo(models.User, {foreignKey: 'userId'});
 
-// Order.belongsToMany(Product, { through: ProductsInOrder })
+    Order.belongsToMany(models.Product, { through: 'ProductsInOrder',foreignKey: 'orderId', otherKey: 'productId'})
+}
 
-//module.exports = {Order};
-//module.exports =  Order;
+
+
 export {Order}

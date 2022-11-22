@@ -3,7 +3,7 @@ import { getErrorMessage, reportError } from "../helpers/errorReport";
 import jwt from 'jsonwebtoken'
 import dotenv from "dotenv";
 import { Decoded } from "../src/types/decoded";
-import { User } from "../models/users";
+import { User } from "../models/Users";
 
 dotenv.config({ path: ".env" });
 

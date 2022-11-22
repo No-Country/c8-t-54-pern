@@ -5,6 +5,7 @@ export const productSchema: Schema = {
         errorMessage: "Product Name is required",
         options: { checkFalsy: true },
       },
+      isLength: {options: { min: 10, max: 64}, errorMessage: "Description should be at least 10-64 characters"},
       isString: { errorMessage: "Product Name should be a string" },
     },
     description: {
@@ -12,6 +13,7 @@ export const productSchema: Schema = {
         errorMessage: "Description is required",
         options: { checkFalsy: true },
       },
+      isLength: {options: { min: 10, max: 254}, errorMessage: "Description should be at least 10-254 characters"},
       isString: { errorMessage: "Description should be a string" },
     },
     quantityInStock: {

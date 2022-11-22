@@ -32,10 +32,12 @@ const config = {
 
 const Order = db.define('Order', columns, config);
 
-// Order.belongsTo(User);
+Order.associate = (models: any) => {
+    Order.belongsTo(models.User, {foreignKey: 'userId'});
 
-// Order.belongsToMany(Product, { through: ProductsInOrder })
+    Order.belongsToMany(models.Product, { through: 'ProductsInOrder',foreignKey: 'orderId', otherKey: 'productId'})
+}
 
-//module.exports = {Order};
-//module.exports =  Order;
+
+
 export {Order}

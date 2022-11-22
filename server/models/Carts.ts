@@ -1,34 +1,41 @@
-const { db } =require( '../utils/database.util');
-import { DataTypes } from 'sequelize' 
-import { User } from './users';
+const { db } = require("../utils/database.util");
+import { DataTypes } from "sequelize";
+import { User } from "./Users";
 
-import { ProductsInCart } from './ProductsInCart';
-import { Product } from './products';
-
+import { ProductsInCart } from "./ProductsInCart";
+import { Product } from "./Products";
 
 const columns = {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    status: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    totalPrice: {
-        type: DataTypes.DECIMAL,
-        allowNull: false
-    },
-    date: {
-        type: DataTypes.DATE
-    }
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  totalPrice: {
+    type: DataTypes.DECIMAL,
+    allowNull: false,
+  },
+  date: {
+    type: DataTypes.DATE,
+  },
 };
 const config = {};
 
-const Cart = db.define('Cart', columns, config);
+const Cart = db.define("Cart", columns, config);
 
-Cart.belongsTo(User);
-Cart.belongsToMany(Product, { through: ProductsInCart })
+Cart.associate = (models: any) => {
+  Cart.belongsTo(models.User, { foreignKey: "userId" });
 
-export {Cart}
+  Cart.belongsToMany(models.Product, {
+    through: "ProductsInCart",
+    foreignKey: "cartId",
+    otherKey: "productId",
+  });
+};
+
+export { Cart };

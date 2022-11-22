@@ -17,7 +17,6 @@ export const getUser = async (req: Request, res: Response) => {
             where: { email: email },
             attributes: { exclude: ["password"] },
         });
-
         res.status(200).json({ user: user })
     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
@@ -69,7 +68,9 @@ export const login = async (req: Request, res: Response): Promise<any> => {
 
         await delete user.dataValues.password;
 
-        const token = jwt.sign({ user: user.dataValues }, "secret", { expiresIn: "2h" });
+        const secret = process.env.SECRET as string
+
+        const token = jwt.sign({ user: user.dataValues }, secret, { expiresIn: "2h" });
 
         return res.status(201).json({
             message: "User access successfully",

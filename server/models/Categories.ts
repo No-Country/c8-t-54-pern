@@ -1,6 +1,11 @@
 const { db } = require('../utils/database.util');
+<<<<<<< HEAD
+import { DataTypes } from 'sequelize' 
+import { Product } from './products';
+=======
 import { DataTypes } from 'sequelize'
 import { Product } from './Products';
+>>>>>>> dev
 
 
 const columns = {

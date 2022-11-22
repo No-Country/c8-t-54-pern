@@ -1,5 +1,5 @@
-const { db } =require( '../utils/database.util');
-import { DataTypes } from 'sequelize' 
+const { db } = require('../utils/database.util');
+import { DataTypes } from 'sequelize'
 import { User } from './Users';
 
 import { ProductsInCart } from './ProductsInCart';
@@ -28,7 +28,11 @@ const config = {};
 
 const Cart = db.define('Cart', columns, config);
 
-Cart.belongsTo(User);
-Cart.belongsToMany(Product, { through: ProductsInCart })
+Cart.associate = (models: any) => {
+    Cart.belongsTo(models.User, {foreignKey: 'userId'});
 
-export {Cart}
+    Cart.belongsToMany(models.Product, { through: 'ProductsInCart', foreignKey: 'cartId', otherKey: 'productId'})
+}
+
+
+export { Cart }

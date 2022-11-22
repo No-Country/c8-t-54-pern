@@ -31,4 +31,5 @@ const config = {
 
 const ProductsInCart = db.define('ProductsInCart', columns, config);
 
+
 export {ProductsInCart}

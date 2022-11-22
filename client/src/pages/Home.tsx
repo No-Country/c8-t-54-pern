@@ -1,6 +1,7 @@
 import { SyntheticEvent } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+import SupportSport from "../components/SupportSport/SupportSport";
 import NavbarSecundary from "../components/NavbarSecundary/NavbarSecundary";
 import FirstView from "../components/FirstView/FirstView";
 type PropsView = {
@@ -23,6 +24,7 @@ const Home = () => {
         textButton="EXPLORAR CAMISETAS"
         clickButton={goLogin}
       />
+      <SupportSport />
       <Footer />
     </div>
   );

@@ -60,7 +60,7 @@ export const login = async (req: Request, res: Response): Promise<any> => {
             where: { email },
         });
 
-        if (!User || !(await bcrypt.compare(password, user.password))) {
+        if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(404).json({
                 message: "User or password is not correct",
             });

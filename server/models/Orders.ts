@@ -1,7 +1,7 @@
 const {db} = require('../utils/database.util');
 import { DataTypes } from 'sequelize';
-import { User } from './Users';
-import { Product } from './Products';
+import { User } from './users';
+import { Product } from './products';
 import { ProductsInOrder } from './ProductsInOrder';
 
 const columns = {

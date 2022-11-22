@@ -1,6 +1,7 @@
 const { User } = require("../models/Users");
 const bcrypt = require("bcrypt");
 import { Request, Response } from "express";
+import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import { getErrorMessage, reportError } from "../helpers/errorReport";
 
@@ -11,7 +12,7 @@ const hashPassword = async (password: string, saltRound: number) => {
 
 export const getUser = async (req: Request, res: Response) => {
     try {
-        const { firstName, lastName, email, password, roleId } = req.body;
+        const { email } = req.body;
         const user = await User.findOne({
             where: { email: email },
             attributes: { exclude: ["password"] },
@@ -25,9 +26,6 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        if (!req.body.email || !req.body.password) {
-            throw new Error('Send me your data :D')
-        }
         const { userName, firstName, lastName, email, password, phoneNumber, userRole, profilePic } = req.body;
         const hashedPassword = await hashPassword(password, 10)
         const [user, created] = await User.findOrCreate({
@@ -58,7 +56,6 @@ export const createUser = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response): Promise<any> => {
     try {
         const { email, password }: any = req.body;
-
 
         const user = await User.findOne({
             where: { email },

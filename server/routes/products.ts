@@ -1,12 +1,15 @@
 import { Router } from "express"
 import { list, updateProduct, deleteProduct, saveProduct, productDetail } from "../controllers/products";
+import { productSchema } from "../schemas/product"
+import { checkSchema } from "express-validator";
+import { handleValidator } from "../helpers/handleValidator";
 
 const productRouter = Router()
 
 // no me deja solo con "/" 
 productRouter.get('/', list) // list of every product in db    
 
-productRouter.post('/save', saveProduct ); // save the product in the db
+productRouter.post('/save', checkSchema(productSchema), handleValidator, saveProduct ); // save the product in the db
 
 productRouter.get('/:id', productDetail); // return an specific product, based in his id/UUID
 

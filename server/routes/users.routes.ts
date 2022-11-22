@@ -1,34 +1,26 @@
-import { Router } from "express"
-const userRouter = Router()
-import { getUser, createUser, login, updateUser } from "../controllers/users.controller"
-import { user } from "../schemas/users"
-import { loginSchema } from "../schemas/login"
+import { Router } from "express";
+const userRouter = Router();
+import {
+  getUser,
+  createUser,
+  login,
+  updateUser,
+} from "../controllers/users.controller";
+import { user } from "../schemas/users";
+import { loginSchema } from "../schemas/login";
 import { checkSchema } from "express-validator";
 import { handleValidator } from "../helpers/handleValidator";
+import { protectRouters } from "../controllers/authController";
 
-userRouter.get('/', getUser)
+userRouter.post("/", checkSchema(user), handleValidator, createUser);
+userRouter.post("/login", checkSchema(loginSchema), handleValidator, login);
 
-userRouter.post(
-  '/',
-  checkSchema(user),
-  handleValidator,
-  createUser
-);
+userRouter.use(protectRouters);
 
-userRouter.put(
-    '/:id', 
-    checkSchema(user),
-    handleValidator, 
-    updateUser
-)
+userRouter.get("/", getUser);
 
-userRouter.delete('/:id')
+userRouter.put("/:id", checkSchema(user), handleValidator, updateUser);
 
-userRouter.post(
-    '/login',
-    checkSchema(loginSchema),
-    handleValidator,
-    login
-)
+userRouter.delete("/:id");
 
-export default userRouter; 
+export default userRouter;

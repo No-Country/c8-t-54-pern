@@ -1,5 +1,10 @@
 export interface UserInfo  {
-    email:string,
-    password:string
+    firstName :string,
+    lastName :string
+    email: string
+    phoneNumber: number
+    userRole: string
+    token: string
+    id: string
+    logged: boolean
 }
-

@@ -6,18 +6,18 @@ const SupportSport = () => {
   return (
     <section className="text-center md:px-8 font-poppins">
       <div className="py-8">
-        <h1 className="text-gray-600 font-extrabold text-3xl ">
+        <h2 className="text-gray-600 font-extrabold text-3xl ">
           Apoyamos el deporte
-        </h1>
+        </h2>
         <p className=" text-gray-500">
           El deporte es para todos. ¡Ayudanos a difundirlo!
         </p>
       </div>
       <div className="h-81 flex flex-col-reverse md:flex-row md:gap-5 md:text-left  ">
         <div className="bg-[#2e2e2e]  md:w-1/2 py-8 text-white leading-tight md:pl-10">
-          <h1 className="hidden md:block text-6xl mt-12 w-3/4 font-extrabold ">
+          <h3 className="hidden md:block text-6xl mt-12 w-3/4 font-extrabold ">
             UNITE A LA INICIATIVA MOVEment{" "}
-          </h1>
+          </h3>
           <p className=" block md:hidden mb-4 ">
             <strong> Con cada compra</strong> que realices <br />{" "}
             <strong>contribuís</strong> a que mas <strong>niños</strong> se
@@ -54,7 +54,7 @@ const SupportSport = () => {
           <div className="h-20 flex space-x-4 mx-4">
             <div className="h-full w-20 bg-[#D9D9D9]"></div>
             <div className="h-full w-full text-left">
-              <h1 className="font-bold">DEVOLUCIONES</h1>
+              <h2 className="font-bold">DEVOLUCIONES</h2>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem.</p>
             </div>
           </div>
@@ -63,7 +63,7 @@ const SupportSport = () => {
           <div className="h-20 flex space-x-4 mx-4">
             <div className="h-full w-20 bg-[#D9D9D9]"></div>
             <div className="h-full w-full text-left">
-              <h1 className="font-bold">SEGURIDAD AL PAGAR</h1>
+              <h2 className="font-bold">SEGURIDAD AL PAGAR</h2>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem.</p>
             </div>
           </div>
@@ -72,7 +72,7 @@ const SupportSport = () => {
           <div className="h-20 flex space-x-4 mx-4">
             <div className="h-full w-20 bg-[#D9D9D9]"></div>
             <div className="h-full w-full text-left">
-              <h1 className="font-bold">ENCONTRAR TALLES</h1>
+              <h2 className="font-bold">ENCONTRAR TALLES</h2>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem.</p>
             </div>
           </div>

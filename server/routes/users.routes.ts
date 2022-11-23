@@ -1,13 +1,17 @@
-import { Router } from "express"
-const userRouter = Router()
-import { getUser, createUser, login, updateUser } from "../controllers/users.controller"
-import { user } from "../schemas/users"
-import { loginSchema } from "../schemas/login"
+import { Router } from "express";
+const userRouter = Router();
+import {
+  getUser,
+  createUser,
+  login,
+  updateUser,
+} from "../controllers/users.controller";
+import { user } from "../schemas/users";
+import { loginSchema } from "../schemas/login";
 import { checkSchema } from "express-validator";
 import { handleValidator } from "../helpers/handleValidator";
+import { protectRouters } from "../controllers/authController";
 import { checkMultipart } from "../middlewares/uploadImg"
-
-userRouter.get('/', getUser)
 
 userRouter.post(
   "/",
@@ -17,6 +21,17 @@ userRouter.post(
   createUser
 );
 
+userRouter.post(
+  '/login',
+  checkSchema(loginSchema),
+  handleValidator,
+  login
+)
+
+userRouter.use(protectRouters);
+
+userRouter.get('/', getUser)
+
 userRouter.put(
   '/:id',
   checkMultipart,
@@ -25,13 +40,6 @@ userRouter.put(
   updateUser
 )
 
-userRouter.delete('/:id')
+userRouter.delete("/:id");
 
-userRouter.post(
-  '/login',
-  checkSchema(loginSchema),
-  handleValidator,
-  login
-)
-
-export default userRouter; 
+export default userRouter;

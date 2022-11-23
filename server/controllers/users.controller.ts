@@ -1,7 +1,6 @@
 const { User } = require("../models/Users");
 const bcrypt = require("bcrypt");
 import { Request, Response } from "express";
-import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import { getErrorMessage, reportError } from "../helpers/errorReport";
 
@@ -28,7 +27,7 @@ export const createUser = async (req: Request, res: Response) => {
         const { userName, firstName, lastName, email, password, phoneNumber, userRole, profilePic } = req.body;
         const hashedPassword = await hashPassword(password, 10)
         const [user, created] = await User.findOrCreate({
-            where: { email: email },
+            where: email ? { email: email} : { userName: userName},
             defaults: {
                 firstName: firstName,
                 lastName: lastName,
@@ -37,19 +36,19 @@ export const createUser = async (req: Request, res: Response) => {
                 password: hashedPassword,
                 phoneNumber: phoneNumber,
                 userRole: userRole,
-                profilePic: profilePic
+                profilePic: req.file?.filename || null
             }
         })
 
         if (!created) {
-            throw new Error(`E-mail ${req.body.email} already exists in database`)
+            let msg = email ? `E-mail ${email}` : `Username ${userName}`
+            throw new Error(`${msg} already exists in database`)
         }
         await delete user.dataValues.password;
         res.status(200).json({ success: `User added with e-mail ${req.body.email}`, user: user.dataValues })
     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
     }
-
 }
 
 export const login = async (req: Request, res: Response): Promise<any> => {

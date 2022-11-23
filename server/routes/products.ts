@@ -6,7 +6,6 @@ import { handleValidator } from "../helpers/handleValidator";
 
 const productRouter = Router()
 
-// no me deja solo con "/" 
 productRouter.get('/', list) // list of every product in db    
 
 productRouter.post('/save', checkSchema(productSchema), handleValidator, saveProduct ); // save the product in the db

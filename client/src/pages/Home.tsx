@@ -4,6 +4,8 @@ import Footer from "../components/Footer/Footer";
 import SupportSport from "../components/SupportSport/SupportSport";
 import NavbarSecundary from "../components/NavbarSecundary/NavbarSecundary";
 import FirstView from "../components/FirstView/FirstView";
+import MiMovement from '../components/MiMovement/MiMovement';
+
 type PropsView = {
   description: String;
   textButton: String;
@@ -25,6 +27,7 @@ const Home = () => {
         clickButton={goLogin}
       />
       <SupportSport />
+      <MiMovement />
       <Footer />
     </div>
   );

@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { FcGoogle } from "react-icons/fc"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useCreateUser } from "../../hooks/useUser"
-import { postRequest } from "../../services/httpRequest"
+import { PublicRoutes } from "../../models/routes"
 
 type data = {
     userName: string
@@ -18,8 +18,7 @@ type data = {
 
 const Register = () => {
 
-    const navigate = useNavigate()
-    const [state, setState] = useState<data>({
+    const [dataLogin, setDataLogin] = useState<data>({
         userName: "",
         password:"",
         firstName: "Pepito",
@@ -30,15 +29,9 @@ const Register = () => {
         profilePic: ""
     })
 
-    const data2 = {
-        "email": "eve.holt@reqres.in",
-        "password": "pistol"
-    }
-    
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let value: typeof state[keyof typeof state] = event.target.value
-        setState({ ...state, [event.target.name]: value })
+        let value: typeof dataLogin[keyof typeof dataLogin] = event.target.value
+        setDataLogin({ ...dataLogin, [event.target.name]: value })
     }
 
     const {mutate: postRequest} = useCreateUser()
@@ -46,7 +39,7 @@ const Register = () => {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        postRequest(data2)
+        postRequest(dataLogin)
     }
 
   return (
@@ -57,7 +50,6 @@ const Register = () => {
                     <h2 className="font-semibold text-3xl">Crea tu cuenta</h2>
                     <p className="font-medium text-sm">¡Unite a la comunidad de MOVEment!</p>
                 </div>
-                {/* <form className="w-full flex flex-col items-center justify-center gap-20" onSubmit={handleSubmit}> */}
                 <form className="w-full flex flex-col items-center justify-center gap-20" onSubmit={handleSubmit}>
                     <div className="w-full flex flex-col items-center gap-3">
                         <input className="form-inputs" onChange={handleChange} type="text" name="userName" placeholder="Ingresa tu nombre de usuario"/>
@@ -70,7 +62,7 @@ const Register = () => {
                         <button className="form-buttons flex items-center justify-center gap-2 bg-transparent border-[3px] border-[#3A3A3A] rounded-md text-[#383838] font-semibold" type="button"><FcGoogle className="text-xl"/>Registrarse con Google</button>
                     </div>
                 </form>
-                <Link to="/login">
+                <Link to={`/${PublicRoutes.LOGIN}`}>
                     ¿Ya tenés una cuenta? <span className="font-semibold text-black">Inicia sesión</span>
                 </Link>
             </div>

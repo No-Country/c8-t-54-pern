@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom"
 import { authLogin } from "../../app/state/authSlice"
 import { AppDispatch } from "../../app/store"
 import { dataLogin } from "../../models/dataLogin"
+import { PrivateRoutes, PublicRoutes } from "../../models/routes"
 import { Success } from "../../utils/notification"
 
 const Login = () => {
 
     const dispatch = useDispatch<AppDispatch>();
+    
     const navigate = useNavigate()
     const [state, setState] = useState<dataLogin>({
         email: "",
@@ -26,8 +28,9 @@ const Login = () => {
         .unwrap()
           .then((resp) => {
             Success(`¡Hola ${resp.data.user.firstName}!`, '¡Qué bueno tenerte de nuevo en MOVEment!')
+            console.log(resp)
             setTimeout(() => {
-                navigate('/')
+                navigate(`/${PrivateRoutes.PRIVATE}`, {replace: true})
             }, 2100);
           })
     }
@@ -53,7 +56,7 @@ const Login = () => {
                         <button className="form-buttons flex items-center justify-center gap-2 bg-transparent border-[3px] border-[#3A3A3A] rounded-md text-[#383838] font-semibold" type="button"><FcGoogle className="text-xl"/>Iniciar Sesión con Google</button>
                     </div>
                 </form>
-                <Link to="/register">
+                <Link to={`/${PublicRoutes.REGISTER}`}>
                     ¿No tienes una cuenta? <span className="font-semibold text-black">Crea tu cuenta</span>
                 </Link>
             </div>

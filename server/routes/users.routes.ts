@@ -5,30 +5,33 @@ import { user } from "../schemas/users"
 import { loginSchema } from "../schemas/login"
 import { checkSchema } from "express-validator";
 import { handleValidator } from "../helpers/handleValidator";
+import { checkMultipart } from "../middlewares/uploadImg"
 
 userRouter.get('/', getUser)
 
 userRouter.post(
-  '/',
+  "/",
+  checkMultipart,
   checkSchema(user),
   handleValidator,
   createUser
 );
 
 userRouter.put(
-    '/:id', 
-    checkSchema(user),
-    handleValidator, 
-    updateUser
+  '/:id',
+  checkMultipart,
+  checkSchema(user),
+  handleValidator,
+  updateUser
 )
 
 userRouter.delete('/:id')
 
 userRouter.post(
-    '/login',
-    checkSchema(loginSchema),
-    handleValidator,
-    login
+  '/login',
+  checkSchema(loginSchema),
+  handleValidator,
+  login
 )
 
 export default userRouter; 

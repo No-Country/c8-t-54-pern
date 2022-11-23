@@ -1,17 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useNavigate } from 'react-router-dom';
 import { dataLogin } from '../../models/dataLogin';
-import { UserInfo } from '../../models/userInfo';
+import { AuthInfo } from '../../models/authInfo';
 import { postRequest } from '../../services/httpRequest';
+import { persistLocalStorage } from '../../utils/LocalStorageFunctions';
 
-
-export const initialState: UserInfo = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phoneNumber: 0,
-  userRole: '',
-  token: '',
+export const initialState: AuthInfo = {
+  userRole: null,
+  token: null,
   id: '',
   logged: false,
 };
@@ -23,6 +18,10 @@ export const authLogin = createAsyncThunk(
   async ({email, password}:dataLogin ,thunkAPI) => {
     try {
       const resp = postRequest({ email, password },'/users/login')
+      resp.then((response) => {
+        console.log(resp)
+        persistLocalStorage<AuthInfo>('auth', {token: response.data.token, id: response.data.user.id, userRole: response.data.user.userRole, logged: true})
+      })
       return resp
 
     } catch (error) {
@@ -33,31 +32,16 @@ export const authLogin = createAsyncThunk(
 
 export const authSlice = createSlice({
   name: 'auth',
-  initialState: initialState,
+  initialState: localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth') as string) : initialState,
   reducers: {
-    login: (state,action) => {
-      const {firstName, lastName, email, phoneNumber, userRole, id} = action.payload.data.user
-      state.firstName = firstName
-      state.lastName = lastName
-      state.email = email
-      state.phoneNumber = phoneNumber
-      state.userRole = userRole
-      state.token = action.payload.data.token
-      state.id = id
-      state.logged = true
-    }
+
   },
   extraReducers: (builder) => {
     builder.addCase(authLogin.pending, (state) => ({
       ...state,
-      loading: true,
     })),
     builder.addCase(authLogin.fulfilled, (state, action) => ({
       ...state,
-      firstName: action.payload.data.user.firstName,
-      lastName: action.payload.data.user.lastName,
-      email: action.payload.data.user.email,
-      phoneNumber: action.payload.data.user.phoneNumber,
       userRole: action.payload.data.user.userRole,
       token: action.payload.data.token,
       id: action.payload.data.user.id,
@@ -69,6 +53,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const {login} = authSlice.actions
 
 export default authSlice.reducer;

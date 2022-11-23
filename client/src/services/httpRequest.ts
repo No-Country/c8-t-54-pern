@@ -16,8 +16,6 @@ export const postRequest = async (userData: {}, endpoint: string) => {
       },
     );
 
-    console.log(JSON.stringify(data, null, 4));
-
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { AuthInfo } from "../models/authInfo";
+import { UserInfo } from "../models/userInfo";
 import { authSlice } from "./state/authSlice";
 
 export interface AppStore {
-    auth: AuthInfo;
+    auth: UserInfo;
 }
 
 export type AppDispatch = typeof store.dispatch

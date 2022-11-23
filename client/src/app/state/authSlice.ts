@@ -1,14 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { dataLogin } from '../../models/dataLogin';
-import { AuthInfo } from '../../models/authInfo';
+import { UserInfo } from '../../models/userInfo';
 import { postRequest } from '../../services/httpRequest';
 import { persistLocalStorage } from '../../utils/LocalStorageFunctions';
 
-export const initialState: AuthInfo = {
+export const initialState: UserInfo = {
   userRole: null,
   token: null,
   id: '',
   logged: false,
+  firstName: '',
+  lastName: '',
+  userName: '',
+  email: '',
+  phoneNumber: null,
+  profilePic: '',
+
 };
 
 export const authLogin = createAsyncThunk(
@@ -20,7 +27,7 @@ export const authLogin = createAsyncThunk(
       const resp = postRequest({ email, password },'/users/login')
       resp.then((response) => {
         console.log(resp)
-        persistLocalStorage<AuthInfo>('auth', {token: response.data.token, id: response.data.user.id, userRole: response.data.user.userRole, logged: true})
+        persistLocalStorage<UserInfo>('auth', {token: response.data.token, id: response.data.user.id, userRole: response.data.user.userRole, logged: true})
       })
       return resp
 
@@ -46,6 +53,13 @@ export const authSlice = createSlice({
       token: action.payload.data.token,
       id: action.payload.data.user.id,
       logged: true,
+      firstName: action.payload.data.user.firstName,
+      lastName: action.payload.data.user.lastName,
+      userName: action.payload.data.user.userName,
+      email: action.payload.data.user.email,
+      phoneNumber: action.payload.data.user.phoneNumber,
+      profilePic: action.payload.data.user.profilePic,
+
     })),
     builder.addCase(authLogin.rejected, (state, action) => ({
       ...state,

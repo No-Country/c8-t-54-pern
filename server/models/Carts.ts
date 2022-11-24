@@ -1,9 +1,6 @@
 const { db } = require("../utils/database.util");
 import { DataTypes } from "sequelize";
-import { User } from "./Users";
-
-import { ProductsInCart } from "./ProductsInCart";
-import { Product } from "./Products";
+import { User } from "./Users";import { Product } from "./Products";
 
 const columns = {
   id: {
@@ -28,14 +25,12 @@ const config = {};
 
 const Cart = db.define("Cart", columns, config);
 
-Cart.associate = (models: any) => {
-  Cart.belongsTo(models.User, { foreignKey: "userId" });
+  Cart.belongsTo(User, { foreignKey: "userId" });
 
-  Cart.belongsToMany(models.Product, {
+  Cart.belongsToMany(Product, {
     through: "ProductsInCart",
     foreignKey: "cartId",
     otherKey: "productId",
   });
-};
 
 export { Cart };

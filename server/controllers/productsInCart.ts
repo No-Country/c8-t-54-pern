@@ -8,28 +8,22 @@ export const test = async (req: Request, res: Response) => {
 };
 
 export const addToCart = async (req: Request, res: Response) => {
-  // res.send(Product)
   //* Requiere id del carrito y el id del producto (llegan desde query params)
   const { idProduct, idCart } = req.query;
   try {
-    // const user = await User.findByPk(idUser);
     const product = await Product.findByPk(idProduct);
     const cart = await Cart.findByPk(idCart);
     cart.increment({ totalPrice: product.price });
-    // console.log(Object.keys(Product.prototype))
     const productAdd = cart.addProducts(product);
-    // res.status(201).json(Cart.prototype);
     res.status(200).json(productAdd);
   } catch (error) {
     res.status(400).json({ message: error });
   }
 };
 export const remToCart = async (req: Request, res: Response) => {
-  // res.send(Product)
   //* Requiere id del carrito y el id del producto (llegan desde query params)
   const { idProduct, idCart } = req.query;
   try {
-    // const user = await User.findByPk(idUser);
     const product = await Product.findByPk(idProduct);
     const cart = await Cart.findByPk(idCart);
     cart.decrement({ totalPrice: product.price });

@@ -1,12 +1,9 @@
-const { db } = require('../utils/database.util')
-import { DataTypes } from 'sequelize';
-import { Categorie } from './Categories';
-import { Cart } from './Carts';
-// import { ProductsInCart } from './ProductsInCart';
-import { ProductImgs } from './ProductImgs';
-import { Order } from './Orders';
-import { ProductsInOrder } from './ProductsInOrder';
-import { User } from './Users';
+const { db } = require("../utils/database.util");
+import { DataTypes } from "sequelize";
+import { Categorie } from "./Categories";
+import { ProductImgs } from "./ProductImgs";
+import { Order } from "./Orders";
+import { User } from "./Users";
 
 const columns = {
   id: {
@@ -39,16 +36,20 @@ const Product = db.define("Product", columns, config);
 
 Product.belongsTo(Categorie);
 
-  Product.hasMany(ProductImgs, { foreignKey: "ProductId", });
+Product.hasMany(ProductImgs, { foreignKey: "ProductId" });
 
-  Product.belongsToMany(User, { through: 'Favorites', foreignKey: 'ProductId', otherKey: 'userId' });
+Product.belongsToMany(User, {
+  through: "Favorites",
+  foreignKey: "ProductId",
+  otherKey: "userId",
+});
 
-  // Product.belongsToMany(Cart, { through: 'ProductsInCart', foreignKey: 'productId', otheKey: 'cartId'});
+// Product.belongsToMany(Cart, { through: 'ProductsInCart', foreignKey: 'productId', otheKey: 'cartId'});
 
-  Product.belongsToMany(Order, { through: 'ProductsInOrder', foreignKey: 'productId', otherKey: 'orderId' });
-
-
-
-
+Product.belongsToMany(Order, {
+  through: "ProductsInOrder",
+  foreignKey: "productId",
+  otherKey: "orderId",
+});
 
 export { Product };

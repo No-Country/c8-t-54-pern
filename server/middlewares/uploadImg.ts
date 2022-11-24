@@ -24,50 +24,36 @@ const profilePicsRef = ref(storageFire, 'images/profilepics');
 const productPicsRef = ref(storageFire, 'images/productpics');
 
 export const uploadFire = async (req: Request, file: Response, next: NextFunction) => {
-
-    const fileName = req.body.destFilename;
+    const metadata = {
+        contentType: file.req.file?.mimetype
+    };
+    const fileName = file.req.file?.filename;
+    const localImgPath = file.req.file?.path || "../public/uploads/file.txt"
     const spaceRef = ref(profilePicsRef, fileName);
-    const fileStream = fs.readFileSync(path.join(__dirname, '../public/uploads/'+fileName));
-    
-    // uploadBytes(spaceRef, fileStream)
-    //     .then((snapshot) => {
-    //         console.log('Uploaded a blob or file!', snapshot);
-    //         req.body.destFilename = getDownloadURL(snapshot.ref)
-    //         // .then((downloadURL) => {
-    //         //     //console.log('File available at', downloadURL);
-    //         //     req.body.destFilename = downloadURL;
-    //         //     console.log('UPload req.body', req.body);
-    //         // });
-    //     }).then(
-    //         next
-    //     ).catch(error => console.log(error))
-    const uploadTask = uploadBytesResumable(spaceRef, fileStream);
+    const fileStream = fs.readFileSync(path.join(__dirname, '../public/uploads/' + fileName));
+
+    const uploadTask = uploadBytesResumable(spaceRef, fileStream, metadata);
+
     uploadTask.on(
         'state_changed',
         (snapshot: { bytesTransferred: number; totalBytes: number; state: any; }) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-            switch (snapshot.state) {
-            case 'paused':
-                console.log('Upload is paused');
-                break;
-            case 'running':
-                console.log('Upload is running');
-                break;
-            }
-        }, 
+            console.log("Uploading data");            
+        },
         (error: any) => {
             console.log(error);
-        }, 
+        },
         () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                req.body.destFilename = downloadURL;
-                console.log('File available at', downloadURL);
+                req.body.profilePic = downloadURL;
+                fs.unlink(localImgPath, (err) => {
+                    if (err) throw err;
+                    console.log('deleted: ', localImgPath);
+                });
+                next()
             });
         }
     )
 };
-
 
 const storage = multer.diskStorage({
     destination: function (req: Request, file: Express.Multer.File, callback: DestinationCallback) {
@@ -75,33 +61,35 @@ const storage = multer.diskStorage({
     },
     filename: function (req: Request, file: Express.Multer.File, callback: FileNameCallback) {
         const destFilename = uuid() + path.extname(file.originalname);
-        req.body.destFilename = destFilename;
         callback(null, destFilename,);
     }
 });
 
-export const upload = multer({
-        storage,
-        dest: path.join(__dirname, '../public/uploads'),
-    }).single("profilePic");
+export const uploadLocalSingle = multer({
+    storage,
+    dest: path.join(__dirname, '../public/uploads'),
+}).single("profilePic");
+
+export const uploadLocalMultiple = multer({
+    storage,
+    dest: path.join(__dirname, '../public/uploads'),
+}).array( 'productPic', 9000 )
 
 export const checkMultipart = async (req: Request, file: Response, next: NextFunction) => {
     //console.log("file.req.headers ", file.req.headers);
     if (file.req.headers["content-type"] !== 'application/x-www-form-urlencoded') {
-        await upload(req, file, next)
-        //uploadFire(req, file, next)
+        await uploadLocalSingle(req, file, next)
     }
     if (file.req.headers["content-type"] === 'application/x-www-form-urlencoded') {
         next()
     }
 }
 
-export const esperaMierda = async (req: Request, file: Response, next: NextFunction) => {
+export const handleUploadFirebase = async (req: Request, file: Response, next: NextFunction) => {
     if (file.req.headers["content-type"] !== 'application/x-www-form-urlencoded') {
-        await uploadFire(req, file, next)        
+        uploadFire(req, file, next)
     }
     if (file.req.headers["content-type"] === 'application/x-www-form-urlencoded') {
         next()
     }
-    next()
 }

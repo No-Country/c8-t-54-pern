@@ -11,12 +11,12 @@ import { loginSchema } from "../schemas/login";
 import { checkSchema } from "express-validator";
 import { handleValidator } from "../helpers/handleValidator";
 import { protectRouters } from "../controllers/authController";
-import { checkMultipart, esperaMierda } from "../middlewares/uploadImg"
+import { checkMultipart, handleUploadFirebase } from "../middlewares/uploadImg"
 
 userRouter.post(
   "/",
   checkMultipart,
-  esperaMierda,
+  handleUploadFirebase,
   checkSchema(user),
   handleValidator,
   createUser

@@ -3,12 +3,13 @@ import { list, updateProduct, deleteProduct, saveProduct, productDetail } from "
 import { productSchema } from "../schemas/product"
 import { checkSchema } from "express-validator";
 import { handleValidator } from "../helpers/handleValidator";
+import { uploadLocalMultiple } from "../middlewares/uploadImg";
 
 const productRouter = Router()
 
 productRouter.get('/', list) // list of every product in db    
 
-productRouter.post('/save', checkSchema(productSchema), handleValidator, saveProduct ); // save the product in the db
+productRouter.post('/save', uploadLocalMultiple, checkSchema(productSchema), handleValidator, saveProduct ); // save the product in the db
 
 productRouter.get('/:id', productDetail); // return an specific product, based in his id/UUID
 

@@ -2,18 +2,18 @@ const { db } = require('../utils/database.util');
 import { DataTypes } from 'sequelize' 
 
 const columns = {
-    cartId: {
-        type: DataTypes.UUID,
-        references: {
-            model: "Cart"
-        }
-    },
-    productId: {
-        type: DataTypes.UUID,
-        references: {
-            model: "Products"
-        }
-    },
+    // cartId: {
+    //     type: DataTypes.UUID,
+    //     references: {
+    //         model: "Cart"
+    //     }
+    // },
+    // productId: {
+    //     type: DataTypes.UUID,
+    //     references: {
+    //         model: "Products"
+    //     }
+    // },
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false

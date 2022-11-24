@@ -4,6 +4,8 @@ import { BsCart } from "react-icons/bs";
 import { useState,FC,Dispatch } from "react";
 import { Link } from "react-router-dom";
 import NavbarSecundary from "../NavbarSecundary/NavbarSecundary";
+import { AppStore } from "../../app/store";
+import { useSelector } from "react-redux";
 
 interface HomeProps {
   width:number,
@@ -12,10 +14,8 @@ interface HomeProps {
 
 const  Navbar:FC<HomeProps> = ({width,setWidth}) => {
 
-  const [isLogin, setIsLogin] = useState<Boolean>(true);
   const [open,setOpen] = useState<Boolean>(false);
-  
-  
+  const {logged} = useSelector((store: AppStore) => store.auth);
   
   return (
     <header className="w-full flex flex-col md:flex-row  justify-between  bg-black h-20 sm:p-2 items-center  font-poppins text-2xl text-white">
@@ -28,7 +28,7 @@ const  Navbar:FC<HomeProps> = ({width,setWidth}) => {
           <FiSearch className="text-black absolute   bottom-2 left-2" /> 
         </div>
       <div className={`md:flex md:items-center  h-[12rem] w-screen md:h-auto bg-black rounded-sm flex-wrap absolute md:static md:z-auto z-20 right-0  md:w-[20rem] transition-all duration-500 ease-in ${open ? 'top-12 ':'top-[-490px]'}`}>
-        {isLogin ? (
+        {logged ? (
           <div className="md:w-[250px] p-1 w-full text-lg font-bold absolute right-0 md:static flex md:flex-row-reverse gap-1 md:text-lg flex-col ">
             <div className="w-full flex items-center cursor-pointer hover:text-lime-400 gap-1">
               <BiUser/>

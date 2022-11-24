@@ -24,15 +24,13 @@ const Login = () => {
     }
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        dispatch(authLogin(state))
-        .unwrap()
-          .then((resp) => {
-            Success(`¡Hola ${resp.data.user.firstName}!`, '¡Qué bueno tenerte de nuevo en MOVEment!')
-            console.log(resp)
-            setTimeout(() => {
-                navigate(`/${PrivateRoutes.PRIVATE}`, {replace: true})
-            }, 2100);
-          })
+        const resp = await dispatch(authLogin(state)).unwrap()
+
+        Success(`¡Hola ${resp.data.user.userName}!`, '¡Qué bueno tenerte de nuevo en MOVEment!')
+        setTimeout(() => {
+            navigate(`/${PrivateRoutes.PRIVATE}`, {replace: true})
+        }, 2100);
+
     }
 
   return (

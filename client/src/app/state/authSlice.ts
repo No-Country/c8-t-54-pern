@@ -24,12 +24,9 @@ export const authLogin = createAsyncThunk(
   // callback function
   async ({email, password}:dataLogin ,thunkAPI) => {
     try {
-      const resp = postRequest({ email, password },'/users/login')
-      resp.then((response) => {
-        console.log(resp)
+      const response = await postRequest({ email, password },'/users/login')
         persistLocalStorage<UserInfo>('auth', {token: response.data.token, id: response.data.user.id, userRole: response.data.user.userRole, logged: true})
-      })
-      return resp
+      return response
 
     } catch (error) {
         return thunkAPI.rejectWithValue('Error when logging')

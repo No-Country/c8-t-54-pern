@@ -12,7 +12,7 @@ productRouter.post('/save', checkSchema(productSchema), handleValidator, savePro
 
 productRouter.get('/:id', productDetail); // return an specific product, based in his id/UUID
 
-productRouter.put('/update/:id', updateProduct); // save and update the changes 
+productRouter.put('/update/:id', checkSchema(productSchema), handleValidator, updateProduct); // save and update the changes 
 
 productRouter.delete('/delete/:id', deleteProduct); // delete the product (>_<)
 

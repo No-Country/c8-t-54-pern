@@ -1,10 +1,14 @@
+import { Roles } from "./roles"
+
 export interface UserInfo  {
-    firstName :string,
-    lastName :string
-    email: string
-    phoneNumber: number
-    userRole: string
-    token: string
+    userRole: Roles | null
+    token: string | null
     id: string
     logged: boolean
+    firstName?: string
+    lastName?: string
+    userName?: string
+    email?: string
+    phoneNumber?: number | null
+    profilePic?: string
 }

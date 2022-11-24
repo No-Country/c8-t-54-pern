@@ -11,11 +11,12 @@ import { loginSchema } from "../schemas/login";
 import { checkSchema } from "express-validator";
 import { handleValidator } from "../helpers/handleValidator";
 import { protectRouters } from "../controllers/authController";
-import { checkMultipart } from "../middlewares/uploadImg"
+import { checkMultipart, esperaMierda } from "../middlewares/uploadImg"
 
 userRouter.post(
   "/",
   checkMultipart,
+  esperaMierda,
   checkSchema(user),
   handleValidator,
   createUser

@@ -6,7 +6,7 @@ import { authLogin } from "../../app/state/authSlice";
 import { AppDispatch } from "../../app/store";
 import { dataLogin } from "../../models/dataLogin";
 import { PrivateRoutes, PublicRoutes } from "../../models/routes";
-import { Success } from "../../utils/notification";
+import { Error, Success } from "../../utils/notification";
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,15 +23,19 @@ const Login = () => {
   };
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const resp = await dispatch(authLogin(state)).unwrap();
-
-    Success(
-      `¡Hola ${resp.data.user.userName}!`,
-      "¡Qué bueno tenerte de nuevo en MOVEment!"
-    );
-    setTimeout(() => {
-      navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
-    }, 2100);
+    try {
+      const resp = await dispatch(authLogin(state)).unwrap();
+      Success(
+        `¡Hola ${resp.data.user.userName}!`,
+        "¡Qué bueno tenerte de nuevo en MOVEment!"
+      );
+      setTimeout(() => {
+        navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
+      }, 2100);
+    } catch (error) {
+      Error("Hubo un problema al iniciar sesión");
+      console.log(error);
+    }
   };
 
   return (

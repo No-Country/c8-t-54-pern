@@ -1,5 +1,6 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {useNavigate} from 'react-router-dom'
+import { PublicRoutes } from '../models/routes'
 import { postRequest } from '../services/httpRequest'
 import { Success, Error } from '../utils/notification'
 
@@ -13,7 +14,7 @@ export const useCreateUser = () => {
       onSuccess: (res) => {
         Success('¡Felicitaciones!', 'Tu cuenta ha sido creada con éxito.')
         setTimeout(() => {
-            navigate('/login')
+            navigate(`/${PublicRoutes.LOGIN}`, {replace: true})
         }, 2100);
       },
       onError: (error) => {

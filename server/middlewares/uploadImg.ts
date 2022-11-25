@@ -43,8 +43,8 @@ export const uploadFire = async (req: Request, file: Response, next: NextFunctio
             console.log(error);
         },
         () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                req.body.profilePic = downloadURL;
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string) => {
+                req.body.profilePic = downloadURL || "asdasda";
                 fs.unlink(localImgPath, (err) => {
                     if (err) throw err;
                     console.log('deleted: ', localImgPath);
@@ -70,10 +70,10 @@ export const uploadLocalSingle = multer({
     dest: path.join(__dirname, '../public/uploads'),
 }).single("profilePic");
 
-export const uploadLocalMultiple = multer({
-    storage,
-    dest: path.join(__dirname, '../public/uploads'),
-}).array( 'productPic', 9000 )
+// export const uploadLocalMultiple = multer({
+//     storage,
+//     dest: path.join(__dirname, '../public/uploads'),
+// }).array( 'productPic', 9000 )
 
 export const checkMultipart = async (req: Request, file: Response, next: NextFunction) => {
     //console.log("file.req.headers ", file.req.headers);

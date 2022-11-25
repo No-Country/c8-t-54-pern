@@ -36,6 +36,10 @@ const columns = {
     },
     userRole: {
         type: DataTypes.STRING,
+    },
+    status: {
+        type: DataTypes.STRING,
+        defaultValue: 'active'
     }
 };
 

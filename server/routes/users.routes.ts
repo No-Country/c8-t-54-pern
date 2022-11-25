@@ -5,7 +5,6 @@ import {
   createUser,
   login,
   updateUser,
-  deleteUser,
 } from "../controllers/users.controller";
 import { user } from "../schemas/users";
 import { loginSchema } from "../schemas/login";
@@ -42,6 +41,5 @@ userRouter.put(
   updateUser
 )
 
-userRouter.delete("/", deleteUser);
 
 export default userRouter;

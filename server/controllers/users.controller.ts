@@ -119,25 +119,3 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteUser = async (req: Request, res: Response) => {
-    try {
-        const {email} = req.body
-
-        const findedUser = await User.findOne({where: {email}})
-
-        if(!findedUser){
-            return res.status(404).json({
-                message: 'User not found'
-            })
-        }
-
-        await findedUser.update({status: 'deleted'})
-
-        res.status(403).json({
-            message: 'User was successfully deleted'
-        })
-
-    } catch (error) {
-        res.status(400).json(reportError({ message: getErrorMessage(error) }))
-    }
-} 

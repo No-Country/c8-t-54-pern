@@ -1,9 +1,10 @@
-const { db } = require("../utils/database.util");
+import { db } from "../utils/database.util";
 import { DataTypes } from "sequelize";
-import { Categorie } from "./Categories";
+import { Categories } from "./Categories";
 import { ProductImgs } from "./ProductImgs";
 import { Order } from "./Orders";
 import { User } from "./Users";
+import { Colour } from "./Colours";
 
 const columns = {
   id: {
@@ -34,7 +35,7 @@ const config = {};
 
 const Product = db.define("Product", columns, config);
 
-Product.belongsTo(Categorie);
+Product.belongsToMany(Categories, {through: "ProductCategories", foreignKey: "productId", otherKey: "categoryId"});
 
 Product.hasMany(ProductImgs, { foreignKey: "ProductId" });
 
@@ -44,12 +45,11 @@ Product.belongsToMany(User, {
   otherKey: "userId",
 });
 
-// Product.belongsToMany(Cart, { through: 'ProductsInCart', foreignKey: 'productId', otheKey: 'cartId'});
-
 Product.belongsToMany(Order, {
   through: "ProductsInOrder",
   foreignKey: "productId",
   otherKey: "orderId",
 });
+
 
 export { Product };

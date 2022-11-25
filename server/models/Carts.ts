@@ -1,4 +1,4 @@
-const { db } = require("../utils/database.util");
+import { db } from '../utils/database.util';
 import { DataTypes } from "sequelize";
 import { User } from "./Users";import { Product } from "./Products";
 
@@ -25,12 +25,5 @@ const config = {};
 
 const Cart = db.define("Cart", columns, config);
 
-  Cart.belongsTo(User, { foreignKey: "userId" });
 
-  Cart.belongsToMany(Product, {
-    through: "ProductsInCart",
-    foreignKey: "cartId",
-    otherKey: "productId",
-  });
-
-export { Cart };
+export {Cart}

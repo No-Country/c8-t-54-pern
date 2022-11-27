@@ -12,7 +12,7 @@ interface HomeProps {
 
 const  Navbar:FC<HomeProps> = ({width,setWidth}) => {
 
-  const [isLogin, setIsLogin] = useState<Boolean>(true);
+  const [isLogin, setIsLogin] = useState<Boolean>(false);
   const [open,setOpen] = useState<Boolean>(false);
   
   

@@ -39,9 +39,15 @@ Product.belongsToMany(Categories, {through: "ProductCategories", foreignKey: "pr
 
 Product.hasMany(ProductImgs, { foreignKey: "ProductId" });
 
+Product.belongsToMany(Colour, {
+  through: "ProductColours",
+  foreignKey: "productId",
+  otherKey: "colourId",
+});
+
 Product.belongsToMany(User, {
   through: "Favorites",
-  foreignKey: "ProductId",
+  foreignKey: "productId",
   otherKey: "userId",
 });
 

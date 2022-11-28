@@ -21,5 +21,4 @@ paranaoid: true};
 
 const Colour = db.define("Colour", columns, config);
 
-
 export { Colour }

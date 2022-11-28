@@ -6,18 +6,10 @@ import NavbarSecundary from "../components/NavbarSecundary/NavbarSecundary";
 import FirstView from "../components/FirstView/FirstView";
 import MiMovement from '../components/MiMovement/MiMovement';
 
-type PropsView = {
-  description: String;
-  textButton: String;
-  clickButton: (e: SyntheticEvent) => void;
-};
-
 const Home = () => {
   const [width, setWhidth] = useState(window.innerWidth);
 
-  const goLogin = (e: SyntheticEvent) => {
-    console.log(e.currentTarget.tagName);
-  };
+ 
   const viewWindow = () => {
     setWhidth(window.innerWidth);
   }
@@ -29,12 +21,8 @@ const Home = () => {
     <div className="w-full h-screen">
       <Navbar width={width} setWidth={setWhidth}/>
       {width >= 768&& <NavbarSecundary width={width} setWidth={setWhidth}/>}
-      <FirstView
-        title="NUEVOS ARRIBOS EN CAMISETAS"
-        description="Nueva linea de camistas deportivas"
-        textButton="EXPLORAR CAMISETAS"
-        clickButton={goLogin}
-      />
+      <FirstView />
+      
       <SupportSport />
       <MiMovement />
       <Footer />

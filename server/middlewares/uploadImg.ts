@@ -26,6 +26,26 @@ const productPicsRef = ref(storageFire, 'images/productpics');
 
 export const uploadFire = async (req: Request, file: Response, next: NextFunction) => {
     try {
+        //console.log("file.req.files", file.req.files)
+        //(file.req.files as Array<Express.Multer.File>).map(file => console.log(file.path))
+        const filenames = file.req.files as Array<Express.Multer.File>
+        // console.log(typeof(filenames)); 
+        // console.log(filenames); 
+        //onst file_names = filenames.map(file =>file.path)
+        // console.log(Object.entries(filenames))
+        // console.log(Object.keys(filenames))
+        let values = Object.values(filenames)
+console.log(values.length);
+
+        // console.log(Object.keys(values))
+        // console.log(Object.entries(values))
+        //console.log(Object.values(Object.values(values[0])))
+        let data = Object.values(values)
+        console.log(data.length);
+        console.log(Object.keys(data))
+        console.log(Object.entries(data))
+        console.log(Object.values(data[0])[6])
+
         const metadata = {
             contentType: file.req.file?.mimetype
         };
@@ -84,18 +104,28 @@ export const uploadLocalSingle = multer({
             || file.mimetype == "image/webp"
         ) {
             cb(null, true);
+            console.log("log", file);
         } else {
             cb(null, false);
-            cb(new Error('Only .png, .svg, .webp, .jpg and .jpeg format allowed!'));
+            console.log("log", file);
+            
+            //cb(new Error('Only .png, .svg, .webp, .jpg and .jpeg format allowed!'));
         }
     }
-}).single("profilePic");
-
+})//.single("profilePic");
+.fields(
+    [
+        { name: 'profilePic', maxCount: 1 },
+        { name: 'productPic', maxCount: 8 }
+    ]
+)
 export const checkMultipart = async (req: Request, file: Response, next: NextFunction) => {
     //console.log("file.req ", req.headers);
     if (file.req.headers["content-type"] !== 'application/x-www-form-urlencoded') {
         await uploadLocalSingle(req, file, function (err) {
             if (err) {
+                console.log(err);
+                
                 return file.status(400).json(reportError({ message: getErrorMessage(err) }))
             }
             next()

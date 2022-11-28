@@ -1,5 +1,6 @@
 const { db } = require('../utils/database.util');
 import { DataTypes } from 'sequelize';
+import { Product } from './Products';
 
 const columns = {
     id: {

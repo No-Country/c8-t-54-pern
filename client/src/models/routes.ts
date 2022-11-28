@@ -2,6 +2,7 @@ export const PublicRoutes = {
     LOGIN: 'login',
     REGISTER: 'register',
     HOME: 'home',
+    CATALOGUE: 'catalogue',
     CRUDADMIN: 'crudAdmin'
   };
   

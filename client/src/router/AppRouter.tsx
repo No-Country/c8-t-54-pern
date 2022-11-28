@@ -10,6 +10,7 @@ import '../index.css'
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login/Login'));
 const Register = lazy(() => import('../pages/Register/Register'));
+const Catalogue = lazy(() => import('../pages/Catalogue/Catalogue'));
 const Admin = lazy(() => import('../pages/Private/Admin/Admin'))
 const Private = lazy(() => import('../pages/Private/Private'))
 
@@ -23,6 +24,7 @@ function AppRouter() {
               <Route path={PublicRoutes.LOGIN} element={<Login />}/>
               <Route path={PublicRoutes.REGISTER} element={<Register />}/>
               <Route path={PublicRoutes.HOME} element={<Home />}/>
+              <Route path={PublicRoutes.CATALOGUE} element={<Catalogue />}/>
               <Route element={<AuthGuard privateValidation={true}/>} >
                 <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />}/>
               </Route>

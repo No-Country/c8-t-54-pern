@@ -27,6 +27,7 @@ const config = {};
 const Cart = db.define("Cart", columns, config);
 
 Cart.belongsTo(User, { foreignKey: "userId" });
+User.belongsTo(Cart, { foreignKey: "cartId" });
 
 Cart.belongsToMany(Product, {
   through: "ProductsInCart",

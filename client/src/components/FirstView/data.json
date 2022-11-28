@@ -1,0 +1,22 @@
+{
+  "resources": [
+    {
+      "title": "NUEVOS ARRIBOS EN CAMISETAS",
+      "description": "Nueva linea de camistas deportivas",
+      "textButton": "EXPLORAR CALZADO",
+      "innerLink": "#1",
+      "link": "#",
+      "imageURL": "https://firebasestorage.googleapis.com/v0/b/db-demo-e7d23.appspot.com/o/football_responsive.png?alt=media&token=a7a939fb-1843-479f-b19e-fd3c9f234f45"
+    },
+    {
+      "title": "EMPIEZA EL MUNDIAL",
+      "description": "Mientras apoyas a la albiceleste, entrena como Messi",
+      "textButton": "EXPLORAR TIENDA",
+      "innerLink": "#0",
+      "link" : "#",
+      "imageURL":"https://firebasestorage.googleapis.com/v0/b/db-demo-e7d23.appspot.com/o/tobias-WAmXufrAV_M-unsplash%202.png?alt=media&token=03a12bf7-e85c-4357-ba52-2d76d1051001"
+
+    }
+    
+  ]
+}

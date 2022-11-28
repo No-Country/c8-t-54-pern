@@ -37,7 +37,7 @@ const columns = {
     },
     userRole: {
         type: DataTypes.STRING,
-    }
+    },
 };
 
 const config = {

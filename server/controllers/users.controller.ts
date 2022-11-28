@@ -36,7 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
                 password: hashedPassword,
                 phoneNumber: phoneNumber,
                 userRole: userRole,
-                profilePic: req.file?.filename || null
+                profilePic: profilePic
             }
         })
 
@@ -118,3 +118,4 @@ export const updateUser = async (req: Request, res: Response) => {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
     }
 }
+

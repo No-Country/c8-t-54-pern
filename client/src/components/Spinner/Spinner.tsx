@@ -1,5 +1,4 @@
-type Props = {};
-const Spinner = (props: Props) => {
+const Spinner = () => {
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <div className="pinwheel">

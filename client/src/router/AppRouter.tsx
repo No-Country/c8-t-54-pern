@@ -6,6 +6,7 @@ import RoutesWithNotFound from '../utils/RoutesWithNotFound';
 import AuthGuard from './guards/AuthGuard';
 import RoleGuard from './guards/RoleGuard';
 import '../index.css'
+import Spinner from '../components/Spinner/Spinner';
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login/Login'));
 const Register = lazy(() => import('../pages/Register/Register'));
@@ -14,7 +15,7 @@ const Admin = lazy(() => import('../pages/Private/Admin/Admin'))
 const Private = lazy(() => import('../pages/Private/Private'))
 function AppRouter() {
   return (
-      <Suspense fallback={<>Cargando</>}>
+      <Suspense fallback={<Spinner/>}>
           <BrowserRouter>
             <RoutesWithNotFound>
               <Route path='/' element={<Navigate to ={PrivateRoutes.PRIVATE} />}/>

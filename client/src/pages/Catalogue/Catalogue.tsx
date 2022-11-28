@@ -4,10 +4,15 @@ import Navbar from "../../components/Navbar/Navbar";
 import NavbarSecundary from "../../components/NavbarSecundary/NavbarSecundary";
 import ProductCard from "../../components/Products/ProductCard/ProductCard";
 import { BsFilter } from "react-icons/bs";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const Catalogue = () => {
   const [width, setWhidth] = useState(window.innerWidth);
-  const [openFilter, setOpenFilter] = useState(false);
+  const [openFilter, setOpenFilter] = useState({
+    open: false,
+    waist: false,
+    colors: false,
+  });
   const [openSort, setOpenSort] = useState(false);
 
   const handleSort = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -74,7 +79,9 @@ const Catalogue = () => {
             data-dropdown-toggle="dropdown"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="button"
-            onClick={() => setOpenFilter(!openFilter)}
+            onClick={() =>
+              setOpenFilter({ ...openFilter, open: !openFilter.open })
+            }
           >
             <BsFilter className="mr-2" /> Filtrar
             <svg
@@ -97,7 +104,7 @@ const Catalogue = () => {
           <div
             id="dropdown"
             className={`${
-              !openFilter ? "hidden" : ""
+              !openFilter.open ? "hidden" : ""
             } absolute p-2 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`}
             placeholder="Categorias"
           >
@@ -109,6 +116,7 @@ const Catalogue = () => {
                 <select
                   name="prueba"
                   id="prueba"
+                  size={6}
                   className="block w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-none rounded-sm"
                 >
                   <option value="">CATEGORIAS</option>
@@ -117,89 +125,64 @@ const Catalogue = () => {
                   <option value="4">Short</option>
                   <option value="5">Camiseta</option>
                   <option value="6">Calzado</option>
+                  <option value="3">Pantalon</option>
+                  <option value="4">Short</option>
+                  <option value="5">Camiseta</option>
+                  <option value="6">Calzado</option>
                 </select>
               </li>
               <li>
-                <button
-                  id="doubleDropdownButton"
-                  data-dropdown-toggle="doubleDropdown"
-                  data-dropdown-placement="right-start"
-                  type="button"
-                  className="flex justify-between items-center py-2 px-4 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Dropdown
-                  <svg
-                    aria-hidden="true"
-                    className="w-4 h-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
                 <div
-                  id="doubleDropdown"
-                  className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+                  className="flex items-center justify-between text-lg py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  onClick={() =>
+                    setOpenFilter({ ...openFilter, waist: !openFilter.waist })
+                  }
                 >
-                  <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="doubleDropdownButton"
-                  >
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Overview
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        My downloads
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Billing
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Rewards
-                      </a>
-                    </li>
-                  </ul>
+                  Talle
+                  {openFilter.waist ? <IoIosArrowDown /> : <IoIosArrowUp />}
                 </div>
+                {openFilter.waist ? null : <div className="flex justify-between">
+                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                    XS
+                  </p>
+                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                    S
+                  </p>
+                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                    M
+                  </p>
+                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                    L
+                  </p>
+                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                    XL
+                  </p>
+                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                    XXL
+                  </p>
+                </div>}
+                
               </li>
               <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                <div
+                  className="flex items-center justify-between text-lg py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  onClick={() =>
+                    setOpenFilter({ ...openFilter, colors: !openFilter.colors })
+                  }
                 >
-                  Earnings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Sign out
-                </a>
+                  Colores
+                  {openFilter.colors ? <IoIosArrowDown /> : <IoIosArrowUp />}
+                </div>
+                {openFilter.colors ? null : (
+                  <div className="flex justify-between">
+                    <p className="flex bg-[#000000] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
+                    <p className="flex bg-[#666666] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
+                    <p className="flex bg-[#13C296] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
+                    <p className="flex bg-[#3056D3] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
+                    <p className="flex bg-[#E41D2C] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
+                    <p className="flex bg-[#FFFFFF] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
+                  </div>
+                )}
               </li>
             </ul>
           </div>

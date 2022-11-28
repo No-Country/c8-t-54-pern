@@ -3,6 +3,7 @@ export const PublicRoutes = {
     REGISTER: 'register',
     HOME: 'home',
     CATALOGUE: 'catalogue',
+    CRUDADMIN: 'crudAdmin'
   };
   
   export const PrivateRoutes = {
@@ -10,3 +11,8 @@ export const PublicRoutes = {
     DETAILS: 'details',
     ADMIN: 'admin',
   };
+
+export const PrivateRoutesAdmin = {
+  ADD: 'add',
+  DELETECREATE: 'deleteCreate',
+}

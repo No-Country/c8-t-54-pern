@@ -6,16 +6,16 @@ import RoutesWithNotFound from '../utils/RoutesWithNotFound';
 import AuthGuard from './guards/AuthGuard';
 import RoleGuard from './guards/RoleGuard';
 import '../index.css'
-
+import Spinner from '../components/Spinner/Spinner';
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login/Login'));
 const Register = lazy(() => import('../pages/Register/Register'));
+const Catalogue = lazy(() => import('../pages/Catalogue/Catalogue'));
 const Admin = lazy(() => import('../pages/Private/Admin/Admin'))
 const Private = lazy(() => import('../pages/Private/Private'))
-
 function AppRouter() {
   return (
-      <Suspense fallback={<>Cargando</>}>
+      <Suspense fallback={<Spinner/>}>
           <BrowserRouter>
             <RoutesWithNotFound>
               <Route path='/' element={<Navigate to ={PrivateRoutes.PRIVATE} />}/>
@@ -23,12 +23,13 @@ function AppRouter() {
               <Route path={PublicRoutes.LOGIN} element={<Login />}/>
               <Route path={PublicRoutes.REGISTER} element={<Register />}/>
               <Route path={PublicRoutes.HOME} element={<Home />}/>
+              <Route path={PublicRoutes.CATALOGUE} element={<Catalogue />}/>
               <Route element={<AuthGuard privateValidation={true}/>} >
                 <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />}/>
               </Route>
-              <Route element={<RoleGuard rol={Roles.ADMIN} />}>
-                <Route path={`${PrivateRoutes.PRIVATE}/${PrivateRoutes.ADMIN}`} element={<Admin />} />
-              </Route>
+             <Route element={<RoleGuard rol={Roles.ADMIN} />}> 
+                <Route path={`${PrivateRoutes.PRIVATE}/${PrivateRoutes.ADMIN}/*`} element={<Admin />}/>
+               </Route>
             </RoutesWithNotFound>
           </BrowserRouter>
       </Suspense>

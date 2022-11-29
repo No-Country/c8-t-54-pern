@@ -50,21 +50,21 @@ export const updateProduct = async (req: Request, res: Response) => {
     
     try {
         const productToUpdate = await Product.findByPk(productId,{});
-        await productToUpdate.update({
-            productName: req.body.productName,
-            description: req.body.description,
-            price: req.body.price,
-            quantityInStock: req.body.quantityInStock
-        });
 
-        const productsaved = await productToUpdate.save();
+        if (productToUpdate !== null) {     
+            await productToUpdate.update({
+                productName: req.body.productName,
+                description: req.body.description,
+                price: req.body.price,
+                quantityInStock: req.body.quantityInStock
+            });
+            return res.status(200).json(productToUpdate)
+        }
 
-        if (productsaved.id) return res.status(200).json(productsaved)
         
-        res.status(400).json({ errorMessage: "Product could't be saved"})
         
     } catch (error) {
-        console.log(error)
+        res.status(400).json({ errorMessage: "Product could't be saved"})
     }
 };
 

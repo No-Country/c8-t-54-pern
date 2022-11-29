@@ -48,6 +48,6 @@ const config = {
 
 const User = db.define('User', columns, config);
 
-User.hasOne(Cart, { foreignKey: 'userId' });
+User.belongsTo(Cart, { foreignKey: "cartId" });
 
 export {User}

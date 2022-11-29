@@ -1,6 +1,5 @@
 import { db } from '../utils/database.util';
 import { DataTypes } from "sequelize";
-import { User } from "./Users";import { Product } from "./Products";
 
 const columns = {
   id: {
@@ -24,6 +23,5 @@ const columns = {
 const config = {};
 
 const Cart = db.define("Cart", columns, config);
-
 
 export {Cart}

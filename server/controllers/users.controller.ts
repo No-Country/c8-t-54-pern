@@ -24,7 +24,7 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const { userName, firstName, lastName, email, password, phoneNumber, userRole, profilePic } = req.body;
+        const { userName, firstName, lastName, email, password, phoneNumber, userRole, pics } = req.body;
         const hashedPassword = await hashPassword(password, 10)
         const [user, created] = await User.findOrCreate({
             where: email ? { email: email} : { userName: userName},
@@ -36,7 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
                 password: hashedPassword,
                 phoneNumber: phoneNumber,
                 userRole: userRole,
-                profilePic: profilePic
+                profilePic: pics[0]
             }
         })
 

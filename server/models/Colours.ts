@@ -8,16 +8,22 @@ const columns = {
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
-      },
-    colorValue: {
+    },
+    colourValue: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    colourName: {
         type: DataTypes.STRING,
         allowNull: false,
     }
 };
 
-const config = { tableName: "Colour",
-timestamps: true,
-paranaoid: true};
+const config = {
+    tableName: "Colour",
+    timestamps: true,
+    paranaoid: true
+};
 
 const Colour = db.define("Colour", columns, config);
 

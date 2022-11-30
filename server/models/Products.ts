@@ -31,11 +31,15 @@ const columns = {
   },
 };
 
-const config = {};
+const config = {
+  tableName: "Products",
+  timestamps: true,
+  paranoid: true
+};
 
 const Product = db.define("Product", columns, config);
 
-Product.belongsToMany(Categories, {through: "ProductCategories", foreignKey: "productId", otherKey: "categoryId"});
+Product.belongsToMany(Categories, { through: "ProductCategories", foreignKey: "productId", otherKey: "categoryId" });
 
 Product.hasMany(ProductImgs, { foreignKey: "ProductId" });
 

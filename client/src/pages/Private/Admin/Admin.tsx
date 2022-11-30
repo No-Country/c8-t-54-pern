@@ -1,16 +1,20 @@
 import RoutesWithNotFound from "../../../utils/RoutesWithNotFound"
-import { Route } from "react-router-dom"
+import { BrowserRouter, Route } from "react-router-dom"
 import {  PrivateRoutesAdmin } from "../../../models/routes"
 import { lazy } from "react"
+import NavbarAdmin from "../../../components/crudAdmin/NavbarAdmin"
 
 const Add = lazy(() => import ('../../../components/crudAdmin/Add'))
 const DeleteCreate = lazy(() => import ('../../../components/crudAdmin/EditAndDelete'))
 const AdminPanel = () => {
   return (
-    <RoutesWithNotFound>
+    <div className="flex h-full md:flex-row flex-col gap-10 md:gap-0">
+      <NavbarAdmin/>
+      <RoutesWithNotFound>
       <Route path={'/'} element={<Add/>}/>
-      <Route path={PrivateRoutesAdmin.DELETECREATE} element={<DeleteCreate/>}/>
+      <Route path={`${PrivateRoutesAdmin.DELETECREATE}`} element={<DeleteCreate/>}/>
     </RoutesWithNotFound>
+    </div>
   )
 }
 

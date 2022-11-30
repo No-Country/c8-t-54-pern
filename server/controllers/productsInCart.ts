@@ -2,11 +2,6 @@ const { Product } = require("../models/Products");
 const { User } = require("../models/Users");
 const { Cart } = require("../models/Carts");
 import { Request, Response } from "express";
-import { ProductsInCart } from "../models/ProductsInCart";
-
-export const test = async (req: Request, res: Response) => {
-  res.status(200).json({ Funciona: "Si funciona" });
-};
 
 //* Añadir producto al carrito
 export const addToCart = async (req: Request, res: Response) => {

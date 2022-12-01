@@ -1,22 +1,15 @@
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FC } from "react";
-
-type Product = {
-  id: String;
-  productName: String;
-  description: String;
-  quantityInStock: number;
-  price: number;
-};
+import { Product } from "../../../models/Products";
 
 const ProductCard = (product: Product) => {
   return (
     <div className="my-4">
-      <div className="relative w-[9.2rem] h-[11.2rem]">
+      <div className="relative w-[9.2rem] h-[11.2rem] md:w-[17rem] md:h-[19rem]">
         <AiOutlineHeart className="absolute top-2 right-2 text-[#3056D3] text-xl cursor-pointer" />
         <img
-          src="https://static.dafiti.com.ar/p/unlimit-ride-0542-661058-1-catalog-new.jpg"
-          alt="prueba"
+          src={product.ProductImgs[0].imgUrl}
+          alt={product.id}
           className="h-full w-full"
         />
       </div>

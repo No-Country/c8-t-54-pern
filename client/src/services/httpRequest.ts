@@ -25,3 +25,26 @@ export const postRequest = async (userData: {}, endpoint: string) => {
     }
   }
 };
+
+export const getRequest = async (endpoint: string) => {
+  try {
+    const { data } = await axios.get(URL + endpoint, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+
+      throw new Error(error.message);
+    } else {
+      console.log("unexpected error: ", error);
+      return "An unexpected error occurred";
+    }
+  }
+};

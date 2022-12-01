@@ -10,6 +10,10 @@
     border-radius: 6px;
 }
 
+.form-buttons:disabled {
+  color: grey
+}
+
 .form-inputs {
     padding: 0.5em;
     width: 100%;
@@ -24,6 +28,15 @@
 .form-inputs::placeholder {
     color: rgba(170,170,170,1);
     font-weight: 500;
+}
+
+.form-error-message {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 1.125rem;
+  color: #E41D2C;
+  margin-top: 0.5rem;
 }
 
 .pinwheel {

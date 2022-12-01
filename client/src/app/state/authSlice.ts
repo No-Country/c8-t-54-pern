@@ -1,8 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { dataLogin } from "../../models/dataLogin";
+import { createSlice } from "@reduxjs/toolkit";
 import { UserInfo } from "../../models/userInfo";
-import { postRequest } from "../../services/httpRequest";
-import { persistLocalStorage } from "../../utils/LocalStorageFunctions";
+import { persistLocalStorage, clearLocalStorage } from "../../utils/LocalStorageFunctions";
 
 export const initialState: UserInfo = {
   userRole: null,
@@ -17,53 +15,39 @@ export const initialState: UserInfo = {
   profilePic: "",
 };
 
-export const authLogin = createAsyncThunk(
-  //action type string
-  "auth/login",
-  // callback function
-  async ({ email, password }: dataLogin, thunkAPI) => {
-    try {
-      const response = await postRequest({ email, password }, "/users/login");
-      persistLocalStorage<UserInfo>("auth", {
-        token: response.data.token,
-        id: response.data.user.id,
-        userRole: response.data.user.userRole,
-        logged: true,
-      });
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue("Error when logging");
-    }
-  }
-);
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: localStorage.getItem("auth")
     ? JSON.parse(localStorage.getItem("auth") as string)
     : initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(authLogin.pending, (state) => ({
-      ...state,
-    })),
-      builder.addCase(authLogin.fulfilled, (state, action) => ({
-        ...state,
-        userRole: action.payload.data.user.userRole,
-        token: action.payload.data.token,
-        id: action.payload.data.user.id,
+  reducers: {
+    login: (state, action) => {
+      persistLocalStorage<UserInfo>("auth", {
+        token: action.payload.token,
+        id: action.payload.user.id,
+        userRole: action.payload.user.userRole,
+        userName: action.payload.user.userName,
         logged: true,
-        firstName: action.payload.data.user.firstName,
-        lastName: action.payload.data.user.lastName,
-        userName: action.payload.data.user.userName,
-        email: action.payload.data.user.email,
-        phoneNumber: action.payload.data.user.phoneNumber,
-        profilePic: action.payload.data.user.profilePic,
-      })),
-      builder.addCase(authLogin.rejected, (state, action) => ({
-        ...state,
-      }));
+      });
+
+      state.userRole = action.payload.user.userRole
+      state.token = action.payload.token
+      state.id = action.payload.user.userId
+      state.logged = true
+      state.firstName = action.payload.user.firstName
+      state.lastName = action.payload.user.lastName
+      state.userName = action.payload.user.userName
+      state.email = action.payload.user.email
+      state.phoneNumber = action.payload.user.phoneNumber
+      state.profilePic = action.payload.user.profilePic
+    },
+    logout: () => {
+      clearLocalStorage('auth')
+      return initialState
+    }
   },
 });
+
+export const {login, logout} = authSlice.actions
 
 export default authSlice.reducer;

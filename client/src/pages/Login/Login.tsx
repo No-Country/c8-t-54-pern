@@ -1,42 +1,45 @@
-import { ChangeEvent, FormEvent, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
+import { Formik, Form, Field, ErrorMessage, FormikValues } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { authLogin } from "../../app/state/authSlice";
+import { login } from "../../app/state/authSlice";
 import { AppDispatch } from "../../app/store";
 import { dataLogin } from "../../models/dataLogin";
 import { PrivateRoutes, PublicRoutes } from "../../models/routes";
 import { Error, Success } from "../../utils/notification";
+import { validationSchema } from "./validationSchema";
+import { useLogin } from "../../hooks/useUser";
 
 const Login = () => {
+  const initialValues: dataLogin = {
+    email: "",
+    password: "",
+  };
+
+  const onSuccess = (data: any) => {
+    dispatch(login(data.data));
+    Success(
+      `¡Hola ${data.data.user.userName}!`,
+      "¡Qué bueno tenerte de nuevo en MOVEment!"
+    );
+    setTimeout(() => {
+      navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
+    }, 2100);
+  };
+  const onError = () => {
+    Error("Error al iniciar sesión");
+  };
+
+  const { mutate, isLoading } = useLogin(onSuccess, onError);
+
+  const onSubmit = (values: {}, onSubmitProps: FormikValues) => {
+    mutate(values);
+    onSubmitProps.resetForm();
+  };
+
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
-  const [state, setState] = useState<dataLogin>({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    let value: typeof state[keyof typeof state] = event.target.value;
-    setState({ ...state, [event.target.name]: value });
-  };
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      const resp = await dispatch(authLogin(state)).unwrap();
-      Success(
-        `¡Hola ${resp.data.user.userName}!`,
-        "¡Qué bueno tenerte de nuevo en MOVEment!"
-      );
-      setTimeout(() => {
-        navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
-      }, 2100);
-    } catch (error) {
-      Error("Hubo un problema al iniciar sesión");
-      console.log(error);
-    }
-  };
 
   return (
     <div className="py-4 mt-4 max-w-[90%] sm:max-w-[70%] md:max-w-2xl md:py-0 lg:max-w-4xl mx-auto md:mt-20 h-fit border rounded-md drop-shadow">
@@ -51,42 +54,63 @@ const Login = () => {
               ¡Qué bueno tenerte de nuevo en MOVEment!
             </p>
           </div>
-          <form
-            className="w-full flex flex-col items-center justify-center gap-20"
-            onSubmit={handleSubmit}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+            validateOnMount
           >
-            <div className="w-full flex flex-col items-center gap-3">
-              <input
-                className="form-inputs"
-                onChange={handleChange}
-                type="text"
-                name="email"
-                placeholder="Ingresa tu E-mail"
-              />
-              <input
-                className="form-inputs"
-                onChange={handleChange}
-                type="password"
-                name="password"
-                placeholder="Ingresa tu contraseña"
-              />
-            </div>
-            <div className="w-full flex flex-col items-center gap-3">
-              <button
-                className="form-buttons bg-[#3A3A3A]  text-white"
-                type="submit"
-              >
-                Iniciar Sesión
-              </button>
-              <button
-                className="form-buttons flex items-center justify-center gap-2 bg-transparent border-[3px] border-[#3A3A3A] rounded-md text-[#383838] font-semibold"
-                type="button"
-              >
-                <FcGoogle className="text-xl" />
-                Iniciar Sesión con Google
-              </button>
-            </div>
-          </form>
+            {(formik) => {
+              return (
+                <Form className="w-full flex flex-col items-center justify-center gap-20">
+                  <div className="w-full flex flex-col items-center gap-3">
+                    <div className="w-full">
+                      <Field
+                        className="form-inputs"
+                        type="email"
+                        name="email"
+                        placeholder="Ingresa tu E-mail"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        className="form-error-message"
+                        component={"p"}
+                      />
+                    </div>
+                    <div className="w-full">
+                      <Field
+                        className="form-inputs"
+                        type="password"
+                        name="password"
+                        placeholder="Ingresa tu contraseña"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        className="form-error-message"
+                        component={"p"}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full flex flex-col items-center gap-3">
+                    <button
+                      className="form-buttons bg-[#3A3A3A]  text-white"
+                      type="submit"
+                      disabled={!formik.isValid || isLoading}
+                    >
+                      Iniciar Sesión
+                    </button>
+                    <button
+                      className="form-buttons flex items-center justify-center gap-2 bg-transparent border-[3px] border-[#3A3A3A] rounded-md text-[#383838] font-semibold"
+                      type="button"
+                    >
+                      <FcGoogle className="text-xl" />
+                      Iniciar Sesión con Google
+                    </button>
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
           <Link to={`/${PublicRoutes.REGISTER}`}>
             ¿No tienes una cuenta?{" "}
             <span className="font-semibold text-black">Crea tu cuenta</span>

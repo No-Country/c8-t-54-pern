@@ -6,7 +6,13 @@ import { Order } from "./Orders";
 import { User } from "./Users";
 import { Colour } from "./Colours";
 
-const columns = {
+const config = {
+  tableName: "Products",
+  timestamps: true,
+  paranoid: true
+};
+
+const Product = db.define("Product", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -27,21 +33,18 @@ const columns = {
   },
   price: {
     type: DataTypes.DECIMAL,
+    get() {
+      const rawValue = this.getDataValue('price');
+      return rawValue ? parseFloat(rawValue) : null;
+    },
     allowNull: false,
-  },
-};
-
-const config = {
-  tableName: "Products",
-  timestamps: true,
-  paranoid: true
-};
-
-const Product = db.define("Product", columns, config);
+  }
+}, config);
 
 Product.belongsToMany(Categories, { through: "ProductCategories", foreignKey: "productId", otherKey: "categoryId" });
 
-Product.hasMany(ProductImgs, { foreignKey: "ProductId" });
+//Product.hasMany(ProductImgs, {  foreignKey: "ProductId" });
+const ProductImgsAssoc = Product.hasMany(ProductImgs, {as:"ProductImgs", foreignKey: "ProductId" });
 
 Product.belongsToMany(Colour, {
   through: "ProductColours",
@@ -62,4 +65,4 @@ Product.belongsToMany(Order, {
 });
 
 
-export { Product };
+export { Product, ProductImgs, ProductImgsAssoc };

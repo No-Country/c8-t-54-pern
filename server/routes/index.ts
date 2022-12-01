@@ -8,8 +8,8 @@ const router = Router()
 
 router.use("/users", userRouter);
 router.use('/products', productRouter);
-router.use('/addToCart', prodInCart);
 router.use('/colours', colourRouter);
+router.use('/cart', prodInCart)
 router.get("/", (_req: Request, res: Response) => res.send("OK"));
 
 export default router;

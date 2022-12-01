@@ -1,12 +1,17 @@
-import { ChangeEvent,useState } from "react";
-import NavbarAdmin from "./NavbarAdmin";
+import { ChangeEvent,useState, } from "react";
+import { Success } from "../../utils/notification";
 
 export interface inputs  {
   productName: string,
   description:string,
   quantityInStock: number,
   price: number,
+  img?:FileList
 }
+export type files  = FormData
+
+const URL: string = import.meta.env.VITE_API_URL;
+
 const Add = () => {
   const [input,setInput] = useState<inputs>({
     productName:'',
@@ -14,7 +19,7 @@ const Add = () => {
     quantityInStock:0,
     price:0,
   })
-
+  console.log(input)
   const handleChange = (event: ChangeEvent<HTMLInputElement> ) =>{
     let value: typeof input[keyof typeof input] = event.target.value
     setInput({ ...input, [event.target.name]: value })
@@ -23,23 +28,24 @@ const Add = () => {
     const file = event.target.files
     const formData = new FormData();
     file&&formData.append('file',file)
+    /* setInput({...input,...file}) */
+    
   }
-  const handleSubmit = (e:ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e:ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
+      Success('Su producto se generó correctamente', '😁')
   }
 
   
   return (
-    <div className="flex">
-      <NavbarAdmin/>
-    <div className=" flex p-2 flex-col gap-10 h-full w-[100%]">
-    <h2 className="text-lg font-semibold">Hola admin! me alegra tenerte de nuevo 😁!</h2>
-    <form className="flex flex-col  items-center gap-5" onSubmit={handleSubmit}>
+    <div className=" flex p-2 flex-col gap-10 w-[70%]  md:items-center h-screen">
+    <h2 className="text-lg font-semibold w-[100vw] md:w-auto ">Hola admin! me alegra tenerte de nuevo 😁!</h2>
+    <form className="flex flex-col justify-center items-center gap-5 md:p-0 p-4 h-full w-screen md:w-full" onSubmit={handleSubmit}>
       <input
         type="text"
         name="productName"
         placeholder="Nombre del producto"
-        className="form-inputs"
+        className="form-inputs "
         onChange={handleChange}
       />
       <input
@@ -96,18 +102,15 @@ const Add = () => {
       <input id="dropzone-file" type="file" className="hidden" name="file" multiple onChange={handleImage}/>
     </label>
   </div>
-
-
-      <div className="flex gap-3 w-2/5">
-        <button className="form-buttons bg-red-500 border-transparent font-semibold  text-white  hover:bg-red-800 transition-all">
+      <div className="flex gap-3 md:w-2/5  w-3/4">
+        <button className="form-buttons  bg-red-500 border-transparent font-semibold  text-white  hover:bg-red-800 transition-all">
           cancelar
         </button>
-        <button className="form-buttons  bg-emerald-600/75  rounded-md text-white font-semibold hover:bg-emerald-500  hover:text-white transition-all">
+        <button  className="form-buttons  bg-emerald-600/75  rounded-md text-white font-semibold hover:bg-emerald-500  hover:text-white transition-all">
           crear
         </button>
       </div>
     </form>
-    </div>
     </div>
 
   );

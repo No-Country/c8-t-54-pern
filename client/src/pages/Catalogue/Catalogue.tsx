@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import NavbarSecundary from "../../components/NavbarSecundary/NavbarSecundary";
 import ProductCard from "../../components/Products/ProductCard/ProductCard";
 import { BsFilter } from "react-icons/bs";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { getAllProducts } from "../../app/state/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, AppStore } from "../../app/store";
 
 const Catalogue = () => {
   const [width, setWhidth] = useState(window.innerWidth);
@@ -15,10 +18,26 @@ const Catalogue = () => {
   });
   const [openSort, setOpenSort] = useState(false);
 
+  const products = useSelector((store: AppStore) => store.products.list);
+
   const handleSort = (event: React.MouseEvent<HTMLLIElement>) => {
     const sort: HTMLLIElement = event.currentTarget;
     console.log(`Ordenar por ${sort.innerHTML}`);
   };
+  console.log("LISTA:", products);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const viewWindow = () => {
+    setWhidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener("resize", viewWindow);
+  // }, []);
 
   const listProducts = [
     {
@@ -58,12 +77,6 @@ const Catalogue = () => {
     },
   ];
 
-  const viewWindow = () => {
-    setWhidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", viewWindow);
-  }, []);
   return (
     <>
       <Navbar width={width} setWidth={setWhidth} />
@@ -141,27 +154,28 @@ const Catalogue = () => {
                   Talle
                   {openFilter.waist ? <IoIosArrowDown /> : <IoIosArrowUp />}
                 </div>
-                {openFilter.waist ? null : <div className="flex justify-between">
-                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                    XS
-                  </p>
-                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                    S
-                  </p>
-                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                    M
-                  </p>
-                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                    L
-                  </p>
-                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                    XL
-                  </p>
-                  <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                    XXL
-                  </p>
-                </div>}
-                
+                {openFilter.waist ? null : (
+                  <div className="flex justify-between">
+                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                      XS
+                    </p>
+                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                      S
+                    </p>
+                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                      M
+                    </p>
+                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                      L
+                    </p>
+                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                      XL
+                    </p>
+                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
+                      XXL
+                    </p>
+                  </div>
+                )}
               </li>
               <li>
                 <div
@@ -323,15 +337,30 @@ const Catalogue = () => {
       </div>
 
       <div className="flex flex-wrap w-full justify-center gap-4 ">
-        {listProducts.map((prod) => {
+        {products?.map((prod) => {
           return (
             <ProductCard
-              key={prod.id}
+              key={prod.id as Key}
               id={prod.id}
               productName={prod.productName}
               description={prod.description}
               quantityInStock={prod.quantityInStock}
               price={prod.price}
+              ProductImgs={
+                prod.ProductImgs?.length
+                  ? prod.ProductImgs
+                  : [
+                      {
+                        ProductId: "",
+                        id: "",
+                        date: new Date(),
+                        imgUrl: "",
+                        status: "",
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                      },
+                    ]
+              }
             />
           );
         })}

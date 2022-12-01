@@ -16,13 +16,13 @@ export const list = async (req: Request, res: Response) => {
 export const saveCategory = async (req: Request, res: Response) => {
     try {
         const { categoryName } = req.body;
-        console.log(categoryName);
 
         const newCategory = await Categories.create({
             categoryName: categoryName,
 
         })
         res.status(201).json({ message: "Category added succesfully", newCategory })
+    
     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
     };
@@ -52,4 +52,5 @@ export const update = async (req: Request, res: Response) => {
 
 //
 export const deleteColour = async (req: Request, res: Response) => {
+    res.send('controller no disponible :P')
 };

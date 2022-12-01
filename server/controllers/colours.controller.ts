@@ -1,7 +1,6 @@
 import { Colour } from "../models/Colours";
 import { Request, Response } from "express";
 import { getErrorMessage, reportError } from "../helpers/errorReport";
-import { Op } from "sequelize";
 
 //
 export const list = async (req: Request, res: Response) => {
@@ -11,29 +10,6 @@ export const list = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
     }
-};
-
-//
-export const oneColour = async (req: Request, res: Response) => {
-    try {
-        const colourWanted = req.params.id
-        console.log(colourWanted)
-        if (colourWanted !== undefined) {
-            const oneColour = Colour.findOne({
-                attributes: ["colourName", "colourValue", "id"],
-                where: { 
-                    [Op.or]: [
-                        {colourName: colourWanted},
-                        {colourValue: colourWanted}
-                    ]
-                }
-            });
-            res.status(200).json({ oneColour })
-        }
-
-    } catch (error) {
-        res.status(400).json(reportError({ message: getErrorMessage(error) }))
-    };
 };
 
 //
@@ -62,18 +38,16 @@ export const update = async (req: Request, res: Response) => {
     try {
         const colourToUpdate = await Colour.findByPk(colourId, {});
 
-        if (colourToUpdate !== null) {
-            await colourToUpdate.update({
-                colourName: req.body.colourName,
-                colourValue: req.body.colourValue,
-            });
-            return res.status(200).json(colourToUpdate)
-        }
+        if (!colourToUpdate) return res.status(401).json({ message: "Color not found, or doest exist" })
 
-
+        await colourToUpdate.update({
+            colourName: req.body.colourName,
+            colourValue: req.body.colourValue
+        });
+        res.status(200).json({ colourToUpdate })
 
     } catch (error) {
-        res.status(400).json({ errorMessage: "Colour could't be saved" })
+        res.status(400).json({ errorMessage: `Invalid uuid: ${colourId}` })
     }
 };
 

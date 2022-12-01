@@ -38,6 +38,9 @@ const Product = db.define("Product", {
       return rawValue ? parseFloat(rawValue) : null;
     },
     allowNull: false,
+  }, 
+  deletedAt: {
+    type: DataTypes.STRING,
   }
 }, config);
 

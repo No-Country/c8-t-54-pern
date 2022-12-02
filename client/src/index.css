@@ -39,6 +39,14 @@
   margin-top: 0.5rem;
 }
 
+.cart-buttons {
+  padding: 1rem;
+  width: 100%;
+  max-width: 300px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
 .pinwheel {
     --uib-size: 35px;
     --uib-speed: 1s;

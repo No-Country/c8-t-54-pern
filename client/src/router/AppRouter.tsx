@@ -11,6 +11,7 @@ const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login/Login'));
 const Register = lazy(() => import('../pages/Register/Register'));
 const Catalogue = lazy(() => import('../pages/Catalogue/Catalogue'));
+const Profile = lazy(() => import('../pages/Profile/Profile'));
 const Admin = lazy(() => import('../pages/Private/Admin/Admin'))
 const Private = lazy(() => import('../pages/Private/Private'))
 function AppRouter() {
@@ -24,6 +25,7 @@ function AppRouter() {
               <Route path={PublicRoutes.REGISTER} element={<Register />}/>
               <Route path={PublicRoutes.HOME} element={<Home />}/>
               <Route path={PublicRoutes.CATALOGUE} element={<Catalogue />}/>
+              <Route path={PublicRoutes.PROFILE} element={<Profile />}/>
               <Route element={<AuthGuard privateValidation={true}/>} >
                 <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />}/>
               </Route>

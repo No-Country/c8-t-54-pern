@@ -1,9 +1,11 @@
 import { FcGoogle } from "react-icons/fc";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik, FormikValues } from "formik";
 import { useCreateUser } from "../../hooks/useUser";
 import { PublicRoutes } from "../../models/routes";
 import { validationSchema } from "./validationSchema";
+import { useState } from "react";
 
 type registerData = {
   userName: string;
@@ -20,6 +22,16 @@ const Register = () => {
     confirmPassword: "",
   };
 
+  enum inputPass {
+    text = "text",
+    password = "password",
+  }
+
+  const [isVisiblePass, setIsVisiblePass] = useState({
+    password: inputPass.password,
+    confirm: inputPass.password,
+  });
+ 
   const { mutate, isLoading } = useCreateUser();
 
   const onSubmit = (values: {}, onSubmitProps: FormikValues) => {
@@ -74,12 +86,35 @@ const Register = () => {
                       />
                     </div>
                     <div className="w-full">
-                      <Field
-                        className="form-inputs"
-                        type="password"
-                        name="password"
-                        placeholder="Ingresa tu contraseña"
-                      />
+                      <div className="flex relative items-center">
+                        <Field
+                          className="form-inputs"
+                          type={isVisiblePass.password}
+                          name="password"
+                          placeholder="Ingresa tu contraseña"
+                        />
+                        {isVisiblePass.password === inputPass.password ? (
+                          <AiOutlineEye
+                            className="absolute right-5 text-xl cursor-pointer"
+                            onClick={() =>
+                              setIsVisiblePass({
+                                ...isVisiblePass,
+                                password: inputPass.text,
+                              })
+                            }
+                          />
+                        ) : (
+                          <AiOutlineEyeInvisible
+                            className="absolute right-5 text-xl cursor-pointer"
+                            onClick={() =>
+                              setIsVisiblePass({
+                                ...isVisiblePass,
+                                password: inputPass.password,
+                              })
+                            }
+                          />
+                        )}
+                      </div>
                       <ErrorMessage
                         name="password"
                         className="form-error-message"
@@ -87,12 +122,35 @@ const Register = () => {
                       />
                     </div>
                     <div className="w-full">
-                      <Field
-                        className="form-inputs"
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirma tu contraseña"
-                      />
+                      <div className="flex relative items-center">
+                        <Field
+                          className="form-inputs"
+                          type={isVisiblePass.confirm}
+                          name="confirmPassword"
+                          placeholder="Confirma tu contraseña"
+                        />
+                        {isVisiblePass.confirm === inputPass.password ? (
+                          <AiOutlineEye
+                            className="absolute right-5 text-xl cursor-pointer"
+                            onClick={() =>
+                              setIsVisiblePass({
+                                ...isVisiblePass,
+                                confirm: inputPass.text,
+                              })
+                            }
+                          />
+                        ) : (
+                          <AiOutlineEyeInvisible
+                            className="absolute right-5 text-xl cursor-pointer"
+                            onClick={() =>
+                              setIsVisiblePass({
+                                ...isVisiblePass,
+                                confirm: inputPass.password,
+                              })
+                            }
+                          />
+                        )}
+                      </div>
                       <ErrorMessage
                         name="confirmPassword"
                         className="form-error-message"

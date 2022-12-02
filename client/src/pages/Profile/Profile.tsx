@@ -5,28 +5,20 @@ import { useState } from "react";
 
 type profileData = {
   userName: string;
+  lastName:string;
+  phoneNumber: string;
   email: string;
-  password: string;
-  confirmPassword: string | null;
+
 };
 
 const Profile = () => {
   const initialValues: profileData = {
     userName: "",
+    lastName: "",
+    phoneNumber: "",
     email: "",
-    password: "",
-    confirmPassword: "",
   };
 
-  enum inputPass {
-    text = "text",
-    password = "password",
-  }
-
-  const [isVisiblePass, setIsVisiblePass] = useState({
-    password: inputPass.password,
-    confirm: inputPass.password,
-  });
 
   const { mutate, isLoading } = useCreateUser();
 
@@ -113,6 +105,17 @@ const Profile = () => {
                   <ErrorMessage
                     className="form-error-message"
                     name="phoneNumber"
+                    component={"p"}
+                  ></ErrorMessage>
+                    <Field
+                    className="w-full cursor-pointer md:w-1/2 p-2 border-2 rounded-md border-gray-200 drop-shadow"
+                    type="email"
+                    name="email"
+                    placeholder="e-mail"
+                  />
+                  <ErrorMessage
+                    className="form-error-message"
+                    name="email"
                     component={"p"}
                   ></ErrorMessage>
                   <div className=" w-full md:w-1/2 flex justify-center gap-4 py-8">

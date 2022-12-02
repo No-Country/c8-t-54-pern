@@ -6,13 +6,15 @@ import { Link } from "react-router-dom";
 import NavbarSecundary from "../NavbarSecundary/NavbarSecundary";
 import { AppStore } from "../../app/store";
 import { useSelector } from "react-redux";
+import Cart from "../Cart/Cart";
 
 interface HomeProps {
   width: number;
   setWidth: Dispatch<number>;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Navbar: FC<HomeProps> = ({ width, setWidth }) => {
+const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
   const [open, setOpen] = useState<Boolean>(false);
   const { logged } = useSelector((store: AppStore) => store.auth);
 
@@ -42,7 +44,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth }) => {
               </div>
               <div className=" w-[95%] flex items-center cursor-pointer hover:text-lime-400 gap-1">
                 <BsCart className="hover:text-lime-400" />
-                <p className="w-full">Carrito</p>
+                <button className="w-full" onClick={() => setIsOpen(true)}>Carrito</button>
               </div>
               {width < 768 && (
                 <NavbarSecundary width={width} setWidth={setWidth} />

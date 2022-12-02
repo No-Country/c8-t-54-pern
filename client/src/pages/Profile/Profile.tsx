@@ -4,7 +4,7 @@ import { validationSchema } from "../Login/validationSchema";
 import { useState } from "react";
 
 type profileData = {
-  userName: string;
+  firstName: string;
   lastName:string;
   phoneNumber: string;
   email: string;
@@ -13,7 +13,7 @@ type profileData = {
 
 const Profile = () => {
   const initialValues: profileData = {
-    userName: "",
+    firstName: "",
     lastName: "",
     phoneNumber: "",
     email: "",
@@ -77,12 +77,12 @@ const Profile = () => {
                   <Field
                     className="w-full cursor-pointer md:w-1/2 p-2 border-2 rounded-md border-gray-200 drop-shadow "
                     type="text"
-                    name="userName"
+                    name="firstName"
                     placeholder="Nombre de usuario"
                   />
                   <ErrorMessage
                     className="form-error-message"
-                    name="userName"
+                    name="firstName"
                     component={"p"}
                   ></ErrorMessage>
                   <Field

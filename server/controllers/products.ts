@@ -1,8 +1,10 @@
+//import { Product, ProductImgsAssoc } from "../models/Products";
 import { Request, Response } from "express";
 import { getErrorMessage, reportError } from "../helpers/errorReport";
 const { Product, ProductImgsAssoc } = require("../models/Products");
 const { User } = require("../models/Users");
-const { Size } = require("../models/Sizes");
+const { Size } = require("../models/Sizes");import { Categories } from "../models/Categories";
+
 const { Op } = require("sequelize");
 // List of every product in db
 export const list = async (req: Request, res: Response) => {
@@ -34,7 +36,7 @@ export const productDetail = async (req: Request, res: Response) => {
 // Stores the product in the db
 export const saveProduct = async (req: Request, res: Response) => {
     try {
-        const { productName, description, quantityInStock, price, pics, sizes } = req.body;
+        const { productName, description, quantityInStock, price, pics, sizes, categoriesIds } = req.body;
         //const pics = req.body.pic ? req.body.pic : "null"
         let picsUrls: Array<any> = []
         pics.forEach((url: any) => {
@@ -57,9 +59,14 @@ export const saveProduct = async (req: Request, res: Response) => {
                 id: sizes
             }
         });
-        newProduct.addSize(size)
-        res.status(201).json({ message: "New Product created", newProduct })
-    } catch (error) {
+        await newProduct.addSize(size)
+
+        const category = await Categories.findByPk(categoriesIds);
+
+        const prodCat = await newProduct.addCategories(category)
+
+        res.status(201).json({ message: "New Product created", newProduct, prodCat })
+     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
     };
 };

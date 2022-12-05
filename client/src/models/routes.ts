@@ -3,7 +3,8 @@ export const PublicRoutes = {
     REGISTER: 'register',
     HOME: 'home',
     CATALOGUE: 'catalogue',
-    CRUDADMIN: 'crudAdmin'
+    CRUDADMIN: 'crudAdmin',
+    PROFILE: 'profile'
   };
   
   export const PrivateRoutes = {

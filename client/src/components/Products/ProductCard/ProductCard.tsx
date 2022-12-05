@@ -1,19 +1,18 @@
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { FC } from "react";
 import { Product } from "../../../models/Products";
 
 const ProductCard = (product: Product) => {
   return (
-    <div className="my-4">
+    <div className="my-2 shadow-md">
       <div className="relative w-[9.2rem] h-[11.2rem] md:w-[17rem] md:h-[19rem]">
-        <AiOutlineHeart className="absolute top-2 right-2 text-[#3056D3] text-xl cursor-pointer" />
+        <AiOutlineHeart className="absolute top-2 right-2 text-[#3056D3] text-xl cursor-pointer z-40" />
         <img
           src={product.ProductImgs[0].imgUrl}
           alt={product.id}
-          className="h-full w-full"
+          className="flex h-full w-full object-cover justify-start hover:scale-110 hover:duration-300 cursor-pointer"
         />
       </div>
-      <div className="flex flex-col font-poppins">
+      <div className="flex flex-col font-poppins p-2">
         <p className="font-bold text-lg pt-1">{product.productName}</p>
         <p className="w-[9.2rem] text-xs truncate text-ellipsis overflow-hidden pt-0.5">
           {product.description}

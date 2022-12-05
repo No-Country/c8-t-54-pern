@@ -11,7 +11,7 @@ export const list = async (req: Request, res: Response) => {
     try {
         const products = await Product.findAll({
             order: [["productName", "asc"]],
-            include: [{ association: "ProductImgs" }]
+            include: [{ association: "ProductImgs" }, { association: "Size" }]
         })
         res.status(200).json({ products });
     } catch (error) {

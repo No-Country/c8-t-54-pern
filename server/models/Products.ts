@@ -49,7 +49,7 @@ Product.belongsToMany(Categories, { through: "ProductCategories", foreignKey: "p
 
 const ProductImgsAssoc = Product.hasMany(ProductImgs, {as:"ProductImgs", foreignKey: "ProductId" });
 
-Product.belongsToMany(Size, { through: "ProductSize", foreignKey: "productId", otherKey: "sizeId", });
+Product.belongsToMany(Size, {as:  "Size", through: "ProductSize", foreignKey: "productId", otherKey: "sizeId", });
 
 Product.belongsToMany(Colour, {
   through: "ProductColours",

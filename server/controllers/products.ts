@@ -5,7 +5,6 @@ const { User } = require("../models/Users");
 const { Size } = require("../models/Sizes");
 import { Categories } from "../models/Categories";
 import { Colour } from "../models/Colours";
-const { Op } = require("sequelize");
 
 // List of every product in db
 export const list = async (req: Request, res: Response) => {

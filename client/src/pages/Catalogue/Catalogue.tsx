@@ -1,13 +1,15 @@
-import { Key, useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import NavbarSecundary from "../../components/NavbarSecundary/NavbarSecundary";
 import ProductCard from "../../components/Products/ProductCard/ProductCard";
-import { BsFilter } from "react-icons/bs";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { getAllProducts } from "../../app/state/productsSlice";
+import Spinner from "../../components/Spinner/Spinner";
+import { Key, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppStore } from "../../app/store";
+import { getAllProducts } from "../../app/state/productsSlice";
+import { getAllColours } from "../../app/state/coloursSlice";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { BsFilter } from "react-icons/bs";
 
 const Catalogue = () => {
   const [width, setWhidth] = useState(window.innerWidth);
@@ -19,12 +21,13 @@ const Catalogue = () => {
   const [openSort, setOpenSort] = useState(false);
 
   const products = useSelector((store: AppStore) => store.products.list);
+  const colours = useSelector((store: AppStore) => store.colours.list);
 
   const handleSort = (event: React.MouseEvent<HTMLLIElement>) => {
     const sort: HTMLLIElement = event.currentTarget;
     console.log(`Ordenar por ${sort.innerHTML}`);
   };
-  console.log("LISTA:", products);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const viewWindow = () => {
@@ -32,60 +35,24 @@ const Catalogue = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    if (products.length === 0) dispatch(getAllProducts());
+
+    if (colours.length === 0) dispatch(getAllColours());
+
+    window.addEventListener("resize", viewWindow);
   }, []);
 
-  // useEffect(() => {
-  //   window.addEventListener("resize", viewWindow);
-  // }, []);
-
-  const listProducts = [
-    {
-      id: "1",
-      productName: "Remera",
-      description: "Hermosa para verano",
-      quantityInStock: 270,
-      price: 1500,
-    },
-    {
-      id: "2",
-      productName: "Pantalon",
-      description: "Genial para correr",
-      quantityInStock: 220,
-      price: 2500,
-    },
-    {
-      id: "3",
-      productName: "Buso",
-      description: "Especial para quemar calorias",
-      quantityInStock: 240,
-      price: 4700,
-    },
-    {
-      id: "4",
-      productName: "Campera",
-      description: "Especial para lluvia",
-      quantityInStock: 230,
-      price: 6500,
-    },
-    {
-      id: "5",
-      productName: "Short",
-      description: "Para actividad al aire libre",
-      quantityInStock: 320,
-      price: 3100,
-    },
-  ];
+  if (products.length === 0) return <Spinner />;
 
   return (
     <>
       <Navbar width={width} setWidth={setWhidth} />
       {width >= 768 && <NavbarSecundary width={width} setWidth={setWhidth} />}
 
-      <div className="font-poppins text-[1.5rem] font-[1000] p-4">
+      <div className="flex font-poppins text-[1.5rem] font-[1000] p-4 sm:justify-center">
         Todos los Productos
       </div>
-      <div className="flex px-4 justify-between">
+      <div className="flex px-4 justify-between sm:mx-20">
         <div>
           <button
             id="multiLevelDropdownButton"
@@ -188,13 +155,13 @@ const Catalogue = () => {
                   {openFilter.colors ? <IoIosArrowDown /> : <IoIosArrowUp />}
                 </div>
                 {openFilter.colors ? null : (
-                  <div className="flex justify-between">
-                    <p className="flex bg-[#000000] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
-                    <p className="flex bg-[#666666] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
-                    <p className="flex bg-[#13C296] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
-                    <p className="flex bg-[#3056D3] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
-                    <p className="flex bg-[#E41D2C] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
-                    <p className="flex bg-[#FFFFFF] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"></p>
+                  <div className="flex flex-wrap justify-between">
+                    {colours.map((color) => (
+                      <div
+                        id={color.id}
+                        className={`flex bg-[${color.colourValue}] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center mt-1`}
+                      ></div>
+                    ))}
                   </div>
                 )}
               </li>
@@ -335,35 +302,36 @@ const Catalogue = () => {
           </div>
         </div>
       </div>
-
-      <div className="flex flex-wrap w-full justify-center gap-4 ">
-        {products?.map((prod) => {
-          return (
-            <ProductCard
-              key={prod.id as Key}
-              id={prod.id}
-              productName={prod.productName}
-              description={prod.description}
-              quantityInStock={prod.quantityInStock}
-              price={prod.price}
-              ProductImgs={
-                prod.ProductImgs?.length
-                  ? prod.ProductImgs
-                  : [
-                      {
-                        ProductId: "",
-                        id: "",
-                        date: new Date(),
-                        imgUrl: "",
-                        status: "",
-                        createdAt: new Date(),
-                        updatedAt: new Date(),
-                      },
-                    ]
-              }
-            />
-          );
-        })}
+      <div className="flex w-full justify-center mt-8">
+        <div className="flex flex-wrap w-full justify-center gap-6 sm:w-[60rem]">
+          {products?.map((prod) => {
+            return (
+              <ProductCard
+                key={prod.id as Key}
+                id={prod.id}
+                productName={prod.productName}
+                description={prod.description}
+                quantityInStock={prod.quantityInStock}
+                price={prod.price}
+                ProductImgs={
+                  prod.ProductImgs?.length
+                    ? prod.ProductImgs
+                    : [
+                        {
+                          ProductId: "",
+                          id: "",
+                          date: new Date(),
+                          imgUrl: "",
+                          status: "",
+                          createdAt: new Date(),
+                          updatedAt: new Date(),
+                        },
+                      ]
+                }
+              />
+            );
+          })}
+        </div>
       </div>
       <Footer />
     </>

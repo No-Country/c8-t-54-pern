@@ -10,6 +10,7 @@ import { getAllProducts } from "../../app/state/productsSlice";
 import { getAllColours } from "../../app/state/coloursSlice";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BsFilter } from "react-icons/bs";
+import { getAllSizes } from "../../app/state/sizeSlice";
 
 const Catalogue = () => {
   const [width, setWhidth] = useState(window.innerWidth);
@@ -22,6 +23,7 @@ const Catalogue = () => {
 
   const products = useSelector((store: AppStore) => store.products.list);
   const colours = useSelector((store: AppStore) => store.colours.list);
+  const sizes = useSelector((store: AppStore) => store.sizes.list);
 
   const handleSort = (event: React.MouseEvent<HTMLLIElement>) => {
     const sort: HTMLLIElement = event.currentTarget;
@@ -36,8 +38,8 @@ const Catalogue = () => {
 
   useEffect(() => {
     if (products.length === 0) dispatch(getAllProducts());
-
     if (colours.length === 0) dispatch(getAllColours());
+    if (sizes.length === 0) dispatch(getAllSizes());
 
     window.addEventListener("resize", viewWindow);
   }, []);
@@ -122,25 +124,15 @@ const Catalogue = () => {
                   {openFilter.waist ? <IoIosArrowDown /> : <IoIosArrowUp />}
                 </div>
                 {openFilter.waist ? null : (
-                  <div className="flex justify-between">
-                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                      XS
-                    </p>
-                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                      S
-                    </p>
-                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                      M
-                    </p>
-                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                      L
-                    </p>
-                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                      XL
-                    </p>
-                    <p className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center">
-                      XXL
-                    </p>
+                  <div className="flex justify-between flex-wrap">
+                    {sizes.map((size) => (
+                      <div
+                        id={size.id}
+                        className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"
+                      >
+                        {size.sizeLetter}
+                      </div>
+                    ))}
                   </div>
                 )}
               </li>
@@ -158,6 +150,7 @@ const Catalogue = () => {
                   <div className="flex flex-wrap justify-between">
                     {colours.map((color) => (
                       <div
+                        key={color.id}
                         id={color.id}
                         className={`flex bg-[${color.colourValue}] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center mt-1`}
                       ></div>

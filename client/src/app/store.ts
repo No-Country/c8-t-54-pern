@@ -1,3 +1,4 @@
+import { Size } from './../models/Size';
 import { Colours } from './../models/Colours';
 import { Product } from "./../models/Products";
 import { configureStore } from "@reduxjs/toolkit";
@@ -5,6 +6,7 @@ import { UserInfo } from "../models/userInfo";
 import { authSlice } from "./state/authSlice";
 import products from "./state/productsSlice";
 import colours from "./state/coloursSlice";
+import sizes from "./state/sizeSlice";
 
 export interface AppStore {
   auth: UserInfo;
@@ -13,6 +15,9 @@ export interface AppStore {
   };
   colours: {
     list: Array<Colours>;
+  };
+  sizes: {
+    list: Array<Size>;
   };
 }
 
@@ -23,5 +28,6 @@ export const store = configureStore({
     auth: authSlice.reducer,
     products,
     colours,
+    sizes,
   },
 });

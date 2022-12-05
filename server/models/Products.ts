@@ -6,6 +6,7 @@ import { Order } from "./Orders";
 import { User } from "./Users";
 import { Colour } from "./Colours";
 import { Size } from "./Sizes";
+import { Cart } from "./Carts";
 
 const config = {
   tableName: "Products",
@@ -46,6 +47,8 @@ const Product = db.define("Product", {
 }, config);
 
 Product.belongsToMany(Categories, { through: "ProductCategories", foreignKey: "productId", otherKey: "categoryId" });
+Product.belongsToMany(Cart, { through: "ProductsInCart", foreignKey: "productId", otherKey: "cartId", });
+Cart.belongsToMany(Product, { through: "ProductsInCart", foreignKey: "cartId", otherKey: "productId", });
 
 const ProductImgsAssoc = Product.hasMany(ProductImgs, {as:"ProductImgs", foreignKey: "ProductId" });
 

@@ -62,26 +62,32 @@ export const saveProduct = async (req: Request, res: Response) => {
                 association: ProductImgsAssoc,
                 as: "ProductImgs",
             }]
-        })
+        });
+
         const size = await Size.findAll({
             where: {
                 id: sizes
             }
         });
-        const prodSized = await newProduct.addSize(size)
-
-        const category = await Categories.findByPk(categoriesIds);
-
-        const prodCat = await newProduct.addCategories(category)
-
+        const categories = await Categories.findAll({
+            where: {
+                id: categoriesIds
+            }
+        });
         const coloursResult = await Colour.findAll({
             where: {
                 id: colours
             }
         });
+
+        const prodSized = await newProduct.addSize(size)
+
+        const prodCat = await newProduct.addCategories(categories)
+
         const prodCol = await newProduct.addColours(coloursResult)
 
         res.status(201).json({ message: "New Product created", newProduct, prodSized, prodCat, prodCol })
+
     } catch (error) {
         res.status(400).json(reportError({ message: getErrorMessage(error) }))
     };

@@ -47,7 +47,7 @@ const NavbarSecundary:FC<Iprops> = ({width,setWidth}) => {
               <li>
                 <Link
                   className="mx-4"
-                  to="/"
+                  to="/catalogue"
                   onMouseEnter={() => setView(true)}
                 >
                   TIENDA

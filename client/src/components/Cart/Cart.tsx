@@ -46,6 +46,7 @@ const Cart = ({ isOpen, setIsOpen }: Props) => {
                         color={item.color}
                         size={item.size}
                         price={item.price}
+                        img={item.ProductImgs?.[0]?.imgUrl}
                       />
                     ))
                     

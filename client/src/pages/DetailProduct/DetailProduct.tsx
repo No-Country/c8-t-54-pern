@@ -4,18 +4,26 @@ import { Link, useParams } from "react-router-dom";
 import { getProductsById } from "../../app/state/productsSlice";
 import { AppDispatch, AppStore } from "../../app/store";
 import { IoIosArrowBack } from "react-icons/io";
+import { useAddtoCart } from "../../hooks/useCart";
 
 const DetailProduct = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
 
   const product = useSelector((store: AppStore) => store.products.detail);
+  const { cartId } = useSelector((store: AppStore) => store.auth)
 
   useEffect(() => {
     if (id) {
       dispatch(getProductsById(id));
     }
   }, []);
+
+  const { mutate } = useAddtoCart(cartId!, id!)
+
+    const handleAddToCart = () => {
+        mutate()
+    }
 
   return (
     <div className="font-poppins">
@@ -100,7 +108,7 @@ const DetailProduct = () => {
                 Cant.:
                 <input className="w-16 text-right px-2" type="number" />
               </span>
-              <button className="bg-[#19F5BE] rounded-md py-2 px-6 drop-shadow-md">
+              <button onClick={handleAddToCart} className="bg-[#19F5BE] rounded-md py-2 px-6 drop-shadow-md">
                 COMPRAR
               </button>
             </div>

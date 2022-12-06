@@ -1,24 +1,40 @@
 import { GoTrashcan } from "react-icons/go";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../app/store";
+import { useRemoveFromCart } from "../../hooks/useCart";
 export type CartItem = {
-    name: string
+    productName: string
+    quantityInStock?: number
     id: string
     color: string
     size: string
     price: number
+    img?: string | undefined
 }
-const ItemCartCard = ({name, id, color, size, price}: CartItem) => {
+const ItemCartCard = ({productName, id, color, size, price, img}: CartItem) => {
+
+    const { cartId } = useSelector((store: AppStore) => store.auth)
+
+    const { mutate } = useRemoveFromCart(cartId!, id)
+
+    const handleRemoveFromCart = () => {
+        mutate()
+    }
+
   return (
     <div className="w-full bg-[#E9E9E9] p-2">
         <div className="flex gap-3">
-            <div className="w-[50px] h-[75px] sm:w-[100px] sm:h-[150px] bg-cyan-700 "></div>
+            <div className="w-[50px] h-[75px] sm:w-[100px] sm:h-[150px]">
+                <img className="object-center object-cover" src={img} alt={productName} />
+            </div>
             <div className="flex flex-col justify-between">
                 <div>
-                    <h2 className="font-semibold text-xl">{name}</h2>
+                    <h2 className="font-semibold text-xl">{productName}</h2>
                     <p className="font-normal text-[#666666] underline">{id}</p>
                 </div>
                 <div>
-                    <p>Color: {color}</p>
-                    <p>Talle: {size}</p>
+                    <p>Color: {color ? color : 'Único'}</p>
+                    <p>Talle: {size ? size : 'Único'}</p>
                 </div>
             </div>
         </div>
@@ -30,7 +46,7 @@ const ItemCartCard = ({name, id, color, size, price}: CartItem) => {
             </div>
             <div className="flex gap-3">
                 <p className="font-bold text-xl">${price}</p>
-                <button className="font-bold text-xl"><GoTrashcan/></button>
+                <button onClick={handleRemoveFromCart} className="font-bold text-xl"><GoTrashcan/></button>
             </div>
         </div>
     </div>

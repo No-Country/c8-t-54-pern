@@ -46,8 +46,10 @@ export const getCart = async (req: Request, res: Response) => {
   const { idCart } = req.query;
   try {
     const cart = await Cart.findByPk(idCart, {
-      model: Product,
-      include: ["ProductImgs", Colour, "Size"],
+      include: [{
+        model: Product,
+        include: ["ProductImgs", Colour, "Size"]
+      }]
     });
     res.status(200).json(cart);
   } catch (error) {

@@ -2,6 +2,7 @@ const { Product } = require("../models/Products");
 const { User } = require("../models/Users");
 const { Cart } = require("../models/Carts");
 import { Request, Response } from "express";
+import { Colour } from "../models/Colours";
 
 //* Añadir producto al carrito
 export const addToCart = async (req: Request, res: Response) => {
@@ -43,7 +44,7 @@ export const remToCart = async (req: Request, res: Response) => {
 export const getCart = async (req: Request, res: Response) => {
   const { idCart } = req.query;
   try {
-    const cart = await Cart.findByPk(idCart, { include: Product });
+    const cart = await Cart.findByPk(idCart, {model:Product, include: ["ProductImgs", Colour, "Size"]});
     res.status(200).json(cart);
   } catch (error) {}
 };

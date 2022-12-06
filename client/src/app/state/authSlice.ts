@@ -13,6 +13,7 @@ export const initialState: UserInfo = {
   email: "",
   phoneNumber: null,
   profilePic: "",
+  cartId: ''
 };
 
 export const authSlice = createSlice({
@@ -27,6 +28,7 @@ export const authSlice = createSlice({
         id: action.payload.user.id,
         userRole: action.payload.user.userRole,
         userName: action.payload.user.userName,
+        cartId: action.payload.user.cartId,
         logged: true,
       });
 
@@ -40,6 +42,7 @@ export const authSlice = createSlice({
       state.email = action.payload.user.email
       state.phoneNumber = action.payload.user.phoneNumber
       state.profilePic = action.payload.user.profilePic
+      state.cartId = action.payload.user.cartId
     },
     logout: () => {
       clearLocalStorage('auth')

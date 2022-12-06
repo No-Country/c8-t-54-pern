@@ -16,7 +16,7 @@ const Admin = lazy(() => import('../pages/Private/Admin/Admin'))
 const Private = lazy(() => import('../pages/Private/Private'))
 function AppRouter() {
   return (
-      <Suspense fallback={<Spinner/>}>
+      <Suspense fallback={<Spinner windowSize='screen'/>}>
           <BrowserRouter>
             <RoutesWithNotFound>
               <Route path='/' element={<Navigate to ={PrivateRoutes.PRIVATE} />}/>

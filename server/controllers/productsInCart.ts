@@ -13,8 +13,8 @@ export const addToCart = async (req: Request, res: Response) => {
     const product = await Product.findByPk(idProduct);
     const cart = await Cart.findByPk(idCart);
     if (product.quantityInStock > 0) {
-      const productAdd = cart.addProducts(product);
-      cart.increment({ totalPrice: product.price });
+      const productAdd = await cart.addProducts(product);
+      await cart.increment({ totalPrice: product.price });
       res.status(200).json(productAdd);
     } else {
       res
@@ -33,8 +33,8 @@ export const remToCart = async (req: Request, res: Response) => {
   try {
     const product = await Product.findByPk(idProduct);
     const cart = await Cart.findByPk(idCart);
-    cart.decrement({ totalPrice: product.price });
-    const productRemove = cart.removeProducts(product);
+    await cart.decrement({ totalPrice: product.price });
+    const productRemove = await cart.removeProducts(product);
     res.status(200).json(productRemove);
   } catch (error) {
     res.status(400).json(reportError({ message: getErrorMessage(error) }));
@@ -46,10 +46,12 @@ export const getCart = async (req: Request, res: Response) => {
   const { idCart } = req.query;
   try {
     const cart = await Cart.findByPk(idCart, {
-      include: [{
-        model: Product,
-        include: ["ProductImgs", Colour, "Size"]
-      }]
+      include: [
+        {
+          model: Product,
+          include: ["ProductImgs", Colour, "Size"],
+        },
+      ],
     });
     res.status(200).json(cart);
   } catch (error) {

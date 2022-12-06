@@ -4,7 +4,8 @@ export const PublicRoutes = {
     HOME: 'home',
     CATALOGUE: 'catalogue',
     CRUDADMIN: 'crudAdmin',
-    PROFILE: 'profile'
+    PROFILE: 'profile',
+    DETAILPRODUCT: 'product'
   };
   
   export const PrivateRoutes = {

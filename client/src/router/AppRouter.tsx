@@ -27,7 +27,7 @@ function AppRouter() {
               <Route path={PublicRoutes.HOME} element={<Home />}/>
               <Route path={PublicRoutes.CATALOGUE} element={<Catalogue />}/>
               <Route path={PublicRoutes.PROFILE} element={<Profile />}/>
-              <Route path={PublicRoutes.DETAILPRODUCT} element={<DetailProduct />}/>
+              <Route path={`${PublicRoutes.CATALOGUE}/${PublicRoutes.DETAILPRODUCT}/:id`} element={<DetailProduct />}/>
               <Route element={<AuthGuard privateValidation={true}/>} >
                 <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />}/>
               </Route>

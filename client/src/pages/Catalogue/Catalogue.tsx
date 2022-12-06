@@ -3,17 +3,19 @@ import Navbar from "../../components/Navbar/Navbar";
 import NavbarSecundary from "../../components/NavbarSecundary/NavbarSecundary";
 import ProductCard from "../../components/Products/ProductCard/ProductCard";
 import Spinner from "../../components/Spinner/Spinner";
+import Cart from "../../components/Cart/Cart";
 import { Key, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppStore } from "../../app/store";
 import { getAllProducts } from "../../app/state/productsSlice";
 import { getAllColours } from "../../app/state/coloursSlice";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { BsFilter } from "react-icons/bs";
+import { BsFilter, BsFillCaretDownFill } from "react-icons/bs";
 import { getAllSizes } from "../../app/state/sizeSlice";
 
 const Catalogue = () => {
   const [width, setWhidth] = useState(window.innerWidth);
+  const [isOpen, setIsOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState({
     open: false,
     waist: false,
@@ -48,9 +50,9 @@ const Catalogue = () => {
 
   return (
     <>
-      <Navbar width={width} setWidth={setWhidth} />
+      <Navbar width={width} setWidth={setWhidth} setIsOpen={setIsOpen} />
       {width >= 768 && <NavbarSecundary width={width} setWidth={setWhidth} />}
-
+      <Cart isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="flex font-poppins text-[1.5rem] font-[1000] p-4 sm:justify-center">
         Todos los Productos
       </div>
@@ -66,21 +68,7 @@ const Catalogue = () => {
             }
           >
             <BsFilter className="mr-2" /> Filtrar
-            <svg
-              className="ml-2 w-4 h-4"
-              aria-hidden="true"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              ></path>
-            </svg>
+            <IoIosArrowDown className="ml-2" />
           </button>
           {/* <!-- Dropdown menu --> */}
           <div
@@ -125,8 +113,9 @@ const Catalogue = () => {
                 </div>
                 {openFilter.waist ? null : (
                   <div className="flex justify-between flex-wrap">
-                    {sizes.map((size) => (
+                    {sizes?.map((size) => (
                       <div
+                        key={size.id}
                         id={size.id}
                         className="flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center"
                       >
@@ -148,7 +137,7 @@ const Catalogue = () => {
                 </div>
                 {openFilter.colors ? null : (
                   <div className="flex flex-wrap justify-between">
-                    {colours.map((color) => (
+                    {colours?.map((color) => (
                       <div
                         key={color.id}
                         id={color.id}
@@ -195,21 +184,7 @@ const Catalogue = () => {
                 onClick={() => setOpenSort(!openSort)}
               >
                 Ordenar por:
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  data-icon="caret-down"
-                  className="w-2 ml-2"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 320 512"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                  ></path>
-                </svg>
+                <BsFillCaretDownFill className="ml-2" />
               </button>
               <ul
                 className={`${
@@ -217,77 +192,16 @@ const Catalogue = () => {
                 } dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-non`}
                 aria-labelledby="dropdownMenuButton1"
               >
-                <li
-                  className="
-              dropdown-item
-              text-sm
-              py-2
-              px-4
-              font-normal
-              block
-              w-full
-              whitespace-nowrap
-              bg-transparent
-              text-gray-700
-              hover:bg-gray-100
-              cursor-pointer
-            "
-                  onClick={handleSort}
-                >
+                <li className="dropdown-item li_menu_sort" onClick={handleSort}>
                   Menor precio
                 </li>
-                <li
-                  className="
-              dropdown-item
-              text-sm
-              py-2
-              px-4
-              font-normal
-              block
-              w-full
-              whitespace-nowrap
-              bg-transparent
-              text-gray-700
-              hover:bg-gray-100
-            "
-                  onClick={handleSort}
-                >
+                <li className="dropdown-item li_menu_sort" onClick={handleSort}>
                   Mayor Precio
                 </li>
-                <li
-                  className="
-              dropdown-item
-              text-sm
-              py-2
-              px-4
-              font-normal
-              block
-              w-full
-              whitespace-nowrap
-              bg-transparent
-              text-gray-700
-              hover:bg-gray-100
-            "
-                  onClick={handleSort}
-                >
+                <li className="dropdown-item li_menu_sort" onClick={handleSort}>
                   Alfabético a-z
                 </li>
-                <li
-                  className="
-              dropdown-item
-              text-sm
-              py-2
-              px-4
-              font-normal
-              block
-              w-full
-              whitespace-nowrap
-              bg-transparent
-              text-gray-700
-              hover:bg-gray-100
-            "
-                  onClick={handleSort}
-                >
+                <li className="dropdown-item li_menu_sort" onClick={handleSort}>
                   Alfabético z-a
                 </li>
               </ul>
@@ -321,6 +235,9 @@ const Catalogue = () => {
                         },
                       ]
                 }
+                Size={prod.Size}
+                Colours={prod.Colours}
+                Categories={prod.Categories}
               />
             );
           })}

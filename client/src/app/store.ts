@@ -12,6 +12,7 @@ export interface AppStore {
   auth: UserInfo;
   products: {
     list: Array<Product>;
+    detail: Product;
   };
   colours: {
     list: Array<Colours>;

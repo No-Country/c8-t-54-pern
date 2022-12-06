@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getRequest, postRequest } from "../services/httpRequest";
+import { Toast } from "../utils/notification";
 
 const getCart = (idCart: string) => getRequest(`/cart?idCart=${idCart}`);
 const removeFromCart = (idCart: string, idProduct: string) => postRequest({},`/cart/remove?idCart=${idCart}&idProduct=${idProduct}`)
@@ -30,6 +31,10 @@ export const useAddtoCart = (idCart: string, idProduct: string) => {
   return useMutation(() => addToCart(idCart, idProduct), {
     onSuccess: () => {
       queryClient.invalidateQueries(['cart'])
+      Toast('success', 'Agregado al carrito!')
+    },
+    onError: (error: any) => {
+      Toast('error', 'Error al agregar al carrito!')
     }
   })
 }

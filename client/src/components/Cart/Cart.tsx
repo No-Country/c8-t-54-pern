@@ -53,9 +53,9 @@ const Cart = ({ isOpen, setIsOpen }: Props) => {
                   ) : (
                     <p className="text-center">No hay artículos en el carrito</p>
                   )}
-                <div>
+                {data?.Products?.length > 0 ? <div>
                   <h2 className="text-right font-semibold text-xl">Importe total ${data?.totalPrice}</h2>
-                </div>
+                </div> : null}
               </div>
               {data?.Products?.length > 0 ? (
                 <div className="w-full flex flex-col gap-4 items-center">

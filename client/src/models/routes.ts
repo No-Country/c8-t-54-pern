@@ -5,7 +5,7 @@ export const PublicRoutes = {
     CATALOGUE: 'catalogue',
     CRUDADMIN: 'crudAdmin',
     PROFILE: 'profile',
-    DETAILPRODUCT: 'detailproduct'
+    DETAILPRODUCT: 'product'
   };
   
   export const PrivateRoutes = {

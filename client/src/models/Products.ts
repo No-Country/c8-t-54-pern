@@ -1,3 +1,6 @@
+import { Categories } from './Categories';
+import { Colours } from './Colours';
+import { Size } from './Size';
 export type Product = {
   id: string;
   productName: string;
@@ -15,4 +18,7 @@ export type Product = {
     createdAt: Date;
     updatedAt: Date;
   }[];
+  Size:Size[];
+  Colours:Colours[];
+  Categories:Categories[]
 };

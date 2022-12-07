@@ -1,43 +1,47 @@
-import { useState, FC,Dispatch } from "react";
+import { useState, FC, Dispatch } from "react";
 import { Link } from "react-router-dom";
-
-interface Iprops   {
-  width:number,
-  setWidth:Dispatch<number>
+import { FiLogOut } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../app/store";
+interface Iprops {
+  width: number;
+  logoutUser: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-
-const NavbarSecundary:FC<Iprops> = ({width,setWidth}) => {
+const NavbarSecundary: FC<Iprops> = ({ width, logoutUser }) => {
   const [view, setView] = useState<Boolean>(false);
+  const { logged } = useSelector((store: AppStore) => store.auth);
 
   return (
     <div>
       {width < 768 ? (
-          <nav className="w-auto text-base font-poppins font-bold ">
+        <nav className="w-auto text-base font-poppins font-bold ">
           <ul className="flex pl-1 flex-col gap-1">
             <li>
-              <Link
-                to="/"
-                onMouseEnter={() => setView(true)}
-              >
+              <Link to="/" onMouseEnter={() => setView(true)}>
                 TIENDA
               </Link>
             </li>
             <li onMouseOut={() => setView(false)}>
-              <Link  to="/" >
-                NOSOTROS
-              </Link>
+              <Link to="/">NOSOTROS</Link>
             </li>
             <li onMouseOut={() => setView(false)}>
-              <Link  to="/" >
-                COMUNIDAD
-              </Link>
+              <Link to="/">COMUNIDAD</Link>
             </li>
             <li onMouseOut={() => setView(false)}>
-              <Link  to="/">
-                CONTACTO
-              </Link>
+              <Link to="/">CONTACTO</Link>
             </li>
+            {logged && (
+              <li>
+                <button
+                  className="text-lg font-bold flex  items-center gap-1 hover:text-lime-400"
+                  onClick={logoutUser}
+                >
+                  <FiLogOut />
+                  Cerrar sesion
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       ) : (
@@ -54,12 +58,12 @@ const NavbarSecundary:FC<Iprops> = ({width,setWidth}) => {
                 </Link>
               </li>
               <li onMouseOut={() => setView(false)}>
-                <Link className="mx-4" to="/" >
+                <Link className="mx-4" to="/">
                   NOSOTROS
                 </Link>
               </li>
               <li onMouseOut={() => setView(false)}>
-                <Link className="mx-4" to="/" >
+                <Link className="mx-4" to="/">
                   COMUNIDAD
                 </Link>
               </li>
@@ -71,7 +75,7 @@ const NavbarSecundary:FC<Iprops> = ({width,setWidth}) => {
             </ul>
           </nav>
           {view && (
-            <div className="absolute z-[2] w-full bg-white p-14  flex justify-around drop-shadow-md" >
+            <div className="absolute z-[2] w-full bg-white p-14  flex justify-around drop-shadow-md">
               <div className="flex flex-col gap-2">
                 <Link to={""} className="text-[#3056D3] font-bold">
                   Superiores
@@ -123,6 +127,6 @@ const NavbarSecundary:FC<Iprops> = ({width,setWidth}) => {
       )}
     </div>
   );
-}
+};
 
 export default NavbarSecundary;

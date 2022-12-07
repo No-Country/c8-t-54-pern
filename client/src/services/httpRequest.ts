@@ -50,11 +50,57 @@ export const getRequest = async (endpoint: string) => {
 };
 
 
-export const putRequest = async (endpoint: string,dataProduct:{}) => {
+export const putRequest = async (endpoint: string,id:string,dataProduct:{}) => {
   try {
-    const { data } = await axios.put(URL + endpoint,dataProduct,{
+    const { data } = await axios.put(URL + endpoint + id,dataProduct,{
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+
+      throw new Error(error.message);
+    } else {
+      console.log("unexpected error: ", error);
+      return "An unexpected error occurred";
+    }
+  }
+};
+
+export const deleteRequest = async (endpoint:string,id:string) => {
+  try {
+    const { data } = await axios.delete(URL + endpoint + id,{
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+
+      throw new Error(error.message);
+    } else {
+      console.log("unexpected error: ", error);
+      return "An unexpected error occurred";
+    }
+  }
+};
+
+export const saveProductRequest = async (endpoint:string,dataProduct:{}) => {
+  try {
+    const { data } = await axios.post(URL + endpoint,dataProduct,{
+      headers: {
+        "Content-Type": "multipart/form-data",
         Accept: "application/json",
         Authorization,
       },

@@ -26,11 +26,24 @@ export const productSlice = createSlice({
         state.list.splice(state.list.indexOf(productUnit), 1);
       }
     },
+
+    updateProduct:(state,action) => {
+      const {price,produtName,description,quantityInStock,idProduct} = action.payload
+      const productUnit = state.list.find(produc => produc.id === idProduct)
+       if(productUnit){
+        productUnit.price = price
+        productUnit.productName = produtName
+        productUnit.description = description
+        productUnit.quantityInStock = quantityInStock
+      }
+      else {
+        console.log('error')
+      }
+    }
   },
 });
 
-export const { setProductsList, deleteProduct, setDetailProduct } =
-  productSlice.actions;
+export const { setProductsList, deleteProduct, updateProduct, setDetailProduct } = productSlice.actions;
 
 export default productSlice.reducer;
 

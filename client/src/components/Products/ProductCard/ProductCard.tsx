@@ -16,8 +16,8 @@ const ProductCard = (product: Product) => {
         </div>
       </Link>
       <div className="flex flex-col font-poppins p-2">
-        <p className="font-bold text-lg pt-1">{product.productName}</p>
-        <p className="w-[9.2rem] text-xs truncate text-ellipsis overflow-hidden pt-0.5">
+        <p className="w-[9.2rem] md:w-[16rem] font-bold text-lg pt-1 truncate text-ellipsis">{product.productName}</p>
+        <p className="w-[9.2rem] md:w-[16rem] text-xs truncate text-ellipsis overflow-hidden pt-0.5">
           {product.description}
         </p>
         <p className="font-extrabold text-[#3056D3] pt-1">{product.price}</p>

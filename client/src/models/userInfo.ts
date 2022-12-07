@@ -11,4 +11,5 @@ export interface UserInfo  {
     email?: string
     phoneNumber?: number | null
     profilePic?: string
+    cartId?: string
 }

@@ -1,4 +1,4 @@
-import Swal from "sweetalert2";
+import Swal, { SweetAlertIcon } from "sweetalert2";
 
 export const Error = (title:string) => {
 
@@ -35,5 +35,19 @@ export const ErrorFormAdmin = (text:string) => {
     icon: 'error',
     title: 'Oops...',
     text:text,
+  })
+}
+
+export const Toast = (success: SweetAlertIcon, title: string) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+  })
+  
+  Toast.fire({
+    icon: success,
+    title: title
   })
 }

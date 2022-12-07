@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../app/store";
 interface Iprops {
   width: number;
+  setWidth: Dispatch<number>;
   logoutUser: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const NavbarSecundary: FC<Iprops> = ({ width, logoutUser }) => {
+const NavbarSecundary: FC<Iprops> = ({ width, setWidth, logoutUser }) => {
   const [view, setView] = useState<Boolean>(false);
   const { logged } = useSelector((store: AppStore) => store.auth);
 
@@ -16,19 +17,17 @@ const NavbarSecundary: FC<Iprops> = ({ width, logoutUser }) => {
     <div>
       {width < 768 ? (
         <nav className="w-auto text-base font-poppins font-bold ">
-          <ul className="flex pl-1 flex-col gap-1">
+          <ul className="flex pl-1 flex-col gap-1 ml-4">
             <li>
-              <Link to="/" onMouseEnter={() => setView(true)}>
-                TIENDA
-              </Link>
+              <Link to="/catalogue">TIENDA</Link>
             </li>
-            <li onMouseOut={() => setView(false)}>
+            <li>
               <Link to="/">NOSOTROS</Link>
             </li>
-            <li onMouseOut={() => setView(false)}>
+            <li>
               <Link to="/">COMUNIDAD</Link>
             </li>
-            <li onMouseOut={() => setView(false)}>
+            <li>
               <Link to="/">CONTACTO</Link>
             </li>
             {logged && (
@@ -47,82 +46,29 @@ const NavbarSecundary: FC<Iprops> = ({ width, logoutUser }) => {
       ) : (
         <div>
           <nav className="w-full flex justify-center font-poppins font-bold h-24 border-2 border-b-slate-300 shadow-md">
-            <ul className="flex items-center flex-wrap gap-4">
+            <ul className="flex items-center flex-wrap gap-4 ml-4">
               <li>
-                <Link
-                  className="mx-4"
-                  to="/catalogue"
-                  onMouseEnter={() => setView(true)}
-                >
+                <Link className="mx-4" to="/catalogue">
                   TIENDA
                 </Link>
               </li>
-              <li onMouseOut={() => setView(false)}>
+              <li>
                 <Link className="mx-4" to="/">
                   NOSOTROS
                 </Link>
               </li>
-              <li onMouseOut={() => setView(false)}>
+              <li>
                 <Link className="mx-4" to="/">
                   COMUNIDAD
                 </Link>
               </li>
-              <li onMouseOut={() => setView(false)}>
+              <li>
                 <Link className="mx-4" to="/">
                   CONTACTO
                 </Link>
               </li>
             </ul>
           </nav>
-          {view && (
-            <div className="absolute z-[2] w-full bg-white p-14  flex justify-around drop-shadow-md">
-              <div className="flex flex-col gap-2">
-                <Link to={""} className="text-[#3056D3] font-bold">
-                  Superiores
-                </Link>
-                <ul className="text-[#637381] flex flex-col gap-2">
-                  <li>cosas</li>
-                  <li>cosas</li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-2">
-                <Link to={""} className="text-[#3056D3] font-bold">
-                  Inferiores
-                </Link>
-                <ul className="text-[#637381] flex flex-col gap-2">
-                  <li>cosas</li>
-                  <li>cosas</li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-2">
-                <Link to={""} className="text-[#3056D3] font-bold">
-                  Camperas
-                </Link>
-                <ul className="text-[#637381] flex flex-col gap-2">
-                  <li>cosas</li>
-                  <li>cosas</li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-2">
-                <Link to={""} className="text-[#3056D3] font-bold">
-                  Zapatillas
-                </Link>
-                <ul className="text-[#637381] flex flex-col gap-2">
-                  <li>cosas</li>
-                  <li>cosas</li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-2">
-                <Link to={""} className="text-[#3056D3] font-bold">
-                  Accesorios
-                </Link>
-                <ul className="text-[#637381] flex flex-col gap-2">
-                  <li>cosas</li>
-                  <li>cosas</li>
-                </ul>
-              </div>
-            </div>
-          )}
         </div>
       )}
     </div>

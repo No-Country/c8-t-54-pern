@@ -12,6 +12,7 @@ import { getAllColours } from "../../app/state/coloursSlice";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BsFilter, BsFillCaretDownFill } from "react-icons/bs";
 import { getAllSizes } from "../../app/state/sizeSlice";
+import { getAllCategories } from "../../app/state/categoriesSlice";
 
 const Catalogue = () => {
   const [width, setWhidth] = useState(window.innerWidth);
@@ -26,6 +27,7 @@ const Catalogue = () => {
   const products = useSelector((store: AppStore) => store.products.list);
   const colours = useSelector((store: AppStore) => store.colours.list);
   const sizes = useSelector((store: AppStore) => store.sizes.list);
+  const categories = useSelector((store: AppStore) => store.categories.list);
 
   const handleSort = (event: React.MouseEvent<HTMLLIElement>) => {
     const sort: HTMLLIElement = event.currentTarget;
@@ -39,14 +41,15 @@ const Catalogue = () => {
   };
 
   useEffect(() => {
-    if (products.length === 0) dispatch(getAllProducts());
     if (colours.length === 0) dispatch(getAllColours());
+    if (products.length === 0) dispatch(getAllProducts());
     if (sizes.length === 0) dispatch(getAllSizes());
+    if (categories.length === 0) dispatch(getAllCategories());
 
     window.addEventListener("resize", viewWindow);
   }, []);
 
-  if (products.length === 0) return <Spinner />;
+  if (products.length === 0) return <Spinner windowSize='full' />;
 
   return (
     <>
@@ -90,15 +93,15 @@ const Catalogue = () => {
                   className="block w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-none rounded-sm"
                 >
                   <option value="">CATEGORIAS</option>
-                  <option value="2">Remera</option>
-                  <option value="3">Pantalon</option>
-                  <option value="4">Short</option>
-                  <option value="5">Camiseta</option>
-                  <option value="6">Calzado</option>
-                  <option value="3">Pantalon</option>
-                  <option value="4">Short</option>
-                  <option value="5">Camiseta</option>
-                  <option value="6">Calzado</option>
+                  {categories?.map((category) => (
+                    <option
+                      key={category.id}
+                      id={category.id}
+                      value={category.categoryName}
+                    >
+                      {category.categoryName}
+                    </option>
+                  ))}
                 </select>
               </li>
               <li>
@@ -139,9 +142,10 @@ const Catalogue = () => {
                   <div className="flex flex-wrap justify-between">
                     {colours?.map((color) => (
                       <div
+                        style={{ background: `${color.colourValue}` }}
                         key={color.id}
                         id={color.id}
-                        className={`flex bg-[${color.colourValue}] w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center mt-1`}
+                        className={`flex w-6 h-5 rounded-[0.2rem] border-2 border-solid border-[#666666] text-[0.7rem] font-semibold justify-center items-center mt-1`}
                       ></div>
                     ))}
                   </div>

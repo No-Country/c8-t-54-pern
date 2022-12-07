@@ -11,7 +11,7 @@ const DetailProduct = () => {
   const { id } = useParams();
 
   const product = useSelector((store: AppStore) => store.products.detail);
-  const { cartId } = useSelector((store: AppStore) => store.auth)
+  const { cartId } = useSelector((store: AppStore) => store.auth);
 
   useEffect(() => {
     if (id) {
@@ -19,11 +19,11 @@ const DetailProduct = () => {
     }
   }, []);
 
-  const { mutate } = useAddtoCart(cartId!, id!)
+  const { mutate } = useAddtoCart(cartId!, id!);
 
-    const handleAddToCart = () => {
-        mutate()
-    }
+  const handleAddToCart = () => {
+    mutate();
+  };
 
   return (
     <div className="font-poppins">
@@ -79,7 +79,7 @@ const DetailProduct = () => {
             <p className="text-xs hidden md:block">(mas costos de envío)</p>
             <hr className="hidden md:block" />
             <p className="mt-4 hidden md:block">
-              <span>Seleccionar talle</span> 
+              <span>Seleccionar talle</span>
               <span className="ml-2 text-xs font-bold text-[#3056D3]">
                 Referencia de talles &#62;
               </span>
@@ -99,7 +99,8 @@ const DetailProduct = () => {
               {product.Colours?.map((color) => (
                 <div
                   key={color.id}
-                  className={`bg-[${color.colourValue}] h-8 w-8 rounded-sm border-2 border-[#666666] flex items-center justify-center hover:border-[#13C296]`}
+                  style={{ background: `${color.colourValue}` }}
+                  className={`h-8 w-8 rounded-sm border-2 border-[#666666] flex items-center justify-center hover:border-[#13C296]`}
                 ></div>
               ))}
             </div>
@@ -108,7 +109,10 @@ const DetailProduct = () => {
                 Cant.:
                 <input className="w-16 text-right px-2" type="number" />
               </span>
-              <button onClick={handleAddToCart} className="bg-[#19F5BE] rounded-md py-2 px-6 drop-shadow-md">
+              <button
+                onClick={handleAddToCart}
+                className="bg-[#19F5BE] rounded-md py-2 px-6 drop-shadow-md"
+              >
                 COMPRAR
               </button>
             </div>

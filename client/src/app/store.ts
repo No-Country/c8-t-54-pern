@@ -1,3 +1,4 @@
+import { Categories } from './../models/Categories';
 import { Size } from './../models/Size';
 import { Colours } from './../models/Colours';
 import { Product } from "./../models/Products";
@@ -7,6 +8,7 @@ import { authSlice } from "./state/authSlice";
 import products from "./state/productsSlice";
 import colours from "./state/coloursSlice";
 import sizes from "./state/sizeSlice";
+import categories from "./state/categoriesSlice";
 
 export interface AppStore {
   auth: UserInfo;
@@ -20,6 +22,9 @@ export interface AppStore {
   sizes: {
     list: Array<Size>;
   };
+  categories: {
+    list: Array<Categories>;
+  };
 }
 
 export type AppDispatch = typeof store.dispatch;
@@ -30,5 +35,6 @@ export const store = configureStore({
     products,
     colours,
     sizes,
+    categories,
   },
 });

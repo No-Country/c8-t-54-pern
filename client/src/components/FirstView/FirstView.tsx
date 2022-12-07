@@ -7,6 +7,7 @@ const FirstView = () => {
         {data.resources.map((resource, key) => {
           return (
             <div
+              key={key}
               id={`${key}`}
               className="flex flex-col h-full w-full md:flex-row relative "
             >

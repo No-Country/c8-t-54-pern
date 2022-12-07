@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import Cart from "../../components/Cart/Cart";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getProductsById } from "../../app/state/productsSlice";
@@ -7,6 +9,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useAddtoCart } from "../../hooks/useCart";
 
 const DetailProduct = () => {
+  const [width, setWhidth] = useState(window.innerWidth);
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
 
@@ -27,6 +31,9 @@ const DetailProduct = () => {
 
   return (
     <div className="font-poppins">
+      
+      <Navbar width={width} setWidth={setWhidth} setIsOpen={setIsOpen} />
+      <Cart isOpen={isOpen} setIsOpen={setIsOpen} />
       <Link className="flex items-center m-4" to="/catalogue">
         <IoIosArrowBack className="mr-2" /> Volver a la tienda
       </Link>

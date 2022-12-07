@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { AppStore } from "../../app/store";
 import { useGetCart } from "../../hooks/useCart";
+import { Product } from "../../models/Products";
 import Spinner from "../Spinner/Spinner";
-import ItemCartCard, { CartItem } from "./ItemCartCard";
+import ItemCartCard from "./ItemCartCard";
 
 type Props = {
   isOpen: boolean;
@@ -16,7 +17,7 @@ const Cart = ({ isOpen, setIsOpen }: Props) => {
   return (
     <main
       className={
-        " fixed overflow-hidden z-10 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out " +
+        " fixed z-10 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out " +
         (isOpen
           ? " transition-opacity opacity-100 duration-500 translate-x-0  "
           : " transition-all delay-500 opacity-0 translate-x-full  ")
@@ -24,29 +25,32 @@ const Cart = ({ isOpen, setIsOpen }: Props) => {
     >
       <section
         className={
-          " w-full max-w-[350px] sm:max-w-sm md:max-w-md right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  " +
+          " w-full max-w-[350px] sm:max-w-sm md:max-w-md right-0 absolute bg-white h-screen shadow-xl delay-400 duration-500 ease-in-out transition-all transform  " +
           (isOpen ? " translate-x-0 " : " translate-x-full ")
         }
       >
-        <article className="relative w-screen max-w-[350px] sm:max-w-sm md:max-w-md pb-10 flex flex-col space-y-6 h-full">
+        <article className="relative overflow-y-auto w-screen max-w-[350px] sm:max-w-sm md:max-w-md pb-10 flex flex-col space-y-6 h-full">
           <header className="w-full text-center mt-5 font-bold text-3xl text-[#212B36] border-b">
             Tu carrito
           </header>
-          {isLoading || isFetching ? (
+          {isLoading ? (
             <Spinner windowSize="full" />
           ) : (
             <div className="w-full px-3 flex flex-col justify-around gap-4">
                 <div className="w-full flex flex-col justify-evenly gap-4">
                   {data?.Products?.length > 0 ? (
-                    data.Products.map((item: CartItem) => (
+                    data.Products.map((item: Product) => (
                       <ItemCartCard
                         key={item.id}
                         productName={item.productName}
                         id={item.id}
-                        color={item.color}
-                        size={item.size}
+                        Colours={item.Colours}
+                        description={item.description}
+                        quantityInStock={item.quantityInStock}
+                        Size={item.Size}
                         price={item.price}
-                        img={item.ProductImgs?.[0]?.imgUrl}
+                        ProductImgs={item.ProductImgs}
+                        Categories={item.Categories}
                       />
                     ))
                     

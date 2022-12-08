@@ -132,17 +132,17 @@ const Add = () => {
         <div className="flex md:w-max md:gap-5 w-[100%] justify-center">
           <select name="categories" onChange={hanldeCategoriesChange}>
             {stateCategories.map((item) => (
-              <option value={item.id}>{item.categoryName}</option>
+              <option key={item.id} value={item.id}>{item.categoryName}</option>
             ))}
           </select>
           <select name="colours" onChange={handleColours}>
             {stateColours.map((item) => (
-              <option value={item.id}>{item.colourName}</option>
+              <option key={item.id} value={item.id}>{item.colourName}</option>
             ))}
           </select>
           <select name="size" onChange={handleSize}>
             {stateSizes.map((item) => (
-              <option value={item.id}>{item.sizeLetter}</option>
+              <option key={item.id} value={item.id}>{item.sizeLetter}</option>
             ))}
           </select>
         </div>

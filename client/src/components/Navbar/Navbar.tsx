@@ -56,7 +56,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
               onClick={handleOpenCart}
             >
               <BsCart />
-              <button className="text-lg">Carrito</button>
+              <button className="text-lg mr-4 sm:mr-0">Carrito</button>
             </div>
             <button
               className="text-lg font-bold hover:text-lime-400"

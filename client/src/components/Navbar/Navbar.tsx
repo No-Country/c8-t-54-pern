@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import NavbarSecundary from "../NavbarSecundary/NavbarSecundary";
 import { AppStore } from "../../app/store";
 import { useSelector } from "react-redux";
-import Cart from "../Cart/Cart";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { logout } from "../../app/state/authSlice";
+
 interface HomeProps {
   width: number;
   setWidth: Dispatch<number>;

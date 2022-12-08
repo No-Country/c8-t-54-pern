@@ -86,7 +86,7 @@ const EditAndDelete = () => {
 
 
   return (
-    <section className="flex flex-col gap-11 justify-center items-end p-2 pt-4 md:w-[100%] w-full">
+    <section className="flex flex-col gap-11  justify-center items-end p-2 pt-10 md:w-[100%] w-full">
       <h2 className="text-lg  font-semibold">
         Hola admin! me alegra tenerte de nuevo 😁!
       </h2>

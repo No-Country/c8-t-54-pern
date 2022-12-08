@@ -40,7 +40,7 @@ MOVEment te trae al alcance de tu mano un catalogo personalizable. ¡Comprar no 
 | Alejandra Bellin | UX / UI  | https://www.linkedin.com/in/alejandrabellin/ | https://www.behance.net/alejandrabellin |
 | Ignacio Perez | Frontend  |         | https://github.com/IgnacioPrez |
 | Dario Elguero | Frontend  | https://www.linkedin.com/in/dario-elguero/ | https://github.com/Dario-Elguero |
-| Orlando FLores | Frontend  |         | https://github.com/lalomax |
+| Orlando FLores | Frontend  | https://www.linkedin.com/in/orlando-flores-54ab33168/| https://github.com/lalomax |
 | Adrian Centurion | Frontend  | https://www.linkedin.com/in/adrian-centurion/ | https://github.com/adrianmcenturion |
 | Juan Manuel Fernández | Backend  | https://www.linkedin.com/in/juan-manuel-fernandez-4b701629/ |       |
 | Gonzalo Argüello | Backend  | https://www.linkedin.com/in/gonzalo-arg%C3%BCello/ | https://github.com/goarguello97/ |

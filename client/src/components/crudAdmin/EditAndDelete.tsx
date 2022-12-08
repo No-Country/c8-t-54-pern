@@ -2,12 +2,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { BsTrashFill, BsPencilSquare } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { deleteProduct, getAllProducts } from "../../app/state/productsSlice";
+import { deleteProduct, getAllProducts, updateProduct } from "../../app/state/productsSlice";
 import { AppDispatch, AppStore } from "../../app/store";
 import Swal from "sweetalert2";
 import { Modal } from "../Modal/Modal";
-import { putRequest } from "../../services/httpRequest";
-import { ErrorFormAdmin } from "../../utils/notification";
+import { deleteRequest, putRequest } from "../../services/httpRequest";
+import { ErrorFormAdmin, Success } from "../../utils/notification";
 
 const URL: string = import.meta.env.VITE_API_URL;
 export type input = React.FormEvent<HTMLInputElement>;
@@ -27,17 +27,16 @@ const EditAndDelete = () => {
   const [modal, setModal] = useState<Boolean>(false);
   const [idProduct,setIdProduct] = useState('')
   const [inputs, setInputs] = useState<formUpdate>({
+    price:0,
     productName: "",
     description:"",
     quantityInStock:0,
-    price:0
   })
   
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
 
-  
   const deleteProducts = (id: string) => {
     Swal.fire({
       title: "¿Estás seguro de eliminar este producto?",
@@ -50,6 +49,7 @@ const EditAndDelete = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        deleteRequest('/products/delete/',id);
         dispatch(deleteProduct(id));
       }
     });
@@ -61,24 +61,27 @@ const EditAndDelete = () => {
   }
 
   const viewModal = (id:string) => {
-    setModal(true)
-    setIdProduct(id)
+    setModal(true);
+    setIdProduct(id);
   }
   const hanldeSubmit = async (event:ChangeEvent<HTMLFormElement>) => {
       event.preventDefault()
-      const putProduct = await putRequest(`/products/update/${idProduct}`,inputs)
-/*       if(putProduct === "succes"){
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Your work has been saved',
-          showConfirmButton: false,
-          timer: 1500
+      const infoFront:{} = {...inputs,idProduct}
+      const formUpdate = await putRequest('/products/update/',idProduct,inputs)
+     if(formUpdate) {
+        dispatch(updateProduct(infoFront));
+        setInputs({
+          price:0,
+          productName: "",
+          description:"",
+          quantityInStock:0,
         })
+        setModal(false);
+        Success('Actualizado','La actualizacion se realizo correctamente');
       }
       else {
-        ErrorFormAdmin('Algo salio mal 💀')
-      } */
+        ErrorFormAdmin('La peticion fallo 💀')
+      } 
     }
 
 
@@ -90,7 +93,7 @@ const EditAndDelete = () => {
       {stateProducts.map((product) => (
         <article
           key={product.id}
-          className="flex p-1 gap-1 justify-between w-[100%] md:w-[60%] h-[auto] items-center shadow drop-shadow-2xl"
+          className="flex p-1 gap-1 justify-between w-[100%] md:w-[65%] h-[auto] items-center shadow drop-shadow-2xl"
         >
           <div className="md:h-[8rem]  h-[7rem] ">
             <img
@@ -99,8 +102,9 @@ const EditAndDelete = () => {
               className="h-full"
             />
           </div>
-          <div className="flex flex-col text-sm  md:gap-2">
+          <div className="flex flex-col text-sm w-2/5 md:gap-2">
             <p>Producto: {product.productName}</p>
+            <p>Detalles: {product.description}</p>
             <p>Precio: {product.price}</p>
             <p>Cantidad disponible: {product.quantityInStock}</p>
           </div>

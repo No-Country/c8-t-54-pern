@@ -1,13 +1,17 @@
 import { useState, FC, Dispatch } from "react";
 import { Link } from "react-router-dom";
-
+import { FiLogOut } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../app/store";
 interface Iprops {
   width: number;
   setWidth: Dispatch<number>;
+  logoutUser: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const NavbarSecundary: FC<Iprops> = ({ width, setWidth }) => {
+const NavbarSecundary: FC<Iprops> = ({ width, setWidth, logoutUser }) => {
   const [view, setView] = useState<Boolean>(false);
+  const { logged } = useSelector((store: AppStore) => store.auth);
 
   return (
     <div>
@@ -26,6 +30,17 @@ const NavbarSecundary: FC<Iprops> = ({ width, setWidth }) => {
             <li>
               <Link to="/">CONTACTO</Link>
             </li>
+            {logged && (
+              <li>
+                <button
+                  className="text-lg font-bold flex  items-center gap-1 hover:text-lime-400"
+                  onClick={logoutUser}
+                >
+                  <FiLogOut />
+                  Cerrar sesion
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       ) : (

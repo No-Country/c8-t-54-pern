@@ -37,12 +37,12 @@ MOVEment te trae al alcance de tu mano un catalogo personalizable. ¡Comprar no 
 
 | Developer               | Rol      | LinkedIn                                             | GitHub - Behance                    |
 | ----------------------- | -------- | ---------------------------------------------------- | ----------------------------------- |
-| Alejandra Bellin | UX / UI  |             |  |
+| Alejandra Bellin | UX / UI  | https://www.linkedin.com/in/alejandrabellin/ |  |
 | Ignacio Perez | Frontend  |         | https://github.com/IgnacioPrez |
-| Dario Elguero | Frontend  |         | https://github.com/Dario-Elguero |
+| Dario Elguero | Frontend  | https://www.linkedin.com/in/dario-elguero/ | https://github.com/Dario-Elguero |
 | Orlando FLores | Frontend  |         | https://github.com/lalomax |
-| Adrian Centurion | Frontend  |         | https://github.com/adrianmcenturion |
+| Adrian Centurion | Frontend  | https://www.linkedin.com/in/adrian-centurion/ | https://github.com/adrianmcenturion |
 | Juan Manuel Fernández | Backend  | https://www.linkedin.com/in/juan-manuel-fernandez-4b701629/ |       |
-| Gonzalo Argüello | Backend  |            | https://github.com/goarguello97/ |
+| Gonzalo Argüello | Backend  | https://www.linkedin.com/in/gonzalo-arg%C3%BCello/ | https://github.com/goarguello97/ |
 | Gaspar Costa Calvo  | Backend | https://www.linkedin.com/in/gasparcostacalvo/ | https://github.com/gaspar-costa-calvo |
 

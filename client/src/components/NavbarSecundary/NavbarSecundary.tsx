@@ -5,11 +5,10 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../app/store";
 interface Iprops {
   width: number;
-  setWidth: Dispatch<number>;
   logoutUser: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const NavbarSecundary: FC<Iprops> = ({ width, setWidth, logoutUser }) => {
+const NavbarSecundary: FC<Iprops> = ({ width, logoutUser }) => {
   const [view, setView] = useState<Boolean>(false);
   const { logged } = useSelector((store: AppStore) => store.auth);
 

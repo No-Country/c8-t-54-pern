@@ -8,7 +8,7 @@ const Add = lazy(() => import ('../../../components/crudAdmin/Add'))
 const DeleteCreate = lazy(() => import ('../../../components/crudAdmin/EditAndDelete'))
 const AdminPanel = () => {
   return (
-    <div className="flex h-full md:flex-row flex-col gap-10 md:gap-0">
+    <div className="flex h-full md:flex-row flex-col gap-14   md:gap-0">
       <NavbarAdmin/>
       <RoutesWithNotFound>
       <Route path={'/'} element={<Add/>}/>

@@ -37,30 +37,44 @@ const Cart = ({ isOpen, setIsOpen }: Props) => {
             <Spinner windowSize="full" />
           ) : (
             <div className="w-full px-3 flex flex-col justify-around gap-4">
-                <div className="w-full flex flex-col justify-evenly gap-4">
-                  {data?.Products?.length > 0 ? (
-                    data.Products.map((item: Product) => (
-                      <ItemCartCard
-                        key={item.id}
-                        productName={item.productName}
-                        id={item.id}
-                        Colours={item.Colours}
-                        description={item.description}
-                        quantityInStock={item.quantityInStock}
-                        Size={item.Size}
-                        price={item.price}
-                        ProductImgs={item.ProductImgs}
-                        Categories={item.Categories}
-                      />
-                    ))
-                    
-                    
-                  ) : (
-                    <p className="text-center">No hay artículos en el carrito</p>
-                  )}
-                {data?.Products?.length > 0 ? <div>
-                  <h2 className="text-right font-semibold text-xl">Importe total ${data?.totalPrice}</h2>
-                </div> : null}
+              <div className="w-full flex flex-col justify-evenly gap-4">
+                {data?.Products?.length > 0 ? (
+                  data.Products.map((item: Product) => (
+                    <ItemCartCard
+                      key={item.id}
+                      productName={item.productName}
+                      id={item.id}
+                      Colours={item.Colours}
+                      description={item.description}
+                      quantityInStock={item.quantityInStock}
+                      Size={item.Size}
+                      price={item.price}
+                      ProductImgs={item.ProductImgs}
+                      Categories={item.Categories}
+                    />
+                  ))
+                ) : (
+                  <div className="w-full flex flex-col gap-4 items-center">
+                    <p className="text-center">
+                      No hay artículos en el carrito
+                    </p>
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                      }}
+                      className="cart-buttons bg-transparent border-[3px] border-[#19F5BE] text-xs font-semibold text-[#121212] drop-shadow-lg"
+                    >
+                      CERRAR
+                    </button>
+                  </div>
+                )}
+                {data?.Products?.length > 0 ? (
+                  <div>
+                    <h2 className="text-right font-semibold text-xl">
+                      Importe total ${data?.totalPrice}
+                    </h2>
+                  </div>
+                ) : null}
               </div>
               {data?.Products?.length > 0 ? (
                 <div className="w-full flex flex-col gap-4 items-center">

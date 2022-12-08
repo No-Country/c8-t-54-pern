@@ -49,36 +49,6 @@ const SupportSport = () => {
           </div>
         </div>
       </div>
-      <div className="h-44 hidden md:flex gap-5 mt-8">
-        <div className=" bg-[#eeeeee] w-1/3 rounded-md flex justify-center items-center">
-          <div className="h-20 flex space-x-4 mx-4">
-            <div className="h-full w-20 bg-[#D9D9D9]"></div>
-            <div className="h-full w-full text-left">
-              <h2 className="font-bold">DEVOLUCIONES</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem.</p>
-            </div>
-          </div>
-        </div>
-        <div className=" bg-[#eeeeee] w-1/3 rounded-md flex justify-center items-center">
-          <div className="h-20 flex space-x-4 mx-4">
-            <div className="h-full w-20 bg-[#D9D9D9]"></div>
-            <div className="h-full w-full text-left">
-              <h2 className="font-bold">SEGURIDAD AL PAGAR</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem.</p>
-            </div>
-          </div>
-        </div>
-        <div className=" bg-[#eeeeee] w-1/3 rounded-md flex justify-center items-center">
-          <div className="h-20 flex space-x-4 mx-4">
-            <div className="h-full w-20 bg-[#D9D9D9]"></div>
-            <div className="h-full w-full text-left">
-              <h2 className="font-bold">ENCONTRAR TALLES</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem.</p>
-            </div>
-          </div>
-        </div>
-      
-      </div>
     </section>
   );
 };

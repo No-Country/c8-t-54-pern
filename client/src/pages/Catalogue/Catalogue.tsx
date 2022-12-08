@@ -24,6 +24,7 @@ const Catalogue = () => {
   });
   const [openSort, setOpenSort] = useState(false);
 
+  const { logged } = useSelector((store: AppStore) => store.auth);
   const products = useSelector((store: AppStore) => store.products.list);
   const colours = useSelector((store: AppStore) => store.colours.list);
   const sizes = useSelector((store: AppStore) => store.sizes.list);
@@ -54,8 +55,8 @@ const Catalogue = () => {
   return (
     <>
       <Navbar width={width} setWidth={setWhidth} setIsOpen={setIsOpen} />
-      {width >= 768 && <NavbarSecundary width={width} setWidth={setWhidth} />}
-      <Cart isOpen={isOpen} setIsOpen={setIsOpen} />
+      {width >= 768 && <NavbarSecundary width={width} />}
+      {logged && <Cart isOpen={isOpen} setIsOpen={setIsOpen} />}
       <div className="flex font-poppins text-[1.5rem] font-[1000] p-4 sm:justify-center">
         Todos los Productos
       </div>

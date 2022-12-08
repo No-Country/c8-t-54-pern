@@ -16,6 +16,7 @@ const DetailProduct = () => {
 
   const product = useSelector((store: AppStore) => store.products.detail);
   const { cartId } = useSelector((store: AppStore) => store.auth);
+  const { logged } = useSelector((store: AppStore) => store.auth);
 
   useEffect(() => {
     if (id) {
@@ -33,7 +34,7 @@ const DetailProduct = () => {
     <div className="font-poppins">
       
       <Navbar width={width} setWidth={setWhidth} setIsOpen={setIsOpen} />
-      <Cart isOpen={isOpen} setIsOpen={setIsOpen} />
+      {logged && <Cart isOpen={isOpen} setIsOpen={setIsOpen} />}
       <Link className="flex items-center m-4" to="/catalogue">
         <IoIosArrowBack className="mr-2" /> Volver a la tienda
       </Link>

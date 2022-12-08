@@ -1,9 +1,9 @@
+import NavbarSecundary from "../NavbarSecundary/NavbarSecundary";
 import { FiSearch } from "react-icons/fi";
 import { BiLogIn, BiUser, BiMenu } from "react-icons/bi";
 import { BsCart } from "react-icons/bs";
 import { useState, FC, Dispatch } from "react";
 import { Link } from "react-router-dom";
-import NavbarSecundary from "../NavbarSecundary/NavbarSecundary";
 import { AppStore } from "../../app/store";
 import { useSelector } from "react-redux";
 import { FiLogOut } from "react-icons/fi";
@@ -23,7 +23,14 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
 
   const logoutUser = () => {
     dispatch(logout());
+    setOpen(false)
   };
+
+  const handleOpenCart = () => {
+    setIsOpen(true);
+    setOpen(false);
+  };
+
   return (
     <header className="w-full flex  md:flex-row relative flex-wrap   justify-center md:justify-between  bg-black h-20 sm:p-2 items-center  font-poppins  text-white">
       <h1 className="font-semibold  text-2xl md:text-2xl absolute left-3 top-6 md:static">
@@ -33,7 +40,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
        { width < 768 ? (
           <div className="text-3xl flex gap-2  items-center absolute top-6 right-2  ">
            {logged&&<div
-              onClick={() => setIsOpen(true)}
+              onClick={handleOpenCart}
               className=" flex items-center cursor-pointer  hover:text-lime-400 gap-1"
             >
               <BsCart className="hover:text-lime-400 text-xl" />
@@ -46,10 +53,10 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
             <div className=" flex items-center font-bold absolute top-6.5 right-4 md:gap-3">
             <div
               className="hover:text-lime-400 text-xl items-center gap-1 cursor-pointer flex"
-              onClick={() => setIsOpen(true)}
+              onClick={handleOpenCart}
             >
               <BsCart />
-              <button className="text-lg">Carrito</button>
+              <button className="text-lg mr-4 sm:mr-0">Carrito</button>
             </div>
             <button
               className="text-lg font-bold hover:text-lime-400"
@@ -78,7 +85,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
               </div>
 
               {width < 768 && (
-                <NavbarSecundary width={width}  logoutUser={logoutUser}/>
+                <NavbarSecundary width={width} />
               )}
             </div>
           ) : (
@@ -90,7 +97,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
                 </Link>
               </div>
               {width < 768 && (
-                <NavbarSecundary width={width}  logoutUser={logoutUser}/>
+                <NavbarSecundary width={width} />
               )}
             </div>
           )}

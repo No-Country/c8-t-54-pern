@@ -79,31 +79,13 @@ const Add = () => {
   };
 
   const hanldeCategoriesChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selected = e.target.value;
-    const filterCategory: any = stateCategories.find(
-      (el: Categories) => el.categoryName === selected
-    );
-    if (selected) {
-      setCategoriesIds(filterCategory?.id);
-    }
+    setCategoriesIds(e.target.value);
   };
   const handleColours = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selected = e.target.value;
-    const filterColours: any = stateColours.find(
-      (el: Colours) => el.colourName === selected
-    );
-    if (selected) {
-      setColours(filterColours.id);
-    }
+    setColours(e.target.value);
   };
   const handleSize = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selected = e.target.value;
-    const filterSizes: any = stateSizes.find(
-      (el) => el.sizeLetter === selected
-    );
-    if (selected) {
-      setSizes(filterSizes.id);
-    }
+    setSizes(e.target.value);
   };
 
   return (
@@ -148,41 +130,20 @@ const Add = () => {
           value={price as string}
         />
         <div className="flex md:w-max md:gap-5 w-[100%] justify-center">
-          <select
-            name="categories"
-            onChange={hanldeCategoriesChange}
-            className="border-2  shadow-2xl  text-sm rounded-lg    block w-max p-2.5   dark:text-[#aaaaaa]  "
-          >
-            <option value="Zapatillas">Zapatillas</option>
-            <option value="Remeras">Remeras</option>
-            <option value="Pantalones">Pantalones</option>
-            <option value="Shorts">Shorts</option>
-            <option value="Camisetas">Camisetas</option>
+          <select name="categories" onChange={hanldeCategoriesChange}>
+            {stateCategories.map((item) => (
+              <option value={item.id}>{item.categoryName}</option>
+            ))}
           </select>
-          <select
-            name="colours"
-            onChange={handleColours}
-            className="border-2  shadow-2xl  text-sm rounded-lg    block w-max p-2.5   dark:text-[#aaaaaa]  "
-          >
-            <option value="Verde">Verde</option>
-            <option value="Azul">Azul</option>
-            <option value="Blanco">Blanco</option>
-            <option value="Gris">Gris</option>
-            <option value="Negro">Negro</option>
-            <option value="Rojo">Rojo</option>
+          <select name="colours" onChange={handleColours}>
+            {stateColours.map((item) => (
+              <option value={item.id}>{item.colourName}</option>
+            ))}
           </select>
-
-          <select
-            name="size"
-            onChange={handleSize}
-            className="border-2  shadow-2xl  text-sm rounded-lg    block w-max p-2.5   dark:text-[#aaaaaa]"
-          >
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="S">S</option>
-            <option value="XL">XL</option>
-            <option value="XS">XS</option>
-            <option value="XXL">XXL</option>
+          <select name="size" onChange={handleSize}>
+            {stateSizes.map((item) => (
+              <option value={item.id}>{item.sizeLetter}</option>
+            ))}
           </select>
         </div>
 

@@ -23,7 +23,7 @@ const Cart = ({ isOpen, setIsOpen }: Props) => {
     getRequest("/checkout/process?price="+data?.totalPrice)
       .then((res) => {
         setIsLoadingPay(false);
-        window.open(res.link, '_blank')
+        window.location.href = res.link;
       })
       .catch((err) => {
         setIsLoadingPay(false);

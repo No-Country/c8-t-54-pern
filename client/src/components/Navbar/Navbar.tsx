@@ -23,7 +23,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
 
   const logoutUser = () => {
     dispatch(logout());
-    setOpen(false)
+    setOpen(false);
   };
 
   const handleOpenCart = () => {
@@ -33,24 +33,26 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
 
   return (
     <header className="w-full flex  md:flex-row relative flex-wrap   justify-center md:justify-between  bg-black h-20 sm:p-2 items-center  font-poppins  text-white">
-      <h1 className="font-semibold  text-2xl md:text-2xl absolute left-3 top-6 md:static">
-        MOVEment
+      <h1 className="font-semibold ml-2 text-2xl sm:ml-6 md:text-2xl absolute left-3 top-6 md:static">
+        <Link to="/">MOVEment</Link>
       </h1>
 
-       { width < 768 ? (
-          <div className="text-3xl flex gap-2  items-center absolute top-6 right-2  ">
-           {logged&&<div
+      {width < 768 ? (
+        <div className="text-3xl flex gap-2  items-center absolute top-6 right-2  ">
+          {logged && (
+            <div
               onClick={handleOpenCart}
               className=" flex items-center cursor-pointer  hover:text-lime-400 gap-1"
             >
               <BsCart className="hover:text-lime-400 text-xl" />
               <button className="text-lg">Carrito</button>
-            </div>}
-            <BiMenu onClick={() => setOpen(!open)} className="md:hidden " />
-          </div>
-        ) : (
-          logged && (
-            <div className=" flex items-center font-bold absolute top-6.5 right-4 md:gap-3">
+            </div>
+          )}
+          <BiMenu onClick={() => setOpen(!open)} className="md:hidden " />
+        </div>
+      ) : (
+        logged && (
+          <div className=" flex items-center font-bold absolute top-6.5 right-4 md:gap-3">
             <div
               className="hover:text-lime-400 text-xl items-center gap-1 cursor-pointer flex"
               onClick={handleOpenCart}
@@ -65,9 +67,8 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
               <FiLogOut />
             </button>
           </div>
-          )
-
-        )}
+        )
+      )}
       <div className="flex  md:w-[30rem] w-full p-4  sm:p-0 items-center justify-center md:gap-4 font-medium">
         <div className="flex w-[220px]   hover:text-lime-400 relative md:w-[100%]  ">
           <FiSearch className="text-black absolute   bottom-2 left-2" />
@@ -84,9 +85,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
                 <p className="w-full">Mi cuenta</p>
               </div>
 
-              {width < 768 && (
-                <NavbarSecundary width={width} />
-              )}
+              {width < 768 && <NavbarSecundary width={width} />}
             </div>
           ) : (
             <div className=" md:flex flex-col flex  justify-center md:static  items-start  md:right-10 cursor-pointer hover:text-lime-40 gap-1 pt-2">
@@ -96,9 +95,7 @@ const Navbar: FC<HomeProps> = ({ width, setWidth, setIsOpen }) => {
                   Iniciar sesión
                 </Link>
               </div>
-              {width < 768 && (
-                <NavbarSecundary width={width} />
-              )}
+              {width < 768 && <NavbarSecundary width={width} />}
             </div>
           )}
         </div>

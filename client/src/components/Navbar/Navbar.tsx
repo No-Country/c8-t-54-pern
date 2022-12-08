@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { logout } from "../../app/state/authSlice";
+
 interface HomeProps {
   width: number;
   setWidth: Dispatch<number>;

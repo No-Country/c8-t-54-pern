@@ -121,7 +121,7 @@ const DetailProduct = () => {
                 onClick={handleAddToCart}
                 className="bg-[#19F5BE] rounded-md py-2 px-6 drop-shadow-md"
               >
-                COMPRAR
+                Agregar al carrito
               </button>
             </div>
             <p className="text-center mt-2 md:text-left">

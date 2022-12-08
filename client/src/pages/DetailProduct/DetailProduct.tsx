@@ -123,7 +123,7 @@ const DetailProduct = () => {
                 className="flex bg-[#19F5BE] rounded-md py-2 px-6 drop-shadow-md"
               >
                 AGREGAR
-                <BsCart className="hover:text-lime-400 text-xl ml-2" />
+                <BsCart className="text-xl ml-2" />
               </button>
             </div>
             <p className="text-center mt-2 md:text-left">

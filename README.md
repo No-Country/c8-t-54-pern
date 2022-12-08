@@ -17,16 +17,16 @@ MOVEment te trae al alcance de tu mano un catalogo personalizable. ¡Comprar no 
 
 -   **TypesCript** &nbsp; <a href="https://www.typescriptlang.org/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206361616-18e1f5eb-d720-4cac-9e9a-2e16747d726e.png" alt="typescript"  width="20" height="20" style="max-width: 100%;"> </a>
 *   **ReactJs** &nbsp; <a href="https://reactjs.org/" rel="nofollow"> <img src="https://cdn.icon-icons.com/icons2/2415/PNG/96/react_original_wordmark_logo_icon_146375.png" alt="reactjs" width="30" height="30" style="max-width: 100%;"> </a>
-*   **Sass** &nbsp; <a href="https://sass-lang.com/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206363248-a27333aa-3d23-4a05-9a5a-07c42787b559.svg" alt="reactjs" width="30" height="30" style="max-width: 100%;"> </a>
-*   **Redux** &nbsp; <a href="https://es.redux.js.org/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206362932-13c998ee-79ea-4f98-a093-cd0c92181639.svg" width="30" height="30" style="max-width: 100%;"> </a>
-*   **Tailwindcss** &nbsp; <a href="https://tailwindcss.com/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206363924-512984b0-ec87-4eb2-9230-c7944e66ed4e.svg" alt="reactjs" width="30" height="30" style="max-width: 100%;"> </a>
+*   **Sass** &nbsp; <a href="https://sass-lang.com/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206369389-ddb1d099-929d-415d-9104-d7df2a7c4590.png" alt="reactjs" width="30" height="30" style="max-width: 100%;"> </a>
+*   **Redux** &nbsp; <a href="https://es.redux.js.org/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206369396-08fe949c-f01b-4047-b68a-d46c9926fd94.jpg" width="30" height="30" style="max-width: 100%;"> </a>
+*   **Tailwindcss** &nbsp; <a href="https://tailwindcss.com/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206369384-429ad29c-fce5-4070-94ea-ee70ef40f372.png" alt="reactjs" width="30" height="30" style="max-width: 100%;"> </a>
 
 ### **BackEnd**
 -   **TypesCript** &nbsp; <a href="https://www.typescriptlang.org/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206361616-18e1f5eb-d720-4cac-9e9a-2e16747d726e.png" alt="typescript"  width="20" height="20" style="max-width: 100%;"> </a>
 -   **Node.js**&nbsp; <a href="https://nodejs.org" rel="nofollow"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40" style="max-width: 100%;"> </a>
 -   **Express.js**&nbsp; <a href="https://expressjs.com" rel="nofollow"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40" style="max-width: 100%;"> </a>
 -   **PostgreSQL**&nbsp; <a href="https://www.postgresql.org/" rel="nofollow"> <img src="http://www.geomapik.com/wp-content/uploads/2019/09/postgresql-logo-921x1024.png" alt="express" width="40" height="40" style="max-width: 100%;"> </a>
--   **Sequelize**&nbsp; <a href="https://sequelize.org/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206364417-4996fbc7-d11d-45b7-9ac1-e762172561cf.svg" alt="express" width="25" height="25" style="max-width: 100%;"> </a>
+-   **Sequelize**&nbsp; <a href="https://sequelize.org/" rel="nofollow"> <img src="https://user-images.githubusercontent.com/102632512/206369387-20bc6337-6604-4a3b-afaa-4d6d2718a7bf.png" alt="express" width="25" height="25" style="max-width: 100%;"> </a>
 
 ### **UI/UX**
 

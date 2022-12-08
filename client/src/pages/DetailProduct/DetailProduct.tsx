@@ -113,7 +113,7 @@ const DetailProduct = () => {
                 ></div>
               ))}
             </div>
-            <div className="flex gap-2 justify-center md:justify-start mt-2">
+            {logged && <div className="flex gap-2 justify-center md:justify-start mt-2">
               <span className="border border-gray-600 rounded-md flex justify-center items-center pl-2">
                 Cant.:
                 <input className="w-16 text-right px-2" type="number" />
@@ -125,7 +125,7 @@ const DetailProduct = () => {
                 AGREGAR
                 <BsCart className="text-xl ml-2" />
               </button>
-            </div>
+            </div>}
             <p className="text-center mt-2 md:text-left">
               Con esta compra, donamos{" "}
               <strong>{(product?.price / 1000).toFixed(2)} Moves</strong>
